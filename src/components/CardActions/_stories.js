@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import styled from 'styled-components';
 import { image } from 'faker';
-import HoverButton from './';
+import CardActions from './';
 
 const Box = styled.div`
   height: 150px;
@@ -15,9 +15,9 @@ const Box = styled.div`
   background-size: cover;
 `;
 
-storiesOf('HoverButton', module)
+storiesOf('CardActions', module)
   .add('default', () => (
-    <HoverButton onClick={action('on-click')}>
+    <CardActions onEdit={action('on-edit')} onDelete={action('on-delete')}>
       <Box />
-    </HoverButton>
+    </CardActions>
   ));

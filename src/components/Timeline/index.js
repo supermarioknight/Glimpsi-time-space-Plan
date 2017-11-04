@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from '../Card';
-import HoverButton from '../HoverButton';
 import { humanize } from '../../lib/date';
 
 type Props = {
@@ -44,11 +43,7 @@ const Timeline = ({ start, end, items, onCardInteraction }: Props) => {
     .map(([date, items]) => [
       date,
       <DateGroup key={date}>
-        {items.map((item) => (
-          <HoverButton key={item.id} onClick={() => onCardInteraction({ id: item.id })}>
-            <Card {...item} />
-          </HoverButton>
-        ))}
+        {items.map((item) => <Card key={item.id} {...item} />)}
       </DateGroup>,
     ]);
 
