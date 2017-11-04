@@ -1,8 +1,8 @@
 // @flow
 
+import 'reset-css/reset.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css';
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
