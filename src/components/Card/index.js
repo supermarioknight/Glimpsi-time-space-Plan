@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { type Node } from 'react';
 import styled from 'styled-components';
 import { humanize } from '../../lib/date';
 
@@ -10,13 +10,16 @@ export type Props = {
   date: string,
   image: string,
   end: string,
+  children?: Node,
 };
 
 export const Root = styled.div`
+  display: inline-block;
   border-radius: 2px;
   padding: 5px;
   font-family: sans-serif;
   width: 300px;
+  position: relative;
 `;
 
 export const Title = styled.h2`
@@ -36,12 +39,13 @@ export const HeroImage = styled.img`
   background-color: #eee;
 `;
 
-const Card = ({ title, location, start, end, image }: Props) => (
+const Card = ({ title, location, start, end, image, children }: Props) => (
   <Root>
     <DateTime>{humanize(start)}{end && ` - ${humanize(end)}`}</DateTime>
     <HeroImage src={image} />
     <Title>{title}</Title>
     <Location>{location}</Location>
+    {children}
   </Root>
 );
 

@@ -5,7 +5,9 @@ import { storiesOf } from '@storybook/react';
 import { image } from 'faker';
 import { action } from '@storybook/addon-actions';
 import Card from './';
+import EditingCard from './Editing';
 import EditableCard from './Editable';
+import Store from '../../Store';
 
 storiesOf('Card', module)
   .add('start date', () => (
@@ -25,13 +27,24 @@ storiesOf('Card', module)
       image={image.city()}
     />
   ))
-  .add('editable', () => (
-    <EditableCard
+  .add('editing', () => (
+    <EditingCard
       title="Valentines Day"
       location="Sapporo, Hokkaido, Japan"
       start="2017-11-04T01:38:55.430Z"
       end="2017-11-04T01:50:55.430Z"
       image={image.city()}
       onSave={action('on-save')}
+    />
+  ))
+  .add('editable', () => (
+    <EditableCard
+      id={1}
+      title="Valentines Day"
+      location="Sapporo, Hokkaido, Japan"
+      start="2017-11-04T01:38:55.430Z"
+      end="2017-11-04T01:50:55.430Z"
+      image={image.city()}
+      onDelete={action('on-delete')}
     />
   ));

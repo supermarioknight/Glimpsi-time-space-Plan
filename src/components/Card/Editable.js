@@ -1,39 +1,46 @@
 // @flow
 
 import React, { Component } from 'react';
-import Textbox from '../Textbox';
-import styled from 'styled-components';
+import EditingCard from './Editing';
+import Card, { type Props } from './';
+import CardActions from '../CardActions';
+import Hoverable from '../Hoverable';
 
-import {
-  Root,
-  Title,
-  Location,
-  DateTime,
-  HeroImage,
-  type Props,
-} from './';
+type State = {
+  editing: boolean,
+};
 
-const Form = Root.withComponent('form');
-const HeroImageContainer = HeroImage.withComponent('div');
+export default class ConnectedCard extends Component<Props, State> {
+  state = {
+    editing: false,
+  };
 
-export default class EditableCard extends Component<Props, *> {
+  startEditing = () => {
+    this.setState({
+      editing: true,
+    });
+  };
+
+  cancelEditing = () => {
+    this.setState({
+      editing: false,
+    });
+  };
+
   render () {
-    const { title, location, start, end, image } = this.props;
+    const { editing } = this.state;
+    const { onDelete, id } = this.props;
 
     return (
-      <Form>
-        <DateTime>
-          <Textbox value={start} label="Start" />
-          <Textbox value={end} label="End" />
-        </DateTime>
-
-        <HeroImageContainer>
-          <Textbox value={image} label="Image" />
-        </HeroImageContainer>
-
-        <Title><Textbox value={title} label="Title" /></Title>
-        <Location><Textbox value={location} label="Location" /></Location>
-      </Form>
+      <Hoverable>
+        {(hovering) => editing ?
+          <EditingCard {...this.props} onCancel={this.cancelEditing} />
+          : (
+          <Card {...this.props}>
+            {hovering && <CardActions onEdit={this.startEditing} onDelete={() => onDelete(id)} />}
+          </Card>
+        )}
+      </Hoverable>
     );
   }
 }
