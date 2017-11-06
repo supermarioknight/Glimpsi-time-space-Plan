@@ -5,17 +5,20 @@ import styled from 'styled-components';
 import CardEditable from '../CardEditable';
 import { humanize } from '../../lib/date';
 
+type Item = {
+  id: number,
+  start: string,
+  end?: string,
+  location: string,
+  image?: string,
+};
+
 type Props = {
   start: string,
   end: string,
-  onCardInteraction: ({ id: number }) => {},
-  items: Array<{
-    id: number,
-    start: string,
-    end?: string,
-    location: string,
-    image?: string,
-  }>,
+  items: Array<Item>,
+  onDeleteCard: ({ id: number }) => {},
+  onSaveCard: (item: Item) => {},
 };
 
 const Items = styled.div`
@@ -29,7 +32,7 @@ const DateGroup = styled.div`
   display: flex;
 `;
 
-const Timeline = ({ start, end, items, onCardInteraction }: Props) => {
+const Timeline = ({ start, end, items, onSaveCard, onDeleteCard }: Props) => {
   const orderedItems = items
     .sort((a, b) => new Date(a.start) - new Date(b.start))
     .reduce((obj, item) => {
@@ -43,7 +46,14 @@ const Timeline = ({ start, end, items, onCardInteraction }: Props) => {
     .map(([date, items]) => [
       date,
       <DateGroup key={date}>
-        {items.map((item) => <CardEditable key={item.id} {...item} />)}
+        {items.map((item) => (
+          <CardEditable
+            onSave={onSaveCard}
+            onDelete={onDeleteCard}
+            key={item.id}
+            {...item}
+          />
+        ))}
       </DateGroup>,
     ]);
 
