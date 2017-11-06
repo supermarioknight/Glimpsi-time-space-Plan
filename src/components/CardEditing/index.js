@@ -11,11 +11,11 @@ import {
   DateTime,
   HeroImage,
   type Props,
-} from './';
+} from '../Card';
 
 const HeroImageContainer = HeroImage.withComponent('div');
 
-export default class EditableCard extends Component<Props, *> {
+export default class CardEditing extends Component<Props, *> {
   finish = (values) => {
     this.props.onSave(values);
   };
@@ -25,7 +25,7 @@ export default class EditableCard extends Component<Props, *> {
     this.props.onCancel();
   };
 
-  render () {
+  render() {
     const { title, location, start, end, image } = this.props;
 
     return (

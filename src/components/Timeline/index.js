@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import EditableCard from '../Card/Editable';
+import CardEditable from '../CardEditable';
 import { humanize } from '../../lib/date';
 
 type Props = {
@@ -43,7 +43,7 @@ const Timeline = ({ start, end, items, onCardInteraction }: Props) => {
     .map(([date, items]) => [
       date,
       <DateGroup key={date}>
-        {items.map((item) => <EditableCard key={item.id} {...item} />)}
+        {items.map((item) => <CardEditable key={item.id} {...item} />)}
       </DateGroup>,
     ]);
 
