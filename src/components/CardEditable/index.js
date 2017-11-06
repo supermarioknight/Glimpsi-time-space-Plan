@@ -27,6 +27,11 @@ export default class CardEditable extends Component<Props, State> {
     });
   };
 
+  save = (...args) => {
+    this.props.onSave(...args);
+    this.cancelEditing();
+  };
+
   render() {
     const { editing } = this.state;
     const { onDelete, id } = this.props;
@@ -34,7 +39,7 @@ export default class CardEditable extends Component<Props, State> {
     return (
       <Hoverable>
         {(hovering) => editing ?
-          <CardEditing {...this.props} onCancel={this.cancelEditing} />
+          <CardEditing {...this.props} onSave={this.save} onCancel={this.cancelEditing} />
           : (
             <Card {...this.props}>
               {hovering && <CardActions onEdit={this.startEditing} onDelete={() => onDelete(id)} />}
