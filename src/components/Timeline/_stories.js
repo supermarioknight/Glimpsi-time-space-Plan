@@ -12,7 +12,7 @@ storiesOf('Timeline', module)
     <Timeline
       start="2017-10-04"
       end="2017-12-04"
-      onCardInteraction={action('on-card-interaction')}
+      onCardInteraction={action('onCardInteraction()')}
       items={[{
         id: 1,
         start: '2017-11-05T00:00:00',

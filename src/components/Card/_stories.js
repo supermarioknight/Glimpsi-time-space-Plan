@@ -7,7 +7,6 @@ import { action } from '@storybook/addon-actions';
 import Card from './';
 import EditingCard from './Editing';
 import EditableCard from './Editable';
-import Store from '../../Store';
 
 storiesOf('Card', module)
   .add('start date', () => (
@@ -34,7 +33,8 @@ storiesOf('Card', module)
       start="2017-11-04T01:38:55.430Z"
       end="2017-11-04T01:50:55.430Z"
       image={image.city()}
-      onSave={action('on-save')}
+      onCancel={action('onCancel()')}
+      onSave={action('onSave()')}
     />
   ))
   .add('editable', () => (
@@ -45,6 +45,7 @@ storiesOf('Card', module)
       start="2017-11-04T01:38:55.430Z"
       end="2017-11-04T01:50:55.430Z"
       image={image.city()}
-      onDelete={action('on-delete')}
+      onSave={action('onSave()')}
+      onDelete={action('onDelete()')}
     />
   ));

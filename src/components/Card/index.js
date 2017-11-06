@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { humanize } from '../../lib/date';
 
 export type Props = {
+  id: number,
   title: string,
   location: string,
   date: string,
   image: string,
   end: string,
-  children?: Node,
+  children: Node,
 };
 
 export const Root = styled.div`
@@ -50,8 +51,10 @@ const Card = ({ title, location, start, end, image, children }: Props) => (
 );
 
 Card.defaultProps = {
+  id: -1,
   image: '',
   end: '',
+  children: undefined,
 };
 
 export default Card;

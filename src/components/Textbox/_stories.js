@@ -11,6 +11,6 @@ storiesOf('Textbox', module)
       id="textbox"
       label="Sweet"
       value="Tokyo, Japan"
-      onChange={action('on-change')}
+      onChange={action('onChange()')}
     />
   ));

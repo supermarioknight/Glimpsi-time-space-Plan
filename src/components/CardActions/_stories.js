@@ -17,7 +17,7 @@ const Box = styled.div`
 
 storiesOf('CardActions', module)
   .add('default', () => (
-    <CardActions onEdit={action('on-edit')} onDelete={action('on-delete')}>
+    <CardActions onEdit={action('onEdit()')} onDelete={action('onDelete()')}>
       <Box />
     </CardActions>
   ));
