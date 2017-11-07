@@ -57,13 +57,13 @@ const Timeline = ({ start, end, items, onSaveCard, onDeleteCard }: Props) => {
       </DateGroup>,
     ]);
 
-  return (
-    <Items>
+  return [
+    <Items key="items">
       {humanize(start)}
       {dateGroups}
       {humanize(end)}
-    </Items>
-  );
+    </Items>,
+  ];
 };
 
 export default Timeline;
