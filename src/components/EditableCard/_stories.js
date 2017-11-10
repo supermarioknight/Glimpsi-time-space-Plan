@@ -4,11 +4,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { image } from 'faker';
 import { action } from '@storybook/addon-actions';
-import CardEditable from './';
+import EditableCard from './';
 
-storiesOf('CardEditable', module)
+storiesOf('EditableCard', module)
   .add('with values', () => (
-    <CardEditable
+    <EditableCard
       id={1}
       title="Valentines Day"
       location="Sapporo, Hokkaido, Japan"

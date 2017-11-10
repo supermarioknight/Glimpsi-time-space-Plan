@@ -4,6 +4,7 @@ import React, { Component, type Node } from 'react';
 import { Formik } from 'formik'
 import styled from 'styled-components';
 import Textbox from '../Textbox';
+import editable from '../../decorators/editable';
 
 type Props = {
   component: Node,
@@ -24,29 +25,21 @@ function selectText (ref) {
   }
 }
 
-export default class ControlledTextbox extends Component<Props, State> {
-  state = {
-    editing: false,
-  };
-
+export default editable(
+class ControlledTextbox extends Component<Props, State> {
   static defaultProps = {
     component: 'div',
   };
 
-  editing = () => {
-    this.setState({
-      editing: true,
-    });
-  };
-
   finish = (values) => {
     this.props.onSave(values[this.props.name]);
+    this.props.setEditing(false);
   };
 
   render () {
     const { component: Component, defaultValue, ...props } = this.props;
 
-    if (this.state.editing) {
+    if (this.props.editing) {
       return (
         <Formik
           onSubmit={this.finish}
@@ -69,6 +62,11 @@ export default class ControlledTextbox extends Component<Props, State> {
       );
     }
 
-    return <Clickable><Component onClick={this.editing}>{defaultValue}</Component></Clickable>;
+    return (
+      <Clickable>
+        <Component onClick={() => this.props.setEditing(true)}>{defaultValue}</Component>
+      </Clickable>
+    );
   }
 }
+);

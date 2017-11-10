@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import CardEditable from '../CardEditable';
+import EditableCard from '../EditableCard';
 import { humanize } from '../../lib/date';
 
 type Item = {
@@ -48,7 +48,7 @@ const Timeline = ({ start, end, items, saveCard, deleteCard }: Props) => {
       date,
       <DateGroup key={date}>
         {items.map((item) => (
-          <CardEditable
+          <EditableCard
             onSave={saveCard}
             onDelete={deleteCard}
             key={item.id}
