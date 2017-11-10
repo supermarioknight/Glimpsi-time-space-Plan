@@ -12,8 +12,8 @@ storiesOf('Timeline', module)
     <Timeline
       start="2017-10-04"
       end="2017-12-04"
-      onSaveCard={action('onSaveCard()')}
-      onDeleteCard={action('onDeleteCard()')}
+      saveCard={action('saveCard()')}
+      deleteCard={action('deleteCard()')}
       items={[{
         id: 1,
         start: '2017-11-05T00:00:00',

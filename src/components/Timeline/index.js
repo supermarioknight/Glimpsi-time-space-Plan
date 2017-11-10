@@ -17,8 +17,9 @@ type Props = {
   start: string,
   end: string,
   items: Array<Item>,
-  onDeleteCard: ({ id: number }) => {},
-  onSaveCard: (item: Item) => {},
+  updateTimeline: ({ [string]: any }) => void,
+  deleteCard: ({ id: number }) => void,
+  saveCard: (item: Item) => void,
 };
 
 const Items = styled.div`
@@ -32,7 +33,7 @@ const DateGroup = styled.div`
   display: flex;
 `;
 
-const Timeline = ({ start, end, items, onSaveCard, onDeleteCard }: Props) => {
+const Timeline = ({ start, end, items, saveCard, deleteCard }: Props) => {
   const orderedItems = items
     .sort((a, b) => new Date(a.start) - new Date(b.start))
     .reduce((obj, item) => {
@@ -48,8 +49,8 @@ const Timeline = ({ start, end, items, onSaveCard, onDeleteCard }: Props) => {
       <DateGroup key={date}>
         {items.map((item) => (
           <CardEditable
-            onSave={onSaveCard}
-            onDelete={onDeleteCard}
+            onSave={saveCard}
+            onDelete={deleteCard}
             key={item.id}
             {...item}
           />

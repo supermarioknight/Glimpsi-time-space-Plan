@@ -41,19 +41,18 @@ storiesOf('TimelinePage', module)
   .add('default', () => (
     <TimelinePage
       {...props}
-      onNewCard={action('onNewCard()')}
-      onAddCard={action('onAddCard()')}
-      onSaveCard={action('onSaveCard()')}
-      onDeleteCard={action('onDeleteCard()')}
+      newCard={action('newCard()')}
+      saveCard={action('saveCard()')}
+      deleteCard={action('deleteCard()')}
     />
   ))
   .add('adding card', () => (
     <TimelinePage
       {...props}
       adding
-      onCancelAdd={action('onCancelAdd()')}
-      onAddCard={action('onAddCard()')}
-      onSaveCard={action('onSaveCard()')}
-      onDeleteCard={action('onDeleteCard()')}
+      newCard={action('newCard()')}
+      cancelNewCard={action('cancelNewCard()')}
+      saveCard={action('saveCard()')}
+      deleteCard={action('deleteCard()')}
     />
   ));

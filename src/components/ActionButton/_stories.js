@@ -8,6 +8,6 @@ import ActionButton from './';
 storiesOf('ActionButton', module)
   .add('start date', () => (
     <ActionButton
-      onNewCard={action('onNewCard()')}
+      newCard={action('newCard()')}
     />
   ));

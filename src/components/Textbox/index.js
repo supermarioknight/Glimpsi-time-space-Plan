@@ -23,12 +23,13 @@ const LabelText = styled.span`
   pointer-events: none;
 `;
 
-const Textbox = ({ label, placeholder, ...props }: Props) => (
+const Textbox = ({ label, placeholder, innerRef, ...props }: Props) => (
   <Label>
     <LabelText>{label}</LabelText>
 
     <Input
       placeholder={placeholder || label}
+      innerRef={innerRef}
       {...props}
     />
   </Label>

@@ -12,11 +12,11 @@ const block = (cb) => (e) => {
 };
 
 type Props = {
-  onNewCard: Function,
+  newCard: Function,
 };
 
-const ActionButton = ({ onNewCard }: Props) => (
-  <Button onClick={block(onNewCard)}>
+const ActionButton = ({ newCard }: Props) => (
+  <Button onClick={block(newCard)}>
     Add
   </Button>
 );

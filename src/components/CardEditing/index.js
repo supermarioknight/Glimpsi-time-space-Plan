@@ -17,7 +17,10 @@ const HeroImageContainer = HeroImage.withComponent('div');
 
 export default class CardEditing extends Component<Props, *> {
   finish = (values) => {
-    this.props.onSave(values);
+    this.props.onSave({
+      ...values,
+      id: this.props.id,
+    });
   };
 
   cancel = (e) => {
