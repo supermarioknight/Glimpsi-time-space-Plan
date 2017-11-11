@@ -17,19 +17,28 @@
     "styled-components": "^2.2.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
-    "flow": "flow"
+    "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.2.14",
-    "@storybook/addon-links": "^3.2.14",
-    "@storybook/react": "^3.2.14",
+    "@storybook/addon-actions": "^3.2.15",
+    "@storybook/addon-links": "^3.2.15",
+    "@storybook/react": "^3.2.15",
+    "@types/jest": "^21.1.5",
+    "@types/node": "^8.0.51",
+    "@types/prop-types": "^15.5.2",
+    "@types/react": "^16.0.22",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-redux": "^5.0.12",
+    "@types/react-router-dom": "^4.2.1",
+    "@types/reselect": "^2.2.0",
+    "@types/storybook__react": "^3.0.5",
+    "@types/webpack-env": "^1.13.2",
     "faker": "^4.1.0",
-    "flow-bin": "^0.59.0"
+    "react-scripts-ts": "2.8.0"
   }
 }
