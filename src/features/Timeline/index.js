@@ -8,7 +8,9 @@ import { saveCard, newCard, removeCard, cancelNewCard, updateTimeline } from './
 const selector = createSelector(
   (store) => store.timeline.cards,
   (store) => store.timeline.adding,
-  (items, adding) => ({ items, adding }),
+  (store) => store.timeline.start,
+  (store) => store.timeline.end,
+  (items, adding, start, end) => ({ items, adding, start, end }),
 );
 
 export default connect(selector, {

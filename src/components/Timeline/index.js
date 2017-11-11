@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import EditableCard from '../EditableCard';
 import { humanize } from '../../lib/date';
+import EditableText from '../EditableText';
 
 type Item = {
   id: number,
@@ -33,7 +34,7 @@ const DateGroup = styled.div`
   display: flex;
 `;
 
-const Timeline = ({ start, end, items, saveCard, deleteCard }: Props) => {
+const Timeline = ({ start, end, items, saveCard, deleteCard, updateTimeline }: Props) => {
   const orderedItems = items
     .sort((a, b) => new Date(a.start) - new Date(b.start))
     .reduce((obj, item) => {
@@ -60,11 +61,26 @@ const Timeline = ({ start, end, items, saveCard, deleteCard }: Props) => {
 
   return [
     <Items key="items">
-      {humanize(start)}
+      <EditableText
+        label="Start"
+        defaultValue={start}
+        onSave={(value) => updateTimeline({ start: value })}
+      />
+
       {dateGroups}
-      {humanize(end)}
+
+      <EditableText
+        label="End"
+        defaultValue={end}
+        onSave={(value) => updateTimeline({ end: value })}
+      />
     </Items>,
   ];
+};
+
+Timeline.defaultProps = {
+  start: 'Select Start',
+  end: 'Select End',
 };
 
 export default Timeline;

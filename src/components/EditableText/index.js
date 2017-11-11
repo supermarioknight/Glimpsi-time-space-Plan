@@ -29,10 +29,15 @@ export default editable(
 class ControlledTextbox extends Component<Props, State> {
   static defaultProps = {
     component: 'div',
+    name: 'text',
   };
 
   finish = (values) => {
-    this.props.onSave(values[this.props.name]);
+    const value = values[this.props.name];
+    if (value !== this.props.defaultValue) {
+      this.props.onSave(value);
+    }
+
     this.props.setEditing(false);
   };
 
@@ -47,14 +52,14 @@ class ControlledTextbox extends Component<Props, State> {
             [props.name]: defaultValue,
           }}
         >
-          {({ values, handleChange, handleBlur, handleSubmit }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Textbox
                 {...props}
                 innerRef={selectText}
                 value={values[props.name]}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                onBlur={handleSubmit}
               />
             </form>
           )}

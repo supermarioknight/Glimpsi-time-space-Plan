@@ -8,7 +8,6 @@ import EditableText from './';
 storiesOf('EditableText', module)
   .add('default', () => (
     <EditableText
-      name="textbox"
       label="Textbox"
       defaultValue="Cool Textbox!"
       onSave={action('onSave()')}

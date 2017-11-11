@@ -11,7 +11,7 @@ export const newCard = () => ({
   type: 'NEW_CARD',
 });
 
-export const removeCard = ({ id }: { id: number }) => ({
+export const removeCard = (id: number) => ({
   type: 'REMOVE_CARD',
   payload: {
     id,
