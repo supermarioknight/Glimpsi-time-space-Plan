@@ -65,6 +65,7 @@ const Timeline = ({ start, end, items, saveCard, deleteCard, updateTimeline }: P
         label="Start"
         defaultValue={start}
         onSave={(value) => updateTimeline({ start: value })}
+        valueDecorator={humanize}
       />
 
       {dateGroups}
@@ -73,6 +74,7 @@ const Timeline = ({ start, end, items, saveCard, deleteCard, updateTimeline }: P
         label="End"
         defaultValue={end}
         onSave={(value) => updateTimeline({ end: value })}
+        valueDecorator={humanize}
       />
     </Items>,
   ];

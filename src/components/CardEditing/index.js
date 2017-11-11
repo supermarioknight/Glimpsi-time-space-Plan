@@ -28,6 +28,14 @@ export default class CardEditing extends Component<Props, *> {
     this.props.onCancel();
   };
 
+  static defaultProps = {
+    title: '',
+    location: '',
+    start: '',
+    end: '',
+    image: '',
+  };
+
   render() {
     const { title, location, start, end, image } = this.props;
 

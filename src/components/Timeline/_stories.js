@@ -12,6 +12,7 @@ storiesOf('Timeline', module)
     <Timeline
       start="2017-10-04"
       end="2017-12-04"
+      updateTimeline={action('updateTimeline()')}
       saveCard={action('saveCard()')}
       deleteCard={action('deleteCard()')}
       items={[{

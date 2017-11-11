@@ -8,6 +8,9 @@ import editable from '../../decorators/editable';
 
 type Props = {
   component: Node,
+  defaultValue: string,
+  valueDecorator: (string) => string,
+  name: string,
 };
 
 type State = {
@@ -30,6 +33,7 @@ class ControlledTextbox extends Component<Props, State> {
   static defaultProps = {
     component: 'div',
     name: 'text',
+    valueDecorator: (str) => str,
   };
 
   finish = (values) => {
@@ -42,7 +46,7 @@ class ControlledTextbox extends Component<Props, State> {
   };
 
   render () {
-    const { component: Component, defaultValue, ...props } = this.props;
+    const { component: Component, defaultValue, valueDecorator, ...props } = this.props;
 
     if (this.props.editing) {
       return (
@@ -69,7 +73,9 @@ class ControlledTextbox extends Component<Props, State> {
 
     return (
       <Clickable>
-        <Component onClick={() => this.props.setEditing(true)}>{defaultValue}</Component>
+        <Component onClick={() => this.props.setEditing(true)}>
+          {valueDecorator(defaultValue)}
+        </Component>
       </Clickable>
     );
   }
