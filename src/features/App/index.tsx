@@ -27,7 +27,7 @@ const Intro = styled.p`
 `;
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <Root>
         <Header>

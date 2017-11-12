@@ -4,15 +4,15 @@ import ActionButton from '../ActionButton';
 import CardEditing from '../CardEditing';
 
 interface Props extends TimelineProps {
-  adding: boolean,
-  newCard: () => void,
-  cancelNewCard: () => void,
-};
+  adding: boolean;
+  newCard: () => void;
+  cancelNewCard: () => void;
+}
 
 // Stateless components can't return arrays properly yet.
 // See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19363
 // const TimelinePage: React.StatelessComponent<Props> = ...
-
+// tslint:disable-next-line no-any
 const TimelinePage: any = ({ newCard, cancelNewCard, adding, ...props }: Props) => [
   <Timeline {...props} key="timeline" />,
   adding ? null : <ActionButton key="action-button" newCard={newCard} />,

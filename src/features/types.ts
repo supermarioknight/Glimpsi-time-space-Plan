@@ -1,23 +1,26 @@
 import { Store as Timeline } from './Timeline/timeline.reducer';
 
 export interface Action {
-  type: string,
-  payload?: any,
-};
+  type: string;
+  // tslint:disable-next-line no-any
+  payload?: any;
+}
 
 export interface Store {
-  timeline: Timeline,
-};
+  timeline: Timeline;
+}
 
 export interface Card {
-  id?: number,
-  end?: string,
-  title: string,
-  location: string,
-  start: string,
-  image: string,
-};
+  id?: number;
+  end?: string;
+  title: string;
+  location: string;
+  start: string;
+  image: string;
+}
 
 export interface CardWithId extends Card {
-  id: number,
+  id: number;
 }
+
+export type Reducer = (store: {}, action: Action) => {};

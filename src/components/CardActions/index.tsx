@@ -2,9 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  onEdit: (e: React.MouseEvent<HTMLElement>) => void,
-  onDelete: (e: React.MouseEvent<HTMLElement>) => void,
-};
+  onEdit: (e: React.MouseEvent<HTMLElement>) => void;
+  onDelete: (e: React.MouseEvent<HTMLElement>) => void;
+}
 
 const Root = styled.div`
   position: absolute;

@@ -7,19 +7,19 @@ import editable, { InjectedProps } from '../../decorators/editable';
 import { Card as CardType } from '../../features/types';
 
 interface Props extends InjectedProps, CardProps {
-  id: number,
-  onDelete: (id: number) => void,
-  onSave: (values: CardType) => void,
-};
+  id: number;
+  onDelete: (id: number) => void;
+  onSave: (values: CardType) => void;
+}
 
 export default editable<Props>(
 class EditableCard extends Component<Props> {
   save = (values: CardType) => {
     this.props.onSave(values);
     this.props.setEditing(false);
-  };
+  }
 
-  render() {
+  render () {
     const { onDelete, id, editing } = this.props;
 
     return (

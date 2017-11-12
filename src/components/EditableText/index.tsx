@@ -1,32 +1,32 @@
 import * as React from 'react';
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 import styled from 'styled-components';
 import Textbox from '../Textbox';
 import editable, { InjectedProps } from '../../decorators/editable';
 
 export interface RenderTextProps {
-  children: string,
-  onClick: () => void,
+  children: string;
+  onClick: () => void;
 }
 
 interface Props extends InjectedProps {
-  renderText?: (props: RenderTextProps) => JSX.Element,
-  name?: string,
-  defaultValue: string,
-  label: string,
-  onSave: (value: string) => void,
-};
+  renderText?: (props: RenderTextProps) => JSX.Element;
+  name?: string;
+  defaultValue: string;
+  label: string;
+  onSave: (value: string) => void;
+}
 
 interface DefaultProps {
-  renderText: (props: RenderTextProps) => JSX.Element,
-  name: string,
+  renderText: (props: RenderTextProps) => JSX.Element;
+  name: string;
 }
 
 type PropsWithDefaults = Props & DefaultProps;
 
-type State = {
-  editing: boolean,
-};
+interface State {
+  editing: boolean;
+}
 
 const Clickable = styled.span`
   cursor: pointer;
@@ -57,7 +57,7 @@ class EditableText extends React.Component<Props, State> {
     }
 
     setEditing(false);
-  };
+  }
 
   render () {
     const { defaultValue, renderText, ...props } = this.props as PropsWithDefaults;

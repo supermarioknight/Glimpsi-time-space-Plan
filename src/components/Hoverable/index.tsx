@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 interface Props {
-  children: (hovering: boolean) => React.ReactNode,
-};
+  children: (hovering: boolean) => React.ReactNode;
+}
 
 interface State {
-  hovering: boolean,
-};
+  hovering: boolean;
+}
 
 export default class Hoverable extends Component<Props, State> {
   state = {
@@ -17,13 +17,13 @@ export default class Hoverable extends Component<Props, State> {
     this.setState({
       hovering: true,
     });
-  };
+  }
 
   mouseOut = () => {
     this.setState({
       hovering: false,
     });
-  };
+  }
 
   render () {
     return (

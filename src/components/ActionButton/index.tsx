@@ -1,17 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Button = styled.button`
-`;
+const Button = styled.button``;
 
-const block = (cb: Function) => (e: React.MouseEvent<HTMLElement>) => {
+const block = (cb: () => void) => (e: React.MouseEvent<HTMLElement>) => {
   e.preventDefault();
   cb();
 };
 
 interface Props {
-  newCard: Function,
-};
+  newCard: () => void;
+}
 
 const ActionButton = ({ newCard }: Props) => (
   <Button onClick={block(newCard)}>

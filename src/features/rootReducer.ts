@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { Action, Reducer } from './types';
 
 const reducerModules = require.context('./', true, /.\.reducer\.ts$/);
 
@@ -20,8 +21,8 @@ const definitions = reducerModules.keys().reduce((acc, key) => {
   /* eslint no-param-reassign:0 */
   if (!acc[cleanedKey]) {
     acc[cleanedKey] = {
-      reducers: [],
       defaultState: undefined,
+      reducers: [],
     };
   }
 
@@ -39,14 +40,14 @@ const reducers = Object.keys(definitions).reduce((acc, key) => {
   const definition = definitions[key];
 
   if (process.env.NODE_ENV !== 'production' && !definition.defaultState) {
-    // eslint-disable-next-line no-console
+    // tslint:disable-next-line no-console
     console.error(`DefaultState for ${key} has not been defined.`);
   }
 
-  acc[key] = (state = definition.defaultState, action: any) => {
-    let result: any;
+  acc[key] = (state = definition.defaultState, action: Action) => {
+    let result: {} | undefined;
 
-    definition.reducers.forEach((reducer: any) => {
+    definition.reducers.forEach((reducer: Reducer) => {
       if (result) {
         return;
       }

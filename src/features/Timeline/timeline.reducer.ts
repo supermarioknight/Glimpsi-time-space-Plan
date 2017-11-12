@@ -8,11 +8,11 @@ export const defaultState: Store = {
 };
 
 export interface Store {
-  adding: boolean,
-  cards: Array<CardWithId>,
-  start: string,
-  end: string,
-};
+  adding: boolean;
+  cards: CardWithId[];
+  start: string;
+  end: string;
+}
 
 export default (store: Store, action: Action) => {
   switch (action.type) {

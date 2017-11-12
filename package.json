@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "formik": "^0.10.0",
+    "history": "^4.7.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
@@ -21,6 +22,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
+    "lint": "tslint --project ./ --format stylish",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -41,6 +43,7 @@
     "@types/storybook__react": "^3.0.5",
     "@types/webpack-env": "^1.13.2",
     "faker": "^4.1.0",
-    "react-scripts-ts": "2.8.0"
+    "react-scripts-ts": "2.8.0",
+    "tslint-config-airbnb": "^5.3.0"
   }
 }

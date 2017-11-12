@@ -18,10 +18,10 @@ export const removeCard = (id: number) => ({
   },
 });
 
-export const updateTimeline = (data: Object) => ({
+export const updateTimeline = (data: { [key: string]: string }) => ({
   type: 'UPDATE_TIMELINE',
   payload: data,
-})
+});
 
 export const cancelNewCard = () => ({
   type: 'CANCEL_NEW_CARD',

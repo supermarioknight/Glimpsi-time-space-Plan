@@ -1,15 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-type Props = {
-  label: string,
-  name: string,
-  onChange: (e: React.ChangeEvent<HTMLElement>) => void,
-  onBlur: (e: any) => void,
-  innerRef?: (ref: null | HTMLElement) => void,
-  value: string,
-  placeholder?: string,
-};
+interface Props {
+  label: string;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLElement>) => void;
+  // tslint:disable-next-line no-any
+  onBlur: (e: any) => void;
+  innerRef?: (ref: null | HTMLElement) => void;
+  value: string;
+  placeholder?: string;
+}
 
 const Input = styled.input`
   font-size: 16px;

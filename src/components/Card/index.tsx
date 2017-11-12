@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { humanize } from '../../lib/date';
 
 export interface Props {
-  title: string,
-  location: string,
-  image: string,
-  start: string,
-  end?: string,
-  children?: React.ReactNode,
-};
+  title: string;
+  location: string;
+  image: string;
+  start: string;
+  end?: string;
+  children?: React.ReactNode;
+}
 
 export const Root = styled.div`
   display: inline-block;

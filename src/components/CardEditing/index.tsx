@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 import Textbox from '../Textbox';
 import { Card } from '../../features/types';
 
@@ -14,29 +14,17 @@ import {
 const HeroImageContainer = HeroImage.withComponent('div');
 
 export interface Props {
-  id?: number,
-  title?: string,
-  location?: string,
-  image?: string,
-  start?: string,
-  end?: string,
-  onSave: (values: Card) => void,
-  onCancel: () => void,
-};
+  id?: number;
+  title?: string;
+  location?: string;
+  image?: string;
+  start?: string;
+  end?: string;
+  onSave: (values: Card) => void;
+  onCancel: () => void;
+}
 
 export default class CardEditing extends Component<Props> {
-  finish = (values: Card) => {
-    this.props.onSave({
-      ...values,
-      id: this.props.id,
-    });
-  };
-
-  cancel = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    this.props.onCancel();
-  };
-
   static defaultProps = {
     title: '',
     location: '',
@@ -45,7 +33,19 @@ export default class CardEditing extends Component<Props> {
     image: '',
   };
 
-  render() {
+  finish = (values: Card) => {
+    this.props.onSave({
+      ...values,
+      id: this.props.id,
+    });
+  }
+
+  cancel = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    this.props.onCancel();
+  }
+
+  render () {
     const { title, location, start, end, image } = this.props;
 
     return (

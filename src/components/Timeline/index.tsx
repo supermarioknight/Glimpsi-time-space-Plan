@@ -6,13 +6,13 @@ import EditableText, { RenderTextProps } from '../EditableText';
 import { CardWithId } from '../../features/types';
 
 export interface Props {
-  start: string,
-  end: string,
-  items: Array<CardWithId>,
-  saveCard: (item: CardWithId) => void,
-  removeCard: (id: number) => void,
-  updateTimeline: (data: { [key: string]: string }) => void,
-};
+  start: string;
+  end: string;
+  items: CardWithId[];
+  saveCard: (item: CardWithId) => void;
+  removeCard: (id: number) => void;
+  updateTimeline: (data: { [key: string]: string }) => void;
+}
 
 const Items = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const renderText = ({ children, ...props }: RenderTextProps) => <div {...props}>
 // Stateless components can't return arrays properly yet.
 // See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19363
 // const Timeline: React.StatelessComponent<Props> = ...
-
+// tslint:disable-next-line no-any
 const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline }: Props) => {
   const orderedItems = items
     .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
@@ -41,11 +41,12 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
       return obj;
     }, {});
 
+  // tslint:disable-next-line no-any
   const dateGroups = (Object as any).entries(orderedItems)
-    .map(([date, items]: [string, Array<CardWithId>]) => [
+    .map(([date, groupedItems]: [string, CardWithId[]]) => [
       date,
       <DateGroup key={date}>
-        {items.map((item) => (
+        {groupedItems.map((item) => (
           <EditableCard
             onSave={saveCard}
             onDelete={removeCard}
