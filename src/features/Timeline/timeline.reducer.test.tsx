@@ -45,7 +45,13 @@ describe('timeline reducer', () => {
   it('should increment id if previous card exists', () => {
     const state: Store = {
       ...defaultState,
-      cards: [{ id: 2 }],
+      cards: [{
+        id: 2,
+        title: '',
+        location: '',
+        start: '',
+        image: '',
+      }],
     };
     const action = {
       type: 'SAVE_CARD',

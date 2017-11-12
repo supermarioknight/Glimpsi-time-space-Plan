@@ -46,13 +46,13 @@ export default (store: Store, action: Action) => {
 
       if (typeof card.id === 'undefined') {
         const lastCard = store.cards[store.cards.length - 1];
-        const id = lastCard ? lastCard.id : 1;
+        const id = lastCard ? lastCard.id + 1 : 1;
         const newCard = {
           ...card,
           id,
         };
 
-        cards = [newCard].concat(store.cards);
+        cards = store.cards.concat([newCard]);
       } else {
         cards = store.cards.map((storeCard) => storeCard.id === card.id ? card : storeCard);
       }
