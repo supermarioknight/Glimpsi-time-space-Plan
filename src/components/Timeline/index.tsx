@@ -41,8 +41,7 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
       return obj;
     }, {});
 
-  // tslint:disable-next-line no-any
-  const dateGroups = (Object as any).entries(orderedItems)
+  const dateGroups = Object.entries(orderedItems)
     .map(([date, groupedItems]: [string, CardWithId[]]) => [
       date,
       <DateGroup key={date}>
