@@ -1,8 +1,14 @@
-// @flow
-
 import React, { Component } from 'react';
 
-export default class Hoverable extends Component {
+interface Props {
+  children: (hovering: boolean) => React.ReactNode,
+};
+
+interface State {
+  hovering: boolean,
+};
+
+export default class Hoverable extends Component<Props, State> {
   state = {
     hovering: false,
   };

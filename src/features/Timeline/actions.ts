@@ -1,4 +1,4 @@
-import { Card } from './timeline.reducer';
+import { Card } from '../types';
 
 export const saveCard = (card: Card) => ({
   type: 'SAVE_CARD',

@@ -1,8 +1,8 @@
-import reducer, { defaultState } from './timeline.reducer';
+import reducer, { defaultState, Store } from './timeline.reducer';
 
 describe('timeline reducer', () => {
   it('should cancel adding on save', () => {
-    const state = {
+    const state: Store = {
       ...defaultState,
     };
     const action = {
@@ -43,7 +43,7 @@ describe('timeline reducer', () => {
   });
 
   it('should increment id if previous card exists', () => {
-    const state = {
+    const state: Store = {
       ...defaultState,
       cards: [{ id: 2 }],
     };
@@ -79,8 +79,11 @@ describe('timeline reducer', () => {
   });
 
   it('should cancel adding', () => {
-    const state = {
+    const state: Store = {
       adding: true,
+      cards: [],
+      start: '',
+      end: '',
     };
     const action = {
       type: 'CANCEL_NEW_CARD',
@@ -92,9 +95,15 @@ describe('timeline reducer', () => {
   });
 
   it('should remove card', () => {
-    const state = {
+    const state: Store = {
       ...defaultState,
-      cards: [{ id: 2 }],
+      cards: [{
+        id: 2,
+        title: '',
+        location: '',
+        start: '',
+        image: '',
+      }],
     };
     const action = {
       type: 'REMOVE_CARD',

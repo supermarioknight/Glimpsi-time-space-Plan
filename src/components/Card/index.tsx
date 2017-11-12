@@ -1,17 +1,14 @@
-// @flow
-
 import * as React from 'react';
 import styled from 'styled-components';
 import { humanize } from '../../lib/date';
 
 export interface Props {
-  id: number,
   title: string,
   location: string,
   image: string,
   start: string,
-  end: string,
-  children: Node,
+  end?: string,
+  children?: React.ReactNode,
 };
 
 export const Root = styled.div`
@@ -51,7 +48,6 @@ const Card: React.StatelessComponent<Props> = ({ title, location, start, end, im
 );
 
 Card.defaultProps = {
-  id: undefined,
   image: '',
   end: '',
   children: undefined,

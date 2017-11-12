@@ -1,4 +1,4 @@
-import { Action } from '../types';
+import { Action, CardWithId } from '../types';
 
 export const defaultState: Store = {
   adding: false,
@@ -7,18 +7,9 @@ export const defaultState: Store = {
   end: '',
 };
 
-export interface Card {
-  id: number,
-  title: string,
-  location: string,
-  date: string,
-  image: string,
-  end: string,
-};
-
 export interface Store {
   adding: boolean,
-  cards: Array<Card>,
+  cards: Array<CardWithId>,
   start: string,
   end: string,
 };
@@ -54,9 +45,11 @@ export default (store: Store, action: Action) => {
       let cards;
 
       if (typeof card.id === 'undefined') {
+        const lastCard = store.cards[store.cards.length - 1];
+        const id = lastCard ? lastCard.id : 1;
         const newCard = {
           ...card,
-          id: (store.cards[store.cards.length - 1] || { id: 0 }).id + 1,
+          id,
         };
 
         cards = [newCard].concat(store.cards);

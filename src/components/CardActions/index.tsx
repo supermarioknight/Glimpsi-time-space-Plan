@@ -1,11 +1,9 @@
-// @flow
-
 import * as React from 'react';
 import styled from 'styled-components';
 
-type Props = {
-  onEdit: Function,
-  onDelete: Function,
+interface Props {
+  onEdit: (e: React.MouseEvent<HTMLElement>) => void,
+  onDelete: (e: React.MouseEvent<HTMLElement>) => void,
 };
 
 const Root = styled.div`

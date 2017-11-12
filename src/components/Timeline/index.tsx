@@ -1,26 +1,17 @@
-// @flow
-
 import * as React from 'react';
 import styled from 'styled-components';
 import EditableCard from '../EditableCard';
 import { humanize } from '../../lib/date';
-import EditableText from '../EditableText';
-
-interface Item {
-  id: number,
-  start: string,
-  end?: string,
-  location: string,
-  image?: string,
-};
+import EditableText, { RenderTextProps } from '../EditableText';
+import { CardWithId } from '../../features/types';
 
 export interface Props {
   start: string,
   end: string,
-  items: Array<Item>,
-  saveCard: (item: Item) => void,
+  items: Array<CardWithId>,
+  saveCard: (item: CardWithId) => void,
   removeCard: (id: number) => void,
-  updateTimeline: ({ [key: string]: string }) => any,
+  updateTimeline: (data: { [key: string]: string }) => void,
 };
 
 const Items = styled.div`
@@ -34,9 +25,15 @@ const DateGroup = styled.div`
   display: flex;
 `;
 
-const Timeline: React.StatelessComponent<Props> = ({ start, end, items, saveCard, removeCard, updateTimeline }) => {
+const renderText = ({ children, ...props }: RenderTextProps) => <div {...props}>{humanize(children)}</div>;
+
+// Stateless components can't return arrays properly yet.
+// See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19363
+// const Timeline: React.StatelessComponent<Props> = ...
+
+const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline }: Props) => {
   const orderedItems = items
-    .sort((a, b) => new Date(a.start) - new Date(b.start))
+    .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
     .reduce((obj, item) => {
       const key = new Date(item.start).toDateString();
       obj[key] = obj[key] || [];
@@ -44,8 +41,8 @@ const Timeline: React.StatelessComponent<Props> = ({ start, end, items, saveCard
       return obj;
     }, {});
 
-  const dateGroups = Object.entries(orderedItems)
-    .map(([date, items]) => [
+  const dateGroups = (Object as any).entries(orderedItems)
+    .map(([date, items]: [string, Array<CardWithId>]) => [
       date,
       <DateGroup key={date}>
         {items.map((item) => (
@@ -65,7 +62,7 @@ const Timeline: React.StatelessComponent<Props> = ({ start, end, items, saveCard
         label="Start"
         defaultValue={start}
         onSave={(value) => updateTimeline({ start: value })}
-        valueDecorator={humanize}
+        renderText={renderText}
       />
 
       {dateGroups}
@@ -74,7 +71,7 @@ const Timeline: React.StatelessComponent<Props> = ({ start, end, items, saveCard
         label="End"
         defaultValue={end}
         onSave={(value) => updateTimeline({ end: value })}
-        valueDecorator={humanize}
+        renderText={renderText}
       />
     </Items>,
   ];

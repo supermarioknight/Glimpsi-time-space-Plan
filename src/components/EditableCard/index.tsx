@@ -1,20 +1,21 @@
-// @flow
-
 import React, { Component } from 'react';
 import CardEditing from '../CardEditing';
-import Card, { type Props } from '../Card';
+import Card, { Props as CardProps } from '../Card';
 import CardActions from '../CardActions';
 import Hoverable from '../Hoverable';
-import editable from '../../decorators/editable';
+import editable, { InjectedProps } from '../../decorators/editable';
+import { Card as CardType } from '../../features/types';
 
-type State = {
-  editing: boolean,
+interface Props extends InjectedProps, CardProps {
+  id: number,
+  onDelete: (id: number) => void,
+  onSave: (values: CardType) => void,
 };
 
-export default editable(
-class EditableCard extends Component<Props, State> {
-  save = (...args) => {
-    this.props.onSave(...args);
+export default editable<Props>(
+class EditableCard extends Component<Props> {
+  save = (values: CardType) => {
+    this.props.onSave(values);
     this.props.setEditing(false);
   };
 

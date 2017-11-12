@@ -4,14 +4,25 @@ import styled from 'styled-components';
 import Textbox from '../Textbox';
 import editable, { InjectedProps } from '../../decorators/editable';
 
+export interface RenderTextProps {
+  children: string,
+  onClick: () => void,
+}
+
 interface Props extends InjectedProps {
-  component: Node,
+  renderText?: (props: RenderTextProps) => JSX.Element,
+  name?: string,
   defaultValue: string,
-  name: string,
   label: string,
-  valueDecorator: (value: string) => string,
   onSave: (value: string) => void,
 };
+
+interface DefaultProps {
+  renderText: (props: RenderTextProps) => JSX.Element,
+  name: string,
+}
+
+type PropsWithDefaults = Props & DefaultProps;
 
 type State = {
   editing: boolean,
@@ -28,25 +39,28 @@ function selectText (ref: HTMLFormElement | null) {
   }
 }
 
-export default editable(
-class ControlledTextbox extends React.Component<Props, State> {
-  static defaultProps = {
-    component: 'div',
+export default editable<Props>(
+class EditableText extends React.Component<Props, State> {
+  // Default props currently don't work as nicely as you'd expect.
+  // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11640
+  static defaultProps: DefaultProps = {
     name: 'text',
-    valueDecorator: (value: string) => value,
+    renderText: (props) => <div {...props} />,
   };
 
   finish = (values: { [value: string]: string }) => {
-    const value = values[this.props.name];
-    if (value !== this.props.defaultValue) {
-      this.props.onSave(value);
+    const { name, onSave, setEditing, defaultValue } = this.props as PropsWithDefaults;
+
+    const value = values[name];
+    if (value !== defaultValue) {
+      onSave(value);
     }
 
-    this.props.setEditing(false);
+    setEditing(false);
   };
 
   render () {
-    const { component: Component, defaultValue, valueDecorator, ...props } = this.props;
+    const { defaultValue, renderText, ...props } = this.props as PropsWithDefaults;
 
     if (this.props.editing) {
       return (
@@ -73,9 +87,10 @@ class ControlledTextbox extends React.Component<Props, State> {
 
     return (
       <Clickable>
-        <Component onClick={() => this.props.setEditing(true)}>
-          {valueDecorator(defaultValue)}
-        </Component>
+        {renderText({
+          children: defaultValue,
+          onClick: () => this.props.setEditing(true),
+        })}
       </Clickable>
     );
   }

@@ -1,4 +1,4 @@
-import React, { Component, ComponentType } from 'react';
+import * as React from 'react';
 
 export interface InjectedProps {
   editing: boolean,
@@ -9,24 +9,29 @@ interface State {
   editing: boolean,
 };
 
-export default (WrappedComponent: ComponentType<any>) =>  class Editable extends Component<{}, State> {
-  state = {
-    editing: false,
-  };
+type HocProps<T extends InjectedProps> = Omit<T, keyof InjectedProps>;
 
-  setEditing = (editing: boolean) => {
-    this.setState({
-      editing,
-    });
-  };
-
-  render() {
-    const props = {
-      ...this.props,
-      setEditing: this.setEditing,
-      editing: this.state.editing,
+export default function <TWrappedComponentProps extends InjectedProps>(WrappedComponent: React.ComponentType<any>) {
+  return class Editable extends React.Component<HocProps<TWrappedComponentProps>, State> {
+    state = {
+      editing: false,
     };
 
-    return <WrappedComponent {...props} />;
-  }
+    setEditing = (editing: boolean) => {
+      this.setState({
+        editing,
+      });
+    };
+
+    render() {
+      // Can't use object spread here.
+      // See: https://github.com/Microsoft/TypeScript/issues/10727
+      const props = Object.assign({}, this.props, {
+        setEditing: this.setEditing,
+        editing: this.state.editing,
+      });
+
+      return <WrappedComponent {...props} />;
+    }
+  };
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import TimelinePage from '../../components/TimelinePage';
