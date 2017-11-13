@@ -7,7 +7,7 @@ export interface Props {
   location: string;
   image: string;
   start: string;
-  end?: string;
+  duration: number;
   children?: React.ReactNode;
 }
 
@@ -37,9 +37,9 @@ export const HeroImage = styled.img`
   background-color: #eee;
 `;
 
-const Card: React.StatelessComponent<Props> = ({ title, location, start, end, image, children }) => (
+const Card: React.StatelessComponent<Props> = ({ title, location, start, duration, image, children }) => (
   <Root>
-    <DateTime>{humanize(start)}{end && ` - ${humanize(end)}`}</DateTime>
+    <DateTime>{humanize(start)}{` - ${duration}min`}</DateTime>
     <HeroImage src={image} />
     <Title>{title}</Title>
     <Location>{location}</Location>
@@ -49,7 +49,7 @@ const Card: React.StatelessComponent<Props> = ({ title, location, start, end, im
 
 Card.defaultProps = {
   image: '',
-  end: '',
+  duration: 30,
   children: undefined,
 };
 

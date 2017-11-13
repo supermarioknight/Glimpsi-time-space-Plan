@@ -12,7 +12,7 @@ export interface Store {
 
 export interface Card {
   id?: number;
-  end?: string;
+  duration: number;
   title: string;
   location: string;
   start: string;

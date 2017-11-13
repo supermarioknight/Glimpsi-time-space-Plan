@@ -10,7 +10,7 @@ storiesOf('CardEditing', module)
       title="Valentines Day"
       location="Sapporo, Hokkaido, Japan"
       start="2017-11-04T01:38:55.430Z"
-      end="2017-11-04T01:50:55.430Z"
+      duration={30}
       image={image.city()}
       onCancel={action('onCancel()')}
       onSave={action('onSave()')}

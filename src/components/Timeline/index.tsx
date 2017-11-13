@@ -70,7 +70,7 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
       <EditableText
         label="End"
         defaultValue={end}
-        onSave={(value) => updateTimeline({ end: value })}
+        onSave={(value) => updateTimeline({ duration: value })}
         renderText={renderText}
       />
     </Items>,

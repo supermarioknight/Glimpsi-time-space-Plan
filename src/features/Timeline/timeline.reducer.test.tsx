@@ -50,6 +50,7 @@ describe('timeline reducer', () => {
         title: '',
         location: '',
         start: '',
+        duration: 30,
         image: '',
       }],
     };
@@ -59,6 +60,7 @@ describe('timeline reducer', () => {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         location: 'Haneda, Japan',
+        duration: 30,
         image: 'https://image.com',
       },
     };
@@ -109,6 +111,7 @@ describe('timeline reducer', () => {
         location: '',
         start: '',
         image: '',
+        duration: 30,
       }],
     };
     const action = {

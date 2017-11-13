@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface Props {
   label: string;
   name: string;
+  autoFocus?: boolean;
   onChange: (e: React.ChangeEvent<HTMLElement>) => void;
   // tslint:disable-next-line no-any
   onBlur: (e: any) => void;
