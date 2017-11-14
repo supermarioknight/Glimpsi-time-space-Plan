@@ -27,9 +27,7 @@ export const Title = styled.h2`
 
 export const Location = styled.div``;
 
-export const DateTime = styled.div`
-  text-align: right;
-`;
+export const DateTime = styled.div`text-align: right;`;
 
 export const HeroImage = styled.img`
   width: 100%;
@@ -37,9 +35,19 @@ export const HeroImage = styled.img`
   background-color: #eee;
 `;
 
-const Card: React.StatelessComponent<Props> = ({ title, location, start, duration, image, children }) => (
+const Card: React.StatelessComponent<Props> = ({
+  title,
+  location,
+  start,
+  duration,
+  image,
+  children,
+}) => (
   <Root>
-    <DateTime>{humanize(start)}{` - ${duration}min`}</DateTime>
+    <DateTime>
+      {humanize(start)}
+      {` - ${duration}min`}
+    </DateTime>
     <HeroImage src={image} />
     <Title>{title}</Title>
     <Location>{location}</Location>
@@ -49,7 +57,6 @@ const Card: React.StatelessComponent<Props> = ({ title, location, start, duratio
 
 Card.defaultProps = {
   image: '',
-  duration: 30,
   children: undefined,
 };
 

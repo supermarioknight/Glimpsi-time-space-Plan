@@ -13,26 +13,36 @@ interface Props extends InjectedProps, CardProps {
 }
 
 export default editable<Props>(
-class EditableCard extends Component<Props> {
-  save = (values: CardType) => {
-    this.props.onSave(values);
-    this.props.setEditing(false);
-  }
+  class EditableCard extends Component<Props> {
+    save = (values: CardType) => {
+      this.props.onSave(values);
+      this.props.setEditing(false);
+    };
 
-  render () {
-    const { onDelete, id, editing } = this.props;
+    render() {
+      const { onDelete, id, editing } = this.props;
 
-    return (
-      <Hoverable>
-        {(hovering) => editing ?
-          <CardEditing {...this.props} onSave={this.save} onCancel={() => this.props.setEditing(false)} />
-          : (
-            <Card {...this.props}>
-              {hovering && <CardActions onEdit={() => this.props.setEditing(true)} onDelete={() => onDelete(id)} />}
-            </Card>
-          )}
-      </Hoverable>
-    );
+      return (
+        <Hoverable>
+          {hovering =>
+            editing ? (
+              <CardEditing
+                {...this.props}
+                onSave={this.save}
+                onCancel={() => this.props.setEditing(false)}
+              />
+            ) : (
+              <Card {...this.props}>
+                {hovering && (
+                  <CardActions
+                    onEdit={() => this.props.setEditing(true)}
+                    onDelete={() => onDelete(id)}
+                  />
+                )}
+              </Card>
+            )}
+        </Hoverable>
+      );
+    }
   }
-}
 );

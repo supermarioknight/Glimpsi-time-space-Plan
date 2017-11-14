@@ -1,1 +1,3 @@
-export const humanize = (date: string): string => new Date(date).toDateString();
+import { format } from 'date-fns';
+
+export const humanize = (date: string): string => format(date, 'ddd Do MMM YY H:mma');

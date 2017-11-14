@@ -1,6 +1,7 @@
 {
   "extends": ["tslint-react", "tslint-config-airbnb", "tslint:latest"],
   "rules": {
+    "semicolon": [true, "strict-bound-class-methods"],
     "arrow-parens": [true, "ban-single-arg-parens"],
     "jsx-wrap-multiline": false,
     "jsx-boolean-value": [true, "never"],
@@ -53,7 +54,6 @@
     "one-line": [true, "check-catch", "check-else", "check-open-brace", "check-whitespace"],
     "quotemark": [true, "single", "jsx-double"],
     "radix": true,
-    "semicolon": [true, "always"],
     "switch-default": true,
     "trailing-comma": [false],
     "triple-equals": [true, "allow-null-check"],

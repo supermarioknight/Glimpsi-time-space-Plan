@@ -4,6 +4,7 @@ import EditableCard from '../EditableCard';
 import { humanize } from '../../lib/date';
 import EditableText, { RenderTextProps } from '../EditableText';
 import { CardWithId } from '../../features/types';
+import TimeStrip from '../TimeStrip';
 
 export interface Props {
   start: string;
@@ -25,7 +26,9 @@ const DateGroup = styled.div`
   display: flex;
 `;
 
-const renderText = ({ children, ...props }: RenderTextProps) => <div {...props}>{humanize(children)}</div>;
+const renderText = ({ children, ...props }: RenderTextProps) => (
+  <div {...props}>{humanize(children)}</div>
+);
 
 // Stateless components can't return arrays properly yet.
 // See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19363
@@ -41,27 +44,37 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
       return obj;
     }, {});
 
-  const dateGroups = Object.entries(orderedItems)
-    .map(([date, groupedItems]: [string, CardWithId[]]) => [
-      date,
-      <DateGroup key={date}>
-        {groupedItems.map((item) => (
-          <EditableCard
-            onSave={saveCard}
-            onDelete={removeCard}
-            key={item.id}
-            {...item}
-          />
-        ))}
-      </DateGroup>,
-    ]);
+  const dateGroups = Object.entries(
+    orderedItems
+  ).map(([date, groupedItems]: [string, CardWithId[]]) => [
+    date,
+    <DateGroup key={date}>
+      {groupedItems.map((item, index) => {
+        const nextItem = groupedItems[index + 1];
+        const next = nextItem && {
+          date: nextItem.start,
+          duration: nextItem.duration,
+        };
+        const current = {
+          date: item.start,
+          duration: item.duration,
+        };
+
+        return (
+          <TimeStrip key={item.id} current={current} next={next}>
+            <EditableCard onSave={saveCard} onDelete={removeCard} {...item} />
+          </TimeStrip>
+        );
+      })}
+    </DateGroup>,
+  ]);
 
   return [
     <Items key="items">
       <EditableText
         label="Start"
         defaultValue={start}
-        onSave={(value) => updateTimeline({ start: value })}
+        onSave={value => updateTimeline({ start: value })}
         renderText={renderText}
       />
 
@@ -70,7 +83,7 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
       <EditableText
         label="End"
         defaultValue={end}
-        onSave={(value) => updateTimeline({ duration: value })}
+        onSave={value => updateTimeline({ end: value })}
         renderText={renderText}
       />
     </Items>,

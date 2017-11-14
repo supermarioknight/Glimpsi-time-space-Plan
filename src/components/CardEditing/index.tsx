@@ -3,13 +3,7 @@ import { Formik } from 'formik';
 import Textbox from '../Textbox';
 import { Card } from '../../features/types';
 
-import {
-  Root,
-  Title,
-  Location,
-  DateTime,
-  HeroImage,
-} from '../Card';
+import { Root, Title, Location, DateTime, HeroImage } from '../Card';
 
 const HeroImageContainer = HeroImage.withComponent('div');
 
@@ -29,7 +23,7 @@ export default class CardEditing extends Component<Props> {
     title: '',
     location: '',
     start: '',
-    duration: 30,
+    duration: 0,
     image: '',
   };
 
@@ -38,14 +32,14 @@ export default class CardEditing extends Component<Props> {
       ...values,
       id: this.props.id,
     });
-  }
+  };
 
   cancel = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     this.props.onCancel();
-  }
+  };
 
-  render () {
+  render() {
     const { title, location, start, duration, image } = this.props;
 
     return (
@@ -63,7 +57,9 @@ export default class CardEditing extends Component<Props> {
           <Root>
             <form onSubmit={handleSubmit}>
               <button type="submit">Save</button>
-              <button type="cancel" onClick={this.cancel}>Cancel</button>
+              <button type="cancel" onClick={this.cancel}>
+                Cancel
+              </button>
 
               <DateTime>
                 <Textbox
