@@ -1,4 +1,5 @@
-import { Action, CardWithId } from '../types';
+import { AnyAction } from 'redux';
+import { CardWithId } from '../types';
 
 export const defaultState: Store = {
   adding: false,
@@ -14,7 +15,7 @@ export interface Store {
   end: string;
 }
 
-export default (store: Store, action: Action) => {
+export default (store: Store, action: AnyAction) => {
   switch (action.type) {
     case 'NEW_CARD':
       return {
@@ -31,7 +32,7 @@ export default (store: Store, action: Action) => {
     case 'REMOVE_CARD':
       return {
         ...store,
-        cards: store.cards.filter((card) => card.id !== action.payload.id),
+        cards: store.cards.filter(card => card.id !== action.payload.id),
       };
 
     case 'UPDATE_TIMELINE':
@@ -54,7 +55,7 @@ export default (store: Store, action: Action) => {
 
         cards = store.cards.concat([newCard]);
       } else {
-        cards = store.cards.map((storeCard) => storeCard.id === card.id ? card : storeCard);
+        cards = store.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
       }
 
       return {

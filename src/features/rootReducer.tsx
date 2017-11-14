@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
-import { Action, Reducer } from './types';
+import { combineReducers, AnyAction } from 'redux';
+import { Reducer } from './types';
 
-const reducerModules = require.context('./', true, /.\.reducer\.ts$/);
+const reducerModules = require.context('./', true, /.\.reducer\.tsx$/);
 
 /**
  * Imports all [name].reducer.js found under src/features.
@@ -44,7 +44,7 @@ const reducers = Object.keys(definitions).reduce((acc, key) => {
     console.error(`DefaultState for ${key} has not been defined.`);
   }
 
-  acc[key] = (state = definition.defaultState, action: Action) => {
+  acc[key] = (state = definition.defaultState, action: AnyAction) => {
     let result: {} | undefined;
 
     definition.reducers.forEach((reducer: Reducer) => {

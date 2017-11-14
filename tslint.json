@@ -1,6 +1,7 @@
 {
   "extends": ["tslint-react", "tslint-config-airbnb", "tslint:latest"],
   "rules": {
+    "arrow-parens": [true, "ban-single-arg-parens"],
     "jsx-wrap-multiline": false,
     "jsx-boolean-value": [true, "never"],
     "ter-arrow-parens": false,
