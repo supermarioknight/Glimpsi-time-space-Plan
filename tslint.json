@@ -5,7 +5,7 @@
     "jsx-boolean-value": [true, "never"],
     "ter-arrow-parens": false,
     "member-access": [true, "no-public"],
-    "space-before-function-paren": true,
+    "space-before-function-paren": false,
     "object-literal-sort-keys": false,
     "strict-boolean-expressions": false,
     "no-submodule-imports": false,
