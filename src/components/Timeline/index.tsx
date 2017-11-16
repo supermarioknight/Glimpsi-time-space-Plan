@@ -4,7 +4,7 @@ import EditableCard from '../EditableCard';
 import { humanize } from '../../lib/date';
 import EditableText, { RenderTextProps } from '../EditableText';
 import { CardWithId } from '../../features/types';
-import TimeStrip from '../TimeStrip';
+import ColorStrip from '../ColorStrip';
 
 export interface Props {
   start: string;
@@ -49,21 +49,11 @@ const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline
   ).map(([date, groupedItems]: [string, CardWithId[]]) => [
     date,
     <DateGroup key={date}>
-      {groupedItems.map((item, index) => {
-        const nextItem = groupedItems[index + 1];
-        const next = nextItem && {
-          date: nextItem.start,
-          duration: nextItem.duration,
-        };
-        const current = {
-          date: item.start,
-          duration: item.duration,
-        };
-
+      {groupedItems.map(item => {
         return (
-          <TimeStrip key={item.id} current={current} next={next}>
+          <ColorStrip key={item.id} appearance="horizontal">
             <EditableCard onSave={saveCard} onDelete={removeCard} {...item} />
-          </TimeStrip>
+          </ColorStrip>
         );
       })}
     </DateGroup>,
