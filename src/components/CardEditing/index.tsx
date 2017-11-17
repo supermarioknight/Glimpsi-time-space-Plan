@@ -3,9 +3,7 @@ import { Formik } from 'formik';
 import Textbox from '../Textbox';
 import { Card } from '../../features/types';
 
-import { Root, Title, Location, DateTime, HeroImage } from '../Card';
-
-const HeroImageContainer = HeroImage.withComponent('div');
+import { Root, Title, Location, DateTime } from '../Card';
 
 export interface Props {
   id?: number;
@@ -80,15 +78,13 @@ export default class CardEditing extends Component<Props> {
                 />
               </DateTime>
 
-              <HeroImageContainer>
-                <Textbox
-                  value={values.image}
-                  label="Image"
-                  name="image"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </HeroImageContainer>
+              <Textbox
+                value={values.image}
+                label="Image"
+                name="image"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
 
               <Title>
                 <Textbox

@@ -1,88 +1,63 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { differenceInMinutes } from 'date-fns';
 import EditableCard from '../EditableCard';
-import { humanize } from '../../lib/date';
-import EditableText, { RenderTextProps } from '../EditableText';
 import { CardWithId } from '../../features/types';
 import ColorStrip from '../ColorStrip';
 
 export interface Props {
-  start: string;
-  end: string;
   items: CardWithId[];
-  saveCard: (item: CardWithId) => void;
-  removeCard: (id: number) => void;
-  updateTimeline: (data: { [key: string]: string }) => void;
+  // tslint:disable-next-line no-any
+  saveCard: (item: CardWithId) => any;
+  // tslint:disable-next-line no-any
+  removeCard: (id: number) => any;
 }
 
-const Items = styled.div`
-  display: flex;
-  white-space: nowrap;
-  align-items: center;
+const Root = styled.div`
+  width: 400px;
+  padding-left: 6px;
 `;
 
-const DateGroup = styled.div`
-  margin: 0 100px;
-  display: flex;
-`;
-
-const renderText = ({ children, ...props }: RenderTextProps) => (
-  <div {...props}>{humanize(children)}</div>
-);
-
-// Stateless components can't return arrays properly yet.
-// See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19363
-// const Timeline: React.StatelessComponent<Props> = ...
-// tslint:disable-next-line no-any
-const Timeline: any = ({ start, end, items, saveCard, removeCard, updateTimeline }: Props) => {
-  const orderedItems = items
+const Timeline: React.StatelessComponent<Props> = ({ items, saveCard, removeCard }) => {
+  const cardGroups = items
     .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
-    .reduce((obj, item) => {
-      const key = new Date(item.start).toDateString();
-      obj[key] = obj[key] || [];
-      obj[key].push(item);
-      return obj;
-    }, {});
+    .reduce<CardWithId[][]>((groups, currentItem) => {
+      const previousGroup = groups[groups.length - 1];
+      if (previousGroup) {
+        const lastItemInGroup = previousGroup[previousGroup.length - 1];
+        const difference = differenceInMinutes(currentItem.start, lastItemInGroup.start);
+        const overlap = lastItemInGroup.duration - difference;
+        if (overlap > 0) {
+          // There is an overlap, add to the group
+          previousGroup.push(currentItem);
+          return groups;
+        }
+      }
 
-  const dateGroups = Object.entries(
-    orderedItems
-  ).map(([date, groupedItems]: [string, CardWithId[]]) => [
-    date,
-    <DateGroup key={date}>
-      {groupedItems.map(item => {
+      // no overlap/no group to compare, push new group
+      groups.push([currentItem]);
+      return groups;
+    }, []);
+
+  return (
+    <Root>
+      {cardGroups.map((group, index) => {
+        const groupItems = group.map(item => (
+          <EditableCard onSave={saveCard} key={item.id} onDelete={removeCard} {...item} />
+        ));
+
+        if (groupItems.length <= 1) {
+          return groupItems;
+        }
+
         return (
-          <ColorStrip key={item.id} appearance="horizontal">
-            <EditableCard onSave={saveCard} onDelete={removeCard} {...item} />
+          <ColorStrip appearance="vertical" key={index}>
+            {groupItems}
           </ColorStrip>
         );
       })}
-    </DateGroup>,
-  ]);
-
-  return [
-    <Items key="items">
-      <EditableText
-        label="Start"
-        defaultValue={start}
-        onSave={value => updateTimeline({ start: value })}
-        renderText={renderText}
-      />
-
-      {dateGroups}
-
-      <EditableText
-        label="End"
-        defaultValue={end}
-        onSave={value => updateTimeline({ end: value })}
-        renderText={renderText}
-      />
-    </Items>,
-  ];
-};
-
-Timeline.defaultProps = {
-  start: 'Select Start',
-  end: 'Select End',
+    </Root>
+  );
 };
 
 export default Timeline;

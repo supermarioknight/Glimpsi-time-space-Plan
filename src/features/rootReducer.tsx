@@ -1,5 +1,5 @@
-import { combineReducers, AnyAction } from 'redux';
-import { Reducer } from './types';
+import { combineReducers } from 'redux';
+import { Reducer, FluxStandardAction } from './types';
 
 const reducerModules = require.context('./', true, /.\.reducer\.tsx$/);
 
@@ -44,7 +44,7 @@ const reducers = Object.keys(definitions).reduce((acc, key) => {
     console.error(`DefaultState for ${key} has not been defined.`);
   }
 
-  acc[key] = (state = definition.defaultState, action: AnyAction) => {
+  acc[key] = (state = definition.defaultState, action: FluxStandardAction) => {
     let result: {} | undefined;
 
     definition.reducers.forEach((reducer: Reducer) => {

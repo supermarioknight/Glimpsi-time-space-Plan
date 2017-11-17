@@ -1,10 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Root = styled.div`
-  display: inline-block;
-  position: relative;
-`;
+const Root = styled.div`position: relative;`;
 
 interface StripProps {
   color: string;

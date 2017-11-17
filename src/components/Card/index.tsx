@@ -12,45 +12,48 @@ export interface Props {
 }
 
 export const Root = styled.div`
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 2px;
-  padding: 5px;
+  padding: 10px;
   font-family: sans-serif;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
+  height: 150px;
+  background-size: cover;
+  background-position: center center;
   position: relative;
+  margin: 12px 0;
 `;
 
 export const Title = styled.h2`
   font-family: serif;
   margin: 0;
+  font-size: 26px;
 `;
 
-export const Location = styled.div``;
+const Minutes = styled.div`margin-left: auto;`;
 
-export const DateTime = styled.div`text-align: right;`;
+export const Location = styled.div`font-size: 18px;`;
 
-export const HeroImage = styled.img`
-  width: 100%;
-  height: 150px;
-  background-color: #eee;
+export const DateTime = styled.div`
+  display: flex;
+  font-size: 16px;
 `;
 
-const Card: React.StatelessComponent<Props> = ({
-  title,
-  location,
-  start,
-  duration,
-  image,
-  children,
-}) => (
+const Card: React.StatelessComponent<Props> = ({ title, location, start, duration, children }) => (
   <Root>
     <DateTime>
       {humanize(start)}
-      {` - ${duration}min`}
+      <Minutes>{`${duration}min`}</Minutes>
     </DateTime>
-    <HeroImage src={image} />
-    <Title>{title}</Title>
-    <Location>{location}</Location>
+
+    <div>
+      <Title>{title}</Title>
+      <Location>{location}</Location>
+    </div>
+
     {children}
   </Root>
 );

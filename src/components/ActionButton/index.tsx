@@ -12,10 +12,8 @@ interface Props {
   newCard: () => void;
 }
 
-const ActionButton = ({ newCard }: Props) => (
-  <Button onClick={block(newCard)}>
-    Add
-  </Button>
+const ActionButton: React.StatelessComponent<Props> = ({ newCard }) => (
+  <Button onClick={block(newCard)}>Add</Button>
 );
 
 export default ActionButton;

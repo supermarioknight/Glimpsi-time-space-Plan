@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { Action } from 'redux';
 import { Store as Timeline } from './Timeline/timeline.reducer';
 
 export interface Store {
@@ -18,4 +18,9 @@ export interface CardWithId extends Card {
   id: number;
 }
 
-export type Reducer = (store: {}, action: AnyAction) => {};
+export type Reducer = (store: {}, action: FluxStandardAction) => {};
+
+export interface FluxStandardAction extends Action {
+  // tslint:disable-next-line no-any
+  payload: any;
+}
