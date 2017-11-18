@@ -14,11 +14,11 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const App: React.StatelessComponent<Props> = ({ children }) => (
+const AppSkeleton: React.StatelessComponent<Props> = ({ children }) => (
   <Root>
     <Header />
     {children}
   </Root>
 );
 
-export default App;
+export default AppSkeleton;

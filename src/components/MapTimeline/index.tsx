@@ -12,6 +12,7 @@ const SLIDER_HEIGHT = '35px';
 const Root = styled.article`
   display: flex;
   flex-grow: 1;
+  height: 100%;
 `;
 const RightColumn = styled.div`
   overflow-y: auto;
