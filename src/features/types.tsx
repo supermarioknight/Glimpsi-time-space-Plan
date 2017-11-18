@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { Store as Timeline } from './Timeline/timeline.reducer';
+import { Store as Timeline } from './MapTimeline/timeline.reducer';
 
 export interface Store {
   timeline: Timeline;

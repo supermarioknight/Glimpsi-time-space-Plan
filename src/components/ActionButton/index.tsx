@@ -25,6 +25,7 @@ interface Props {
   newCard: () => void;
 }
 
+// tslint:disable-next-line no-any
 const ActionButton: React.StatelessComponent<Props> = ({ newCard }): any => [
   <Spacer key="spacer" />,
   <Button onClick={block(newCard)} key="button">

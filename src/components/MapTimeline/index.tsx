@@ -4,19 +4,22 @@ import Timeline, { Props as TimelineProps } from '../../components/Timeline';
 import ActionButton from '../ActionButton';
 import CardEditing from '../CardEditing';
 import Map from '../Map';
+import Slider from '../Slider';
+
+const SLIDER_HEIGHT = '35px';
 
 const Root = styled.article`
   display: flex;
   height: 100%;
 `;
-const TimelineContainer = styled.div`
+const RightColumn = styled.div`
   overflow-y: auto;
   flex-shrink: 0;
 `;
 
-const MapContainer = styled(Map)`
-  width: 100%:
-`;
+const MapContainer = styled.div`height: calc(100% - ${SLIDER_HEIGHT});`;
+
+const LeftColumn = styled.div`width: 100%;`;
 
 interface Props extends TimelineProps {
   adding: boolean;
@@ -40,13 +43,19 @@ const MapTimeline: React.StatelessComponent<Props> = ({
   // tslint:disable-next-line no-any
 }): any => (
   <Root>
-    <MapContainer />
+    <LeftColumn>
+      <Slider />
 
-    <TimelineContainer>
+      <MapContainer>
+        <Map />
+      </MapContainer>
+    </LeftColumn>
+
+    <RightColumn>
       <Timeline {...props} />
       {adding ? null : <ActionButton newCard={newCard} />}
       {adding ? <CardEditing onSave={props.saveCard} onCancel={cancelNewCard} /> : null}
-    </TimelineContainer>
+    </RightColumn>
   </Root>
 );
 

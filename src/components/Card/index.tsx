@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { humanize } from '../../lib/date';
+import { colors } from '../../assets/styles/variables';
 
 export interface Props {
   title: string;
@@ -23,6 +24,7 @@ export const Root = styled.div`
   height: 150px;
   background-size: cover;
   background-position: center center;
+  background-color: ${colors.white};
   position: relative;
   margin: 12px 0;
 `;

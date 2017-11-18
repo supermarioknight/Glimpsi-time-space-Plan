@@ -254,6 +254,12 @@
   dependencies:
     reselect "*"
 
+"@types/rheostat@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/rheostat/-/rheostat-2.1.2.tgz#4015c876eee242878793c475e8067256219f8bd6"
+  dependencies:
+    "@types/react" "*"
+
 "@types/storybook__addon-actions@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/storybook__addon-actions/-/storybook__addon-actions-3.0.1.tgz#e76b6cc3e6221d6578962a2ae59c3c33b6762453"
@@ -5323,9 +5329,17 @@ object-hash@^1.1.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-1.2.0.tgz#e96af0e96981996a1d47f88ead8f74f1ebc4422b"
 
-object-keys@^1.0.8:
+object-keys@^1.0.10, object-keys@^1.0.8:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
+
+object.assign@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/object.assign/-/object.assign-4.0.4.tgz#b1c9cc044ef1b9fe63606fc141abbb32e14730cc"
+  dependencies:
+    define-properties "^1.1.2"
+    function-bind "^1.1.0"
+    object-keys "^1.0.10"
 
 object.entries@^1.0.4:
   version "1.0.4"
@@ -6750,6 +6764,13 @@ restore-cursor@^2.0.0:
   dependencies:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
+
+rheostat@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/rheostat/-/rheostat-2.1.1.tgz#8279490098251b22ce483e419127bbbdd12218c1"
+  dependencies:
+    object.assign "^4.0.4"
+    prop-types "^15.5.10"
 
 right-align@^0.1.1:
   version "0.1.3"
