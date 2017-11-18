@@ -1,4 +1,5 @@
 import { css, ThemedCssFunction, SimpleInterpolation } from 'styled-components';
+import { mapValues } from 'lodash-es';
 
 const sizes = {
   desktopHd: 1440,
@@ -7,15 +8,17 @@ const sizes = {
   phone: 320,
 };
 
-export default Object.keys(sizes).reduce((accumulator, label) => {
+const breakpoints = mapValues(sizes, value => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
-  const emSize = sizes[label] / 16;
+  const emSize = value / 16;
   // tslint:disable-next-line no-any
   const func: ThemedCssFunction<any> = (
     strings: TemplateStringsArray,
     ...interpolations: SimpleInterpolation[]
-  ) => css`@media (max-width: ${emSize}em) {${css(strings, ...interpolations)};}`;
-  accumulator[label] = func;
-  return accumulator;
-}, {});
+  ) => css`@media (min-width: ${emSize}em) {${css(strings, ...interpolations)};}`;
+
+  return func;
+});
+
+export default breakpoints;
