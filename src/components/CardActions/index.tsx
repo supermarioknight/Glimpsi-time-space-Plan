@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { colors } from '../../assets/styles/variables';
 
 interface Props {
   onEdit: (e: React.MouseEvent<HTMLElement>) => void;
@@ -12,7 +13,7 @@ const Root = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: ${colors.cardActionsBackground};
 `;
 
 const Button = styled.button`

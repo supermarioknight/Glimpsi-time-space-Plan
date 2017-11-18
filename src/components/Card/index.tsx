@@ -24,7 +24,7 @@ export const Root = styled.div`
   height: 150px;
   background-size: cover;
   background-position: center center;
-  background-color: ${colors.white};
+  background-color: ${colors.cardBackground};
   position: relative;
   margin: 12px 0;
 `;

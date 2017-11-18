@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header';
+import { colors } from '../../assets/styles/variables';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const Root = styled.div`
-  background-color: #f5f5f5;
+  background-color: ${colors.background};
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const App: React.StatelessComponent<Props> = ({ children }) => (
