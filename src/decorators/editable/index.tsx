@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Omit } from 'react-redux';
 
 export interface InjectedProps {
   editing: boolean;
@@ -11,7 +12,9 @@ interface State {
 
 type HocProps<T extends InjectedProps> = Omit<T, keyof InjectedProps>;
 
-export default function <TProps extends InjectedProps>(WrappedComponent: React.ComponentType<TProps>) {
+export default function<TProps extends InjectedProps>(
+  WrappedComponent: React.ComponentType<TProps>
+) {
   return class Editable extends React.Component<HocProps<TProps>, State> {
     state = {
       editing: false,
@@ -21,9 +24,9 @@ export default function <TProps extends InjectedProps>(WrappedComponent: React.C
       this.setState({
         editing,
       });
-    }
+    };
 
-    render () {
+    render() {
       // Can't use object spread here.
       // See: https://github.com/Microsoft/TypeScript/issues/10727
       // tslint:disable-next-line prefer-object-spread

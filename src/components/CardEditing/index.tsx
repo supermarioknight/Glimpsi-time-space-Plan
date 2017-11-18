@@ -51,63 +51,68 @@ export default class CardEditing extends Component<Props> {
           image,
         }}
       >
-        {({ values, handleChange, handleBlur, handleSubmit }) => (
-          <Root>
-            <form onSubmit={handleSubmit}>
-              <button type="submit">Save</button>
-              <button type="cancel" onClick={this.cancel}>
-                Cancel
-              </button>
+        {({ values: vls, handleChange, handleBlur, handleSubmit }) => {
+          // tslint:disable-next-line no-any
+          const values = vls as any;
 
-              <DateTime>
+          return (
+            <Root>
+              <form onSubmit={handleSubmit}>
+                <button type="submit">Save</button>
+                <button type="cancel" onClick={this.cancel}>
+                  Cancel
+                </button>
+
+                <DateTime>
+                  <Textbox
+                    autoFocus
+                    value={values.start}
+                    label="Start"
+                    name="start"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+
+                  <Textbox
+                    value={values.duration}
+                    label="Duration"
+                    name="duration"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </DateTime>
+
                 <Textbox
-                  autoFocus
-                  value={values.start}
-                  label="Start"
-                  name="start"
+                  value={values.image}
+                  label="Image"
+                  name="image"
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
 
-                <Textbox
-                  value={values.duration}
-                  label="Duration"
-                  name="duration"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </DateTime>
+                <Title>
+                  <Textbox
+                    value={values.title}
+                    label="Title"
+                    name="title"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </Title>
 
-              <Textbox
-                value={values.image}
-                label="Image"
-                name="image"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-
-              <Title>
-                <Textbox
-                  value={values.title}
-                  label="Title"
-                  name="title"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </Title>
-
-              <Location>
-                <Textbox
-                  value={values.location}
-                  label="Location"
-                  name="location"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </Location>
-            </form>
-          </Root>
-        )}
+                <Location>
+                  <Textbox
+                    value={values.location}
+                    label="Location"
+                    name="location"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </Location>
+              </form>
+            </Root>
+          );
+        }}
       </Formik>
     );
   }

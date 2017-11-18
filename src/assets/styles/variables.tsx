@@ -19,6 +19,12 @@ export const _colors = {
   negative: rawColors.red,
   cardBackground: rawColors.white,
   cardActionsBackground: 'rgba(0, 0, 0, 0.75)',
+  modalOverlay: 'rgba(0, 0, 0, 0.5)',
+  modalBackground: rawColors.white,
+};
+
+export const zIndex = {
+  top: 999,
 };
 
 export const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);

@@ -5,6 +5,7 @@ import ActionButton from '../ActionButton';
 import CardEditing from '../CardEditing';
 import Map from '../Map';
 import Slider from '../Slider';
+import Modal from '../Modal';
 
 const SLIDER_HEIGHT = '35px';
 
@@ -54,7 +55,11 @@ const MapTimeline: React.StatelessComponent<Props> = ({
     <RightColumn>
       <Timeline {...props} />
       {adding ? null : <ActionButton newCard={newCard} />}
-      {adding ? <CardEditing onSave={props.saveCard} onCancel={cancelNewCard} /> : null}
+      {adding ? (
+        <Modal>
+          <CardEditing onSave={props.saveCard} onCancel={cancelNewCard} />
+        </Modal>
+      ) : null}
     </RightColumn>
   </Root>
 );
