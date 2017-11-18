@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import MapPage from '../../components/MapPage';
+import MapTimeline from '../../components/MapTimeline';
 import { saveCard, newCard, removeCard, cancelNewCard, updateTimeline } from './actions';
 import { Store } from '../types';
 
@@ -18,4 +18,4 @@ export default connect(selector, {
   removeCard,
   updateTimeline,
   cancelNewCard,
-})(MapPage);
+})(MapTimeline);

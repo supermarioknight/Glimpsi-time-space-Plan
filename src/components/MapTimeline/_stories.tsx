@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { image } from 'faker';
 
-import MapPage from './';
+import MapTimeline from './';
 
 const props = {
   start: '2017-10-04',
@@ -45,9 +45,9 @@ const props = {
   ],
 };
 
-storiesOf('MapPage', module)
+storiesOf('MapTimeline', module)
   .add('default', () => (
-    <MapPage
+    <MapTimeline
       {...props}
       newCard={action('newCard()')}
       saveCard={action('saveCard()')}
@@ -57,7 +57,7 @@ storiesOf('MapPage', module)
     />
   ))
   .add('adding card', () => (
-    <MapPage
+    <MapTimeline
       {...props}
       adding
       newCard={action('newCard()')}

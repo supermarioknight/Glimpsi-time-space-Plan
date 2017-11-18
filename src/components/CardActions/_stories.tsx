@@ -13,9 +13,8 @@ const Box = styled.div`
   background-size: cover;
 `;
 
-storiesOf('CardActions', module)
-  .add('default', () => (
-    <CardActions onEdit={action('onEdit()')} onDelete={action('onDelete()')}>
-      <Box />
-    </CardActions>
-  ));
+storiesOf('Card/Actions', module).add('default', () => (
+  <CardActions onEdit={action('onEdit()')} onDelete={action('onDelete()')}>
+    <Box />
+  </CardActions>
+));

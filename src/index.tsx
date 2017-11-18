@@ -6,6 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 import App from './features/App';
 import registerServiceWorker from './registerServiceWorker';
 import Store from './Store';
+import './styles';
 
 const history = createHistory();
 
@@ -15,7 +16,7 @@ ReactDOM.render(
       <Route path="/" component={App} />
     </Router>
   </Store>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 registerServiceWorker();
