@@ -1,4 +1,5 @@
-import reducer, { Store } from './timeline.reducer';
+import reducer, { Store } from './reducer';
+import { SaveCard, NewCard, CancelNewCard, RemoveCard } from './actions';
 
 export const defaultState: Store = {
   adding: false,
@@ -12,13 +13,17 @@ describe('timeline reducer', () => {
     const state: Store = {
       ...defaultState,
     };
-    const action = {
+    const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         location: 'Haneda, Japan',
-        image: 'https://image.com',
+        duration: 50,
+        position: {
+          lat: 50,
+          lng: 50,
+        },
       },
     };
 
@@ -31,13 +36,17 @@ describe('timeline reducer', () => {
     const state = {
       ...defaultState,
     };
-    const action = {
+    const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         location: 'Haneda, Japan',
-        image: 'https://image.com',
+        duration: 50,
+        position: {
+          lat: 50,
+          lng: 50,
+        },
       },
     };
 
@@ -61,7 +70,6 @@ describe('timeline reducer', () => {
           location: '',
           start: '',
           duration: 30,
-          image: '',
           position: {
             lat: 1,
             lng: 2,
@@ -69,14 +77,13 @@ describe('timeline reducer', () => {
         },
       ],
     };
-    const action = {
+    const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         location: 'Haneda, Japan',
         duration: 30,
-        image: 'https://image.com',
         position: {
           lat: 1,
           lng: 2,
@@ -100,7 +107,7 @@ describe('timeline reducer', () => {
     const state = {
       ...defaultState,
     };
-    const action = {
+    const action: NewCard = {
       type: 'NEW_CARD',
     };
 
@@ -116,7 +123,7 @@ describe('timeline reducer', () => {
       start: '',
       end: '',
     };
-    const action = {
+    const action: CancelNewCard = {
       type: 'CANCEL_NEW_CARD',
     };
 
@@ -143,7 +150,7 @@ describe('timeline reducer', () => {
         },
       ],
     };
-    const action = {
+    const action: RemoveCard = {
       type: 'REMOVE_CARD',
       payload: {
         id: 2,

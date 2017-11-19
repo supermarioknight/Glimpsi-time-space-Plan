@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
+import Select from '../Select';
 import Textbox from '../Textbox';
 import { Card } from '../../features/types';
 
@@ -90,6 +91,13 @@ export default class CardEditing extends Component<Props> {
                 </Title>
 
                 <Location>
+                  <Select
+                    name="location"
+                    value={values.location}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+
                   <Textbox
                     value={values.location}
                     label="Location"

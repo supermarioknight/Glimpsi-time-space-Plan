@@ -1,8 +1,10 @@
 import { Action } from 'redux';
-import { Store as Timeline } from './MapTimeline/timeline.reducer';
+import { Store as Timeline } from './MapTimeline/reducer';
+import { Store as Locations } from './LocationSelect/reducer';
 
 export interface Store {
   timeline: Timeline;
+  locations: Locations;
 }
 
 export interface Card {

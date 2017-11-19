@@ -10,8 +10,8 @@ module.exports = {
       {
         test: /\.ts|\.tsx$/,
         loader: 'ts-loader',
-        include: path.resolve(__dirname, '../src')
-      }
-    ]
-  }
+        include: path.resolve(__dirname, '../src'),
+      },
+    ],
+  },
 };

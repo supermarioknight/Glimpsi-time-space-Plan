@@ -6,24 +6,16 @@ import rootReducer from './features/rootReducer';
 import rootEpic from './features/rootEpic';
 
 // tslint:disable-next-line no-any
-const wndo = (window.parent || window) as any;
-const composeEnhancers = wndo.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const actualWindow = (window.parent || window) as any;
+const composeEnhancers = actualWindow.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
-const store = createStore(rootReducer,
-  composeEnhancers(
-    applyMiddleware(epicMiddleware),
-  ),
-);
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(epicMiddleware)));
 
 interface Props {
   children: React.ReactNode;
 }
 
-const Store = ({ children }: Props) => (
-  <Provider store={store}>
-    {children}
-  </Provider>
-);
+const Store = ({ children }: Props) => <Provider store={store}>{children}</Provider>;
 
 export default Store;

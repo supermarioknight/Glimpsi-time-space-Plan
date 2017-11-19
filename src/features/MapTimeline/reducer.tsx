@@ -1,8 +1,10 @@
-import { AnyAction } from 'redux';
+import { NewCard, CancelNewCard, RemoveCard, UpdateTimeline, SaveCard } from './actions';
 import { CardWithId } from '../types';
 import exampleCards from './exampleCards';
 
-export const defaultState: Store = {
+type Actions = NewCard | CancelNewCard | RemoveCard | UpdateTimeline | SaveCard;
+
+const defaultState: Store = {
   adding: false,
   cards: exampleCards,
   start: '',
@@ -16,7 +18,7 @@ export interface Store {
   end: string;
 }
 
-export default (store: Store, action: AnyAction) => {
+export default (store: Store = defaultState, action: Actions) => {
   switch (action.type) {
     case 'NEW_CARD':
       return {
@@ -67,6 +69,6 @@ export default (store: Store, action: AnyAction) => {
     }
 
     default:
-      return undefined;
+      return store;
   }
 };
