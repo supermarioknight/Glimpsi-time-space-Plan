@@ -1,10 +1,5 @@
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import Store from '../../Store';
+import { reduxStoriesOf } from '../../lib/storybook';
 import MapTimeline from './';
 
-storiesOf('Connected()/MapTimeline', module).add('default', () => (
-  <Store>
-    <MapTimeline />
-  </Store>
-));
+reduxStoriesOf('Connected()/MapTimeline', module).add('default', () => <MapTimeline />);

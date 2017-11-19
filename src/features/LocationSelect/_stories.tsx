@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
+import { reduxStoriesOf } from '../../lib/storybook';
 import LocationSelect from './';
 
-storiesOf('LocationSelect', module).add('default', () => <LocationSelect />);
+reduxStoriesOf('Connected()/LocationSelect', module).add('default', () => <LocationSelect />);
