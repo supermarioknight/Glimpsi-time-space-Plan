@@ -181,6 +181,10 @@
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.2.tgz#f8ab50c9f9af68c160dd71b63f83e24b712d0df5"
 
+"@types/googlemaps@^3.30.0":
+  version "3.30.0"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.0.tgz#ca99a74b97d581b1cdbccf2973d05f26633d1975"
+
 "@types/history@*":
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.6.1.tgz#0dbaef4febad5d074d06dbdfae6b027d1d701d25"

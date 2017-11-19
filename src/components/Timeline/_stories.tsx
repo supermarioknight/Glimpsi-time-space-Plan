@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { image } from 'faker';
 
 import Timeline from './';
 
@@ -16,7 +15,10 @@ storiesOf('Timeline', module).add('default', () => (
         title: 'Snow Fight',
         location: 'Haneda, Japan',
         duration: 60,
-        image: image.city(),
+        position: {
+          lat: -33.9399228,
+          lng: 151.1752764,
+        },
       },
       {
         id: 2,
@@ -24,7 +26,10 @@ storiesOf('Timeline', module).add('default', () => (
         title: 'Valentines Day',
         location: 'Sapporo, Hokkaido, Japan',
         duration: 60,
-        image: image.animals(),
+        position: {
+          lat: -33.9399228,
+          lng: 151.1752764,
+        },
       },
       {
         id: 3,
@@ -32,7 +37,10 @@ storiesOf('Timeline', module).add('default', () => (
         title: 'Onsen Bath',
         location: 'Tokyo, Japan',
         duration: 31,
-        image: image.nature(),
+        position: {
+          lat: -33.9399228,
+          lng: 151.1752764,
+        },
       },
       {
         id: 4,
@@ -40,7 +48,10 @@ storiesOf('Timeline', module).add('default', () => (
         title: 'Skiing',
         location: 'Kyoto, Japan',
         duration: 30,
-        image: image.fashion(),
+        position: {
+          lat: -33.9399228,
+          lng: 151.1752764,
+        },
       },
     ]}
   />

@@ -7,11 +7,15 @@ export interface Store {
 
 export interface Card {
   id?: number;
+  image?: string;
   duration: number;
   title: string;
   location: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
   start: string;
-  image: string;
 }
 
 export interface CardWithId extends Card {

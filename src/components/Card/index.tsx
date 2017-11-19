@@ -6,7 +6,6 @@ import { colors } from '../../assets/styles/variables';
 export interface Props {
   title: string;
   location: string;
-  image: string;
   start: string;
   duration: number;
   children?: React.ReactNode;
@@ -61,7 +60,6 @@ const Card: React.StatelessComponent<Props> = ({ title, location, start, duratio
 );
 
 Card.defaultProps = {
-  image: '',
   children: undefined,
 };
 

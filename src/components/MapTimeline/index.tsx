@@ -49,7 +49,7 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       <Slider />
 
       <MapContainer>
-        <Map />
+        <Map markers={props.items} />
       </MapContainer>
     </LeftColumn>
 

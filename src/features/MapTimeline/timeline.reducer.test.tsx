@@ -1,4 +1,11 @@
-import reducer, { defaultState, Store } from './timeline.reducer';
+import reducer, { Store } from './timeline.reducer';
+
+export const defaultState: Store = {
+  adding: false,
+  cards: [],
+  start: '',
+  end: '',
+};
 
 describe('timeline reducer', () => {
   it('should cancel adding on save', () => {
@@ -36,23 +43,31 @@ describe('timeline reducer', () => {
 
     const newState = reducer(state, action);
 
-    expect(newState.cards).toEqual([{
-      ...action.payload,
-      id: 1,
-    }]);
+    expect(newState.cards).toEqual([
+      {
+        ...action.payload,
+        id: 1,
+      },
+    ]);
   });
 
   it('should increment id if previous card exists', () => {
     const state: Store = {
       ...defaultState,
-      cards: [{
-        id: 2,
-        title: '',
-        location: '',
-        start: '',
-        duration: 30,
-        image: '',
-      }],
+      cards: [
+        {
+          id: 2,
+          title: '',
+          location: '',
+          start: '',
+          duration: 30,
+          image: '',
+          position: {
+            lat: 1,
+            lng: 2,
+          },
+        },
+      ],
     };
     const action = {
       type: 'SAVE_CARD',
@@ -62,15 +77,23 @@ describe('timeline reducer', () => {
         location: 'Haneda, Japan',
         duration: 30,
         image: 'https://image.com',
+        position: {
+          lat: 1,
+          lng: 2,
+        },
       },
     };
 
     const newState = reducer(state, action);
 
-    expect(newState.cards).toEqual(state.cards.concat([{
-      ...action.payload,
-      id: 3,
-    }]));
+    expect(newState.cards).toEqual(
+      state.cards.concat([
+        {
+          ...action.payload,
+          id: 3,
+        },
+      ])
+    );
   });
 
   it('should set adding', () => {
@@ -105,14 +128,20 @@ describe('timeline reducer', () => {
   it('should remove card', () => {
     const state: Store = {
       ...defaultState,
-      cards: [{
-        id: 2,
-        title: '',
-        location: '',
-        start: '',
-        image: '',
-        duration: 30,
-      }],
+      cards: [
+        {
+          id: 2,
+          title: '',
+          location: '',
+          start: '',
+          image: '',
+          duration: 30,
+          position: {
+            lat: 1,
+            lng: 2,
+          },
+        },
+      ],
     };
     const action = {
       type: 'REMOVE_CARD',

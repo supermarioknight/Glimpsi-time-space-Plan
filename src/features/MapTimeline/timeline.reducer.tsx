@@ -1,9 +1,10 @@
 import { AnyAction } from 'redux';
 import { CardWithId } from '../types';
+import exampleCards from './exampleCards';
 
 export const defaultState: Store = {
   adding: false,
-  cards: [],
+  cards: exampleCards,
   start: '',
   end: '',
 };
