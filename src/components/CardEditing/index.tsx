@@ -9,7 +9,6 @@ export interface Props {
   id?: number;
   title?: string;
   location?: string;
-  image?: string;
   start?: string;
   duration?: number;
   onSave: (values: Card) => void;
@@ -22,7 +21,6 @@ export default class CardEditing extends Component<Props> {
     location: '',
     start: '',
     duration: 0,
-    image: '',
   };
 
   finish = (values: Card) => {
@@ -38,7 +36,7 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration, image } = this.props;
+    const { title, location, start, duration } = this.props;
 
     return (
       <Formik
@@ -48,7 +46,6 @@ export default class CardEditing extends Component<Props> {
           location,
           start,
           duration,
-          image,
         }}
       >
         {({ values: vls, handleChange, handleBlur, handleSubmit }) => {
@@ -81,14 +78,6 @@ export default class CardEditing extends Component<Props> {
                     onBlur={handleBlur}
                   />
                 </DateTime>
-
-                <Textbox
-                  value={values.image}
-                  label="Image"
-                  name="image"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
 
                 <Title>
                   <Textbox

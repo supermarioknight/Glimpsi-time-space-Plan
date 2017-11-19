@@ -10,12 +10,15 @@ interface MarkerObj {
 }
 
 export interface Props {
+  autofit?: boolean;
   className?: string;
   markers?: MarkerObj[];
+  zoom?: number;
 }
 
 interface DefaultProps extends Props {
   markers: MarkerObj[];
+  zoom: number;
 }
 
 const calcCenter = (markers: MarkerObj[]) => {
@@ -42,15 +45,18 @@ const calcCenter = (markers: MarkerObj[]) => {
 };
 
 class Map extends React.Component<Props> {
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     markers: [],
+    zoom: 14,
   };
 
   _map: google.maps.Map;
 
   onMapMounted = (ref: google.maps.Map) => {
     this._map = ref;
-    this.fitBoundsToMarkers();
+    if (this._map) {
+      this.fitBoundsToMarkers();
+    }
   };
 
   componentDidUpdate() {
@@ -58,8 +64,8 @@ class Map extends React.Component<Props> {
   }
 
   fitBoundsToMarkers = () => {
-    const { markers } = this.props as DefaultProps;
-    if (!markers.length) {
+    const { autofit, markers } = this.props as DefaultProps;
+    if (!autofit || !markers.length) {
       return;
     }
 
@@ -75,7 +81,7 @@ class Map extends React.Component<Props> {
     const { markers } = this.props as DefaultProps;
 
     return (
-      <GoogleMap defaultZoom={10} center={calcCenter(markers)} ref={this.onMapMounted}>
+      <GoogleMap zoom={this.props.zoom} center={calcCenter(markers)} ref={this.onMapMounted}>
         {markers.map((marker, index) => <Marker position={marker.position} key={index} />)}
       </GoogleMap>
     );

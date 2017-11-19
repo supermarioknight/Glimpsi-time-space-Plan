@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Timeline, { Props as TimelineProps } from '../../components/Timeline';
 import ActionButton from '../ActionButton';
-import CardEditing from '../CardEditing';
+import NewCard from '../CardNew';
 import Map from '../Map';
 import Slider from '../Slider';
 import Modal from '../Modal';
@@ -49,7 +49,7 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       <Slider />
 
       <MapContainer>
-        <Map markers={props.items} />
+        <Map markers={props.items} autofit />
       </MapContainer>
     </LeftColumn>
 
@@ -58,7 +58,7 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       {adding ? null : <ActionButton newCard={newCard} />}
       {adding ? (
         <Modal>
-          <CardEditing onSave={props.saveCard} onCancel={cancelNewCard} />
+          <NewCard onSave={props.saveCard} onCancel={cancelNewCard} />
         </Modal>
       ) : null}
     </RightColumn>
