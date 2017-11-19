@@ -35,15 +35,12 @@ interface Props extends TimelineProps {
   end: string;
 }
 
-// Can't return arrays from stateless components yet.
-// See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20356#issuecomment-336384210
 const MapTimeline: React.StatelessComponent<Props> = ({
   newCard,
   cancelNewCard,
   adding,
   ...props,
-  // tslint:disable-next-line no-any
-}): any => (
+}) => (
   <Root>
     <LeftColumn>
       <Slider />
