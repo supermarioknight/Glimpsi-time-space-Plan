@@ -5,9 +5,9 @@ import { locationsSearch } from './actions';
 import { Store } from '../types';
 
 const selector = createSelector(
-  (store: Store) => store.locations.searches,
+  (store: Store) => store.locations.terms.macquarie && store.locations.terms.macquarie.options,
   (store: Store) => store.locations.loading,
-  (values, loading) => ({ values, loading })
+  (options, loading) => ({ options, loading })
 );
 
 export default connect(selector, {

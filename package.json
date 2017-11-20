@@ -12,6 +12,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "date-fns": "^1.29.0",
     "formik": "^0.10.0",
     "history": "^4.7.2",

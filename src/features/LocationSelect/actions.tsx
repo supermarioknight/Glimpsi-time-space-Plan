@@ -1,7 +1,7 @@
-import { Location } from './reducer';
+import { Location } from '../../lib/maps';
 
-const LOCATIONS_SEARCH = 'LOCATIONS_SEARCH';
-const LOCATIONS_SEARCH_SUCCESS = 'LOCATIONS_SEARCH_SUCCESS';
+export const LOCATIONS_SEARCH = 'LOCATIONS_SEARCH';
+export const LOCATIONS_SEARCH_SUCCESS = 'LOCATIONS_SEARCH_SUCCESS';
 
 export interface LocationSearchSuccess {
   type: typeof LOCATIONS_SEARCH_SUCCESS;

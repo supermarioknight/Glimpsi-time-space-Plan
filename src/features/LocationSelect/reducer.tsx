@@ -1,39 +1,55 @@
-import { LocationSearchSuccess, LocationSearch } from './actions';
+import {
+  LocationSearchSuccess,
+  LocationSearch,
+  LOCATIONS_SEARCH_SUCCESS,
+  LOCATIONS_SEARCH,
+} from './actions';
+
+import { Location } from '../../lib/maps';
 
 type Actions = LocationSearchSuccess | LocationSearch;
 
-export interface Location {
-  formatted_address: string;
-  geometry: {
-    location: {
-      lat: number;
-      long: number;
-    };
-  };
-}
-
 const defaultState: Store = {
   loading: false,
-  searches: {},
+  terms: {},
 };
+
+interface Value {
+  value: string;
+  label: string;
+}
+
+interface LocationAndOptions {
+  locations: Location[];
+  options: Value[];
+}
 
 export interface Store {
   loading: boolean;
-  searches: {
-    [key: string]: string;
+  terms: {
+    [key: string]: LocationAndOptions;
   };
 }
 
 export default (store: Store = defaultState, action: Actions) => {
   switch (action.type) {
-    case 'LOCATIONS_SEARCH_SUCCESS':
+    case LOCATIONS_SEARCH_SUCCESS:
       return {
         ...store,
         loading: false,
-        [action.payload.term]: action.payload.locations,
+        terms: {
+          ...store.terms,
+          [action.payload.term]: {
+            locations: action.payload.locations,
+            options: action.payload.locations.map(location => ({
+              value: JSON.stringify(location.geometry.location),
+              label: location.formatted_address,
+            })),
+          },
+        },
       };
 
-    case 'LOCATIONS_SEARCH':
+    case LOCATIONS_SEARCH:
       return {
         ...store,
         loading: true,
