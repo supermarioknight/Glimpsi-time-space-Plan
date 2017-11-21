@@ -8,3 +8,4 @@
 - should be able to create multiple "plans"
 - display ads, pay money get rid of ads
 - paid ad
+- anchor times (for example need to be at a place at a period of time)

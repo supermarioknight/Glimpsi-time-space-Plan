@@ -16,9 +16,5 @@ export const reduxStoriesOf = (name: string, module: NodeModule) =>
   storiesOf(name, module).addDecorator(story => {
     const store = createStore([storybookActionMiddleware]);
 
-    return (
-      <Provider store={store} key={Math.random()}>
-        {story()}
-      </Provider>
-    );
+    return <Provider store={store}>{story()}</Provider>;
   });
