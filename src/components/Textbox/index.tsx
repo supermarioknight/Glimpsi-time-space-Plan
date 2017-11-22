@@ -9,17 +9,13 @@ interface Props {
   // tslint:disable-next-line no-any
   onBlur: (e: any) => void;
   innerRef?: (ref: null | HTMLElement) => void;
-  value: string;
+  value: string | number;
   placeholder?: string;
 }
 
-const Input = styled.input`
-  font-size: 16px;
-`;
+const Input = styled.input`font-size: 16px;`;
 
-const Label = styled.label`
-  font-size: 16px;
-`;
+const Label = styled.label`font-size: 16px;`;
 
 const LabelText = styled.span`
   display: block;
@@ -32,11 +28,7 @@ const Textbox: React.StatelessComponent<Props> = ({ label, placeholder, innerRef
   <Label>
     <LabelText>{label}</LabelText>
 
-    <Input
-      placeholder={placeholder || label}
-      innerRef={innerRef}
-      {...props}
-    />
+    <Input placeholder={placeholder || label} innerRef={innerRef} {...props} />
   </Label>
 );
 

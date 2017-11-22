@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import CardEditing from '../CardEditing';
+import CardEditing, { OnSave } from '../CardEditing';
 import Card, { Props as CardProps } from '../Card';
 import CardActions from '../CardActions';
 import Hoverable from '../Hoverable';
-import editable, { InjectedProps } from '../../decorators/editable';
 import { Card as CardType } from '../../features/types';
+import editable, { InjectedProps } from '../../decorators/editable';
 
 interface Props extends InjectedProps, CardProps {
   id: number;
   onDelete: (id: number) => void;
-  onSave: (values: CardType) => void;
+  onSave: OnSave;
 }
 
 export default editable<Props>(

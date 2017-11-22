@@ -18,11 +18,13 @@ describe('timeline reducer', () => {
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
-        location: 'Haneda, Japan',
         duration: 50,
-        position: {
-          lat: 50,
-          lng: 50,
+        location: {
+          formattedAddress: 'Sapporo, Hokkaido, Japan',
+          position: {
+            lat: 1,
+            lng: 1,
+          },
         },
       },
     };
@@ -41,11 +43,13 @@ describe('timeline reducer', () => {
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
-        location: 'Haneda, Japan',
         duration: 50,
-        position: {
-          lat: 50,
-          lng: 50,
+        location: {
+          formattedAddress: 'Sapporo, Hokkaido, Japan',
+          position: {
+            lat: 1,
+            lng: 1,
+          },
         },
       },
     };
@@ -67,12 +71,14 @@ describe('timeline reducer', () => {
         {
           id: 2,
           title: '',
-          location: '',
           start: '',
           duration: 30,
-          position: {
-            lat: 1,
-            lng: 2,
+          location: {
+            formattedAddress: 'Sapporo, Hokkaido, Japan',
+            position: {
+              lat: 1,
+              lng: 1,
+            },
           },
         },
       ],
@@ -82,11 +88,13 @@ describe('timeline reducer', () => {
       payload: {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
-        location: 'Haneda, Japan',
         duration: 30,
-        position: {
-          lat: 1,
-          lng: 2,
+        location: {
+          formattedAddress: 'Sapporo, Hokkaido, Japan',
+          position: {
+            lat: 1,
+            lng: 1,
+          },
         },
       },
     };
@@ -139,13 +147,14 @@ describe('timeline reducer', () => {
         {
           id: 2,
           title: '',
-          location: '',
           start: '',
-          image: '',
           duration: 30,
-          position: {
-            lat: 1,
-            lng: 2,
+          location: {
+            formattedAddress: 'Sapporo, Hokkaido, Japan',
+            position: {
+              lat: 1,
+              lng: 1,
+            },
           },
         },
       ],

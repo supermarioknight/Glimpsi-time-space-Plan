@@ -2,13 +2,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { differenceInMinutes } from 'date-fns';
 import EditableCard from '../EditableCard';
+import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
 import ColorStrip from '../ColorStrip';
 
 export interface Props {
   items: CardWithId[];
-  // tslint:disable-next-line no-any
-  saveCard: (item: CardWithId) => any;
+  saveCard: OnSave;
   // tslint:disable-next-line no-any
   removeCard: (id: number) => any;
 }

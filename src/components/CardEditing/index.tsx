@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
 import { Formik, FormikProps } from 'formik';
+import { noop } from 'lodash-es';
 import Textbox from '../Textbox';
-import { Card } from '../../features/types';
 import LocationSelect from '../LocationSelect';
+import { Card } from '../../features/types';
 
 import { Root, Title, Location, DateTime } from '../Card';
+
+// tslint:disable-next-line no-any
+export type OnSave = (values: Card) => any;
 
 export interface Props {
   id?: number;
   title?: string;
-  location?: string;
+  location?: {
+    formattedAddress: string;
+    position: {
+      lat: number;
+      lng: number;
+    };
+  };
   start?: string;
   duration?: number;
-  onSave: (values: Card) => void;
-  onCancel: () => void;
+  onSave: OnSave;
+  // tslint:disable-next-line no-any
+  onCancel: () => any;
+  renderLeft?: (values: Card) => React.ReactNode;
 }
 
-interface Values {
-  title: string;
-  location: {
-    formattedAddress: string;
-    position: any;
-  };
-  start: string;
-  duration: string;
+interface DefaultProps extends Props {
+  renderLeft: (values: Card) => React.ReactNode;
 }
 
 export default class CardEditing extends Component<Props> {
-  static defaultProps = {
-    title: '',
-    location: '',
-    start: '',
-    duration: 0,
+  static defaultProps: DefaultProps = {
+    title: undefined,
+    location: undefined,
+    start: undefined,
+    duration: undefined,
+    renderLeft: () => null,
+    onSave: noop,
+    onCancel: noop,
   };
 
   finish = (values: Card) => {
@@ -47,18 +56,14 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration } = this.props;
+    const { title, location, start, duration, renderLeft } = this.props as DefaultProps;
 
     return (
       <Formik onSubmit={this.finish} initialValues={{ title, location, start, duration }}>
-        {({
-          values,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          setFieldValue,
-        }: FormikProps<Values>) => (
-          <Root>
+        {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }: FormikProps<Card>) => [
+          renderLeft(values),
+
+          <Root key="root">
             <form onSubmit={handleSubmit}>
               <button type="submit">Save</button>
               <button type="cancel" onClick={this.cancel}>
@@ -79,7 +84,8 @@ export default class CardEditing extends Component<Props> {
                   value={values.duration}
                   label="Duration"
                   name="duration"
-                  onChange={handleChange}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFieldValue('duration', +e.target.value)}
                   onBlur={handleBlur}
                 />
               </DateTime>
@@ -101,8 +107,8 @@ export default class CardEditing extends Component<Props> {
                 />
               </Location>
             </form>
-          </Root>
-        )}
+          </Root>,
+        ]}
       </Formik>
     );
   }

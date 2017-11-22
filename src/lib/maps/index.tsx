@@ -8,7 +8,7 @@ export interface Location {
   geometry: {
     location: {
       lat: number;
-      long: number;
+      lng: number;
     };
   };
 }

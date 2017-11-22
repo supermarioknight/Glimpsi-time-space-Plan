@@ -4,7 +4,7 @@ import Map from './';
 import exampleCards from '../../features/MapTimeline/exampleCards';
 
 const markers = exampleCards.map(example => ({
-  position: example.position,
+  position: example.location.position,
 }));
 
 storiesOf('Map', module)

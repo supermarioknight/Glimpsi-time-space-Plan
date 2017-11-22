@@ -2,12 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { humanize } from '../../lib/date';
 import { colors } from '../../assets/styles/variables';
+import { Card as CardProps } from '../../features/types';
 
-export interface Props {
-  title: string;
-  location: string;
-  start: string;
-  duration: number;
+export interface Props extends CardProps {
   children?: React.ReactNode;
 }
 
@@ -52,7 +49,7 @@ const Card: React.StatelessComponent<Props> = ({ title, location, start, duratio
 
     <div>
       <Title>{title}</Title>
-      <Location>{location}</Location>
+      <Location>{location.formattedAddress}</Location>
     </div>
 
     {children}

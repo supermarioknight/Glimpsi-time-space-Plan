@@ -46,7 +46,7 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       <Slider />
 
       <MapContainer>
-        <Map markers={props.items} autofit />
+        <Map markers={props.items.map(item => item.location)} autofit />
       </MapContainer>
     </LeftColumn>
 

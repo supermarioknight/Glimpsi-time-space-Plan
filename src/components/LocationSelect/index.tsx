@@ -10,7 +10,7 @@ interface Geocode {
   formattedAddress: string;
   position: {
     lat: number;
-    long: number;
+    lng: number;
   };
 }
 
@@ -18,7 +18,7 @@ export type OnChange = (geocode: Geocode) => void;
 
 interface Props {
   onChange: OnChange;
-  value?: ReactSelectOnChange;
+  value?: Geocode;
 }
 
 interface ReactSelectOnChange {

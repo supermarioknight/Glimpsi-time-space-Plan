@@ -18,11 +18,14 @@ interface Props extends EditingProps {}
 
 const NewCard = (props: Props) => (
   <Root>
-    <MapContainer>
-      <Map markers={[{ position: { lat: -33.9399228, lng: 151.1752764 } }]} />
-    </MapContainer>
-
-    <CardEditing {...props} />
+    <CardEditing
+      {...props}
+      renderLeft={values => (
+        <MapContainer>
+          <Map markers={[values.location].filter(Boolean)} />
+        </MapContainer>
+      )}
+    />
   </Root>
 );
 
