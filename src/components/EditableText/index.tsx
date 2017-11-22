@@ -28,11 +28,9 @@ interface State {
   editing: boolean;
 }
 
-const Clickable = styled.span`
-  cursor: pointer;
-`;
+const Clickable = styled.span`cursor: pointer;`;
 
-function selectText (ref: HTMLFormElement | null) {
+function selectText(ref: HTMLFormElement | null) {
   if (ref) {
     ref.select();
     ref.focus();
@@ -40,59 +38,59 @@ function selectText (ref: HTMLFormElement | null) {
 }
 
 export default editable<Props>(
-class EditableText extends React.Component<Props, State> {
-  // Default props currently don't work as nicely as you'd expect.
-  // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11640
-  static defaultProps: DefaultProps = {
-    name: 'text',
-    renderText: (props) => <div {...props} />,
-  };
+  class EditableText extends React.Component<Props, State> {
+    // Default props currently don't work as nicely as you'd expect.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11640
+    static defaultProps: DefaultProps = {
+      name: 'text',
+      renderText: props => <div {...props} />,
+    };
 
-  finish = (values: { [value: string]: string }) => {
-    const { name, onSave, setEditing, defaultValue } = this.props as PropsWithDefaults;
+    finish = (values: { [value: string]: string }) => {
+      const { name, onSave, setEditing, defaultValue } = this.props as PropsWithDefaults;
 
-    const value = values[name];
-    if (value !== defaultValue) {
-      onSave(value);
-    }
+      const value = values[name];
+      if (value !== defaultValue) {
+        onSave(value);
+      }
 
-    setEditing(false);
-  }
+      setEditing(false);
+    };
 
-  render () {
-    const { defaultValue, renderText, ...props } = this.props as PropsWithDefaults;
+    render() {
+      const { defaultValue, renderText, ...props } = this.props as PropsWithDefaults;
 
-    if (this.props.editing) {
+      if (this.props.editing) {
+        return (
+          <Formik
+            onSubmit={this.finish}
+            initialValues={{
+              [props.name]: defaultValue,
+            }}
+          >
+            {({ values, handleChange, handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <Textbox
+                  {...props}
+                  innerRef={selectText}
+                  value={values[props.name]}
+                  onChange={handleChange}
+                  onBlur={handleSubmit}
+                />
+              </form>
+            )}
+          </Formik>
+        );
+      }
+
       return (
-        <Formik
-          onSubmit={this.finish}
-          initialValues={{
-            [props.name]: defaultValue,
-          }}
-        >
-          {({ values, handleChange, handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <Textbox
-                {...props}
-                innerRef={selectText}
-                value={values[props.name]}
-                onChange={handleChange}
-                onBlur={handleSubmit}
-              />
-            </form>
-          )}
-        </Formik>
+        <Clickable>
+          {renderText({
+            children: defaultValue,
+            onClick: () => this.props.setEditing(true),
+          })}
+        </Clickable>
       );
     }
-
-    return (
-      <Clickable>
-        {renderText({
-          children: defaultValue,
-          onClick: () => this.props.setEditing(true),
-        })}
-      </Clickable>
-    );
   }
-}
 );

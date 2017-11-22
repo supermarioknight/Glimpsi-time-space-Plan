@@ -1,5 +1,24 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import Select from './';
+import { action } from '@storybook/addon-actions';
+import Select, { OnChange } from './';
 
-storiesOf('Select', module).add('default', () => <Select />);
+class SelectState extends React.Component {
+  state = {
+    value: undefined,
+  };
+
+  onChange: OnChange = geocode => {
+    action('onChange')(geocode);
+
+    this.setState({
+      value: geocode,
+    });
+  };
+
+  render() {
+    return <Select value={this.state.value} onChange={this.onChange} />;
+  }
+}
+
+storiesOf('Select', module).add('default', () => <SelectState />);
