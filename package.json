@@ -12,13 +12,17 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@types/react-dates": "^12.1.6",
     "axios": "^0.17.1",
     "date-fns": "^1.29.0",
     "formik": "^0.10.0",
     "history": "^4.7.2",
     "lodash-es": "^4.17.4",
+    "moment": "^2.19.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-addons-shallow-compare": "^15.6.2",
+    "react-dates": "^15.1.0",
     "react-dom": "^16.0.0",
     "react-google-maps": "^9.2.2",
     "react-redux": "^5.0.6",

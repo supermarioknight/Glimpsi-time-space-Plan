@@ -21,7 +21,7 @@ const NewCard = (props: Props) => (
     <CardEditing
       {...props}
       renderLeft={values => (
-        <MapContainer>
+        <MapContainer key="map">
           <Map markers={[values.location].filter(Boolean)} />
         </MapContainer>
       )}

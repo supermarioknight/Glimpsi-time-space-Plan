@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { noop } from 'lodash-es';
+import moment from 'moment';
 import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
+import DatePicker from '../DatePicker';
 
 import { Root, Title, Location, DateTime } from '../Card';
 
@@ -34,10 +36,10 @@ interface DefaultProps extends Props {
 
 export default class CardEditing extends Component<Props> {
   static defaultProps: DefaultProps = {
-    title: undefined,
+    title: '',
     location: undefined,
-    start: undefined,
-    duration: undefined,
+    start: '',
+    duration: 0,
     renderLeft: () => null,
     onSave: noop,
     onCancel: noop,
@@ -71,19 +73,17 @@ export default class CardEditing extends Component<Props> {
               </button>
 
               <DateTime>
-                <Textbox
-                  autoFocus
-                  value={values.start}
-                  label="Start"
-                  name="start"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
+                <DatePicker
+                  id="date"
+                  value={values.start ? moment(values.start) : null}
+                  onChange={value => setFieldValue('start', value && value.toString())}
                 />
 
                 <Textbox
                   value={values.duration}
                   label="Duration"
                   name="duration"
+                  type="number"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFieldValue('duration', +e.target.value)}
                   onBlur={handleBlur}

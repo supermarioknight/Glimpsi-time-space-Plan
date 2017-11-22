@@ -11,6 +11,7 @@ interface Props {
   innerRef?: (ref: null | HTMLElement) => void;
   value: string | number;
   placeholder?: string;
+  type?: string;
 }
 
 const Input = styled.input`font-size: 16px;`;
@@ -34,6 +35,7 @@ const Textbox: React.StatelessComponent<Props> = ({ label, placeholder, innerRef
 
 Textbox.defaultProps = {
   placeholder: '',
+  type: 'text',
 };
 
 export default Textbox;
