@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import Textbox from '../Textbox';
 import { Card } from '../../features/types';
+import LocationSelect from '../LocationSelect';
 
 import { Root, Title, Location, DateTime } from '../Card';
 
@@ -13,6 +14,16 @@ export interface Props {
   duration?: number;
   onSave: (values: Card) => void;
   onCancel: () => void;
+}
+
+interface Values {
+  title: string;
+  location: {
+    formattedAddress: string;
+    position: any;
+  };
+  start: string;
+  duration: string;
 }
 
 export default class CardEditing extends Component<Props> {
@@ -39,69 +50,59 @@ export default class CardEditing extends Component<Props> {
     const { title, location, start, duration } = this.props;
 
     return (
-      <Formik
-        onSubmit={this.finish}
-        initialValues={{
-          title,
-          location,
-          start,
-          duration,
-        }}
-      >
-        {({ values: vls, handleChange, handleBlur, handleSubmit }) => {
-          // tslint:disable-next-line no-any
-          const values = vls as any;
+      <Formik onSubmit={this.finish} initialValues={{ title, location, start, duration }}>
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+        }: FormikProps<Values>) => (
+          <Root>
+            <form onSubmit={handleSubmit}>
+              <button type="submit">Save</button>
+              <button type="cancel" onClick={this.cancel}>
+                Cancel
+              </button>
 
-          return (
-            <Root>
-              <form onSubmit={handleSubmit}>
-                <button type="submit">Save</button>
-                <button type="cancel" onClick={this.cancel}>
-                  Cancel
-                </button>
+              <DateTime>
+                <Textbox
+                  autoFocus
+                  value={values.start}
+                  label="Start"
+                  name="start"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
 
-                <DateTime>
-                  <Textbox
-                    autoFocus
-                    value={values.start}
-                    label="Start"
-                    name="start"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+                <Textbox
+                  value={values.duration}
+                  label="Duration"
+                  name="duration"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </DateTime>
 
-                  <Textbox
-                    value={values.duration}
-                    label="Duration"
-                    name="duration"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </DateTime>
+              <Title>
+                <Textbox
+                  value={values.title}
+                  label="Title"
+                  name="title"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Title>
 
-                <Title>
-                  <Textbox
-                    value={values.title}
-                    label="Title"
-                    name="title"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </Title>
-
-                <Location>
-                  <Textbox
-                    value={values.location}
-                    label="Location"
-                    name="location"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </Location>
-              </form>
-            </Root>
-          );
-        }}
+              <Location>
+                <LocationSelect
+                  onChange={value => setFieldValue('location', value)}
+                  value={values.location}
+                />
+              </Location>
+            </form>
+          </Root>
+        )}
       </Formik>
     );
   }
