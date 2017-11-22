@@ -6,6 +6,7 @@ import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
 import DatePicker from '../DatePicker';
+import TimePicker from '../Timepicker';
 
 import { Root, Title, Location, DateTime } from '../Card';
 
@@ -22,6 +23,7 @@ export interface Props {
       lng: number;
     };
   };
+  time?: string;
   start?: string;
   duration?: number;
   onSave: OnSave;
@@ -39,6 +41,7 @@ export default class CardEditing extends Component<Props> {
     title: '',
     location: undefined,
     start: '',
+    time: undefined,
     duration: 0,
     renderLeft: () => null,
     onSave: noop,
@@ -58,11 +61,21 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration, renderLeft } = this.props as DefaultProps;
+    const { title, location, start, duration, renderLeft, time } = this
+      .props as DefaultProps;
 
     return (
-      <Formik onSubmit={this.finish} initialValues={{ title, location, start, duration }}>
-        {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }: FormikProps<Card>) => [
+      <Formik
+        onSubmit={this.finish}
+        initialValues={{ title, location, start, duration, time }}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+        }: FormikProps<Card>) => [
           renderLeft(values),
 
           <Root key="root">
@@ -76,7 +89,13 @@ export default class CardEditing extends Component<Props> {
                 <DatePicker
                   id="date"
                   value={values.start ? moment(values.start) : null}
-                  onChange={value => setFieldValue('start', value && value.toString())}
+                  onChange={value =>
+                    setFieldValue('start', value && value.toString())}
+                />
+
+                <TimePicker
+                  value={values.time}
+                  onChange={value => setFieldValue('time', value)}
                 />
 
                 <Textbox

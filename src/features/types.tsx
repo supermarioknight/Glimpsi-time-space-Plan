@@ -10,6 +10,7 @@ export interface Card {
   duration: number;
   title: string;
   start: string;
+  time: string;
   location: {
     formattedAddress: string;
     position: {

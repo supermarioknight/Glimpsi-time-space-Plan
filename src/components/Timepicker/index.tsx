@@ -40,12 +40,16 @@ interface Option {
 }
 
 interface Props {
-  onChange: (value: Option | null) => void;
-  value: Option | undefined;
+  onChange: (value: string | null) => void;
+  value: string | undefined;
 }
 
 const Timepicker: React.StatelessComponent<Props> = ({ onChange, value }) => (
-  <Select onChange={onChange} value={value} options={options} />
+  <Select
+    onChange={(option: Option) => onChange(option && option.value)}
+    value={value}
+    options={options}
+  />
 );
 
 export default Timepicker;

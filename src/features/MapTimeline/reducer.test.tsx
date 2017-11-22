@@ -19,6 +19,7 @@ describe('timeline reducer', () => {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 50,
+        time: '00:35:00',
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -44,6 +45,7 @@ describe('timeline reducer', () => {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 50,
+        time: '00:35:00',
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -73,6 +75,7 @@ describe('timeline reducer', () => {
           title: '',
           start: '',
           duration: 30,
+          time: '00:35:00',
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',
             position: {
@@ -89,6 +92,7 @@ describe('timeline reducer', () => {
         start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 30,
+        time: '00:35:00',
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -148,6 +152,7 @@ describe('timeline reducer', () => {
           id: 2,
           title: '',
           start: '',
+          time: '00:35:00',
           duration: 30,
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',

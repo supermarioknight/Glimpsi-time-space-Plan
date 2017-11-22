@@ -15,6 +15,7 @@ storiesOf('Card/Editable', module).add('with values', () => (
       },
     }}
     start="2017-11-04T01:38:55.430Z"
+    time="00:30:00"
     duration={30}
     onSave={action('onSave()')}
     onDelete={action('onDelete()')}

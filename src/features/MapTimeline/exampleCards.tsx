@@ -4,6 +4,7 @@ export default [
     start: '2018-01-23T21:35:00',
     duration: 400,
     title: 'Fly to Japan',
+    time: '00:30:00',
     location: {
       formattedAddress: 'Sydney Airport (SYD)',
       position: { lat: -33.9399228, lng: 151.1752764 },
@@ -14,6 +15,7 @@ export default [
     start: '2018-01-24T05:00:00',
     duration: 30,
     title: 'Reach Japan',
+    time: '00:30:00',
     location: {
       formattedAddress: 'Haneda Airport',
       position: { lat: 35.5493932, lng: 139.7798386 },
@@ -23,6 +25,7 @@ export default [
     id: 3,
     start: '2018-01-25T14:00:00',
     duration: 240,
+    time: '00:30:00',
     title: 'Grand Sumo Tournament',
     location: {
       formattedAddress: 'Ryōgoku Kokugikan',
@@ -33,6 +36,7 @@ export default [
     id: 4,
     start: '2018-01-25T20:00:00',
     duration: 60,
+    time: '00:30:00',
     title: 'Hackers Bar',
     location: {
       formattedAddress: '7 Chome-12-3 Roppongi Minato-ku, Tōkyō-to 106-0032',

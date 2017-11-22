@@ -12,6 +12,7 @@ storiesOf('Card/Card', module).add('start date', () => (
         lng: 1,
       },
     }}
+    time="00:30:00"
     start="2017-11-04T01:38:55.430Z"
     duration={30}
   />
