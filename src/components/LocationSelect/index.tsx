@@ -1,10 +1,6 @@
 import React from 'react';
-import { Async } from 'react-select';
-import { root } from './styles';
-import styled from 'styled-components';
+import AsyncSelect from '../Select/Async';
 import { geocode } from '../../lib/maps';
-
-const AsyncSelect = styled(Async)`${root};`;
 
 interface Geocode {
   formattedAddress: string;
