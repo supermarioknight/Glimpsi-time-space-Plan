@@ -1,10 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Rheostat from 'rheostat';
+import moment, { Moment } from 'moment';
 
 const Slider = styled(Rheostat)`
   overflow: visible;
   margin: 10px;
+  flex-basis: 100%;
 
   .rheostat-background {
     background-color: #fcfcfc;
@@ -54,12 +56,50 @@ const Slider = styled(Rheostat)`
   }
 `;
 
+const Root = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+`;
+
 interface Props {
   className?: string;
+  onChange: (value: Moment[]) => void;
+  start: Moment;
+  end: Moment;
+  values: Moment[];
+  type: 'days' | 'hours';
 }
 
-const Sldr: React.StatelessComponent<Props> = props => (
-  <Slider {...props} orientation="horizontal" min={0} max={100} values={[20, 80]} />
-);
+export default class DateSlider extends React.Component<Props> {
+  onChange = ({ values }: { values: number[] }) => {
+    const { type, start, onChange } = this.props;
+    onChange([
+      moment(start).add(values[0], type),
+      moment(start).add(values[1], type),
+    ]);
+  };
 
-export default Sldr;
+  render() {
+    const { className, start, end, values, type } = this.props;
+    const min = 0;
+    const max = end.diff(start, type);
+    const valuesAsNumbers = values.map(value => value.diff(start, type));
+
+    return (
+      <Root>
+        {start.format('MM/DD')}
+        <Slider
+          className={className}
+          onChange={this.onChange}
+          orientation="horizontal"
+          snap
+          min={min}
+          max={max}
+          values={valuesAsNumbers}
+        />
+        {end.format('MM/DD')}
+      </Root>
+    );
+  }
+}

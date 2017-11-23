@@ -1,21 +1,19 @@
-import { NewCard, CancelNewCard, RemoveCard, UpdateTimeline, SaveCard } from './actions';
+import { Actions } from './actions';
 import { CardWithId } from '../types';
 import exampleCards from './exampleCards';
-
-type Actions = NewCard | CancelNewCard | RemoveCard | UpdateTimeline | SaveCard;
 
 const defaultState: Store = {
   adding: false,
   cards: exampleCards,
-  start: '',
-  end: '',
+  start: 0,
+  end: 100,
 };
 
 export interface Store {
   adding: boolean;
   cards: CardWithId[];
-  start: string;
-  end: string;
+  start: number;
+  end: number;
 }
 
 export default (store: Store = defaultState, action: Actions) => {
@@ -38,6 +36,7 @@ export default (store: Store = defaultState, action: Actions) => {
         cards: store.cards.filter(card => card.id !== action.payload.id),
       };
 
+    case 'FILTER_TIMELINE':
     case 'UPDATE_TIMELINE':
       return {
         ...store,
@@ -58,7 +57,9 @@ export default (store: Store = defaultState, action: Actions) => {
 
         cards = store.cards.concat([newCard]);
       } else {
-        cards = store.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
+        cards = store.cards.map(
+          storeCard => (storeCard.id === card.id ? card : storeCard)
+        );
       }
 
       return {

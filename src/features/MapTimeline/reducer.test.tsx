@@ -4,8 +4,8 @@ import { SaveCard, NewCard, CancelNewCard, RemoveCard } from './actions';
 export const defaultState: Store = {
   adding: false,
   cards: [],
-  start: '',
-  end: '',
+  start: 0,
+  end: 0,
 };
 
 describe('timeline reducer', () => {
@@ -132,8 +132,8 @@ describe('timeline reducer', () => {
     const state: Store = {
       adding: true,
       cards: [],
-      start: '',
-      end: '',
+      start: 0,
+      end: 0,
     };
     const action: CancelNewCard = {
       type: 'CANCEL_NEW_CARD',

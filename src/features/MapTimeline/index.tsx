@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import MapTimeline from '../../components/MapTimeline';
-import { saveCard, newCard, removeCard, cancelNewCard, updateTimeline } from './actions';
+import {
+  saveCard,
+  newCard,
+  removeCard,
+  cancelNewCard,
+  filterTimeline,
+} from './actions';
 import { Store } from '../types';
 
 const selector = createSelector(
@@ -16,6 +22,6 @@ export default connect(selector, {
   saveCard,
   newCard,
   removeCard,
-  updateTimeline,
   cancelNewCard,
+  onFilterChange: filterTimeline,
 })(MapTimeline);

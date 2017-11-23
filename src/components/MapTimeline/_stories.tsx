@@ -5,8 +5,8 @@ import exampleCards from '../../features/MapTimeline/exampleCards';
 import MapTimeline from './';
 
 const props = {
-  start: '2017-10-04',
-  end: '2017-12-04',
+  start: 0,
+  end: 100,
   adding: false,
   items: exampleCards,
 };
@@ -19,7 +19,7 @@ storiesOf('MapTimeline', module)
       saveCard={action('saveCard()')}
       cancelNewCard={action('cancelNewCard()')}
       removeCard={action('removeCard()')}
-      updateTimeline={action('updateTimeline()')}
+      onFilterChange={action('onFilterChange()')}
     />
   ))
   .add('adding card', () => (
@@ -30,6 +30,6 @@ storiesOf('MapTimeline', module)
       cancelNewCard={action('cancelNewCard()')}
       saveCard={action('saveCard()')}
       removeCard={action('removeCard()')}
-      updateTimeline={action('updateTimeline()')}
+      onFilterChange={action('onFilterChange()')}
     />
   ));
