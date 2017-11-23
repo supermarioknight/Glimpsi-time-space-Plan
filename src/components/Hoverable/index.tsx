@@ -14,20 +14,20 @@ export default class Hoverable extends Component<Props, State> {
   };
 
   mouseIn = () => {
-    this.setState({
-      hovering: true,
-    });
-  }
+    if (!this.state.hovering) {
+      this.setState({ hovering: true });
+    }
+  };
 
   mouseOut = () => {
-    this.setState({
-      hovering: false,
-    });
-  }
+    if (this.state.hovering) {
+      this.setState({ hovering: false });
+    }
+  };
 
-  render () {
+  render() {
     return (
-      <span onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
+      <span onMouseOver={this.mouseIn} onMouseLeave={this.mouseOut}>
         {this.props.children(this.state.hovering)}
       </span>
     );

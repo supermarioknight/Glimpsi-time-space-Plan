@@ -40,10 +40,17 @@ export const DateTime = styled.div`
   font-size: 16px;
 `;
 
-const Card: React.StatelessComponent<Props> = ({ title, location, start, duration, children }) => (
+const Card: React.StatelessComponent<Props> = ({
+  title,
+  location,
+  start,
+  time,
+  duration,
+  children,
+}) => (
   <Root>
     <DateTime>
-      {humanize(start)}
+      {humanize(start, time)}
       <Minutes>{`${duration}min`}</Minutes>
     </DateTime>
 

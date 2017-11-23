@@ -7,25 +7,26 @@ const generateOptions = () => {
   for (let i = 0; i < 24; i += 1) {
     const suffix = i >= 12 ? 'pm' : 'am';
     const label = i === 0 ? 12 : i > 12 ? i - 12 : i;
+    const valueSuffix = i < 10 ? `0${i}` : i;
 
     generated.push({
       label: `${label}:00${suffix}`,
-      value: `${i}:00:00`,
+      value: `${valueSuffix}:00:00`,
     });
 
     generated.push({
       label: `${label}:15${suffix}`,
-      value: `${i}:15:00`,
+      value: `${valueSuffix}:15:00`,
     });
 
     generated.push({
       label: `${label}:30${suffix}`,
-      value: `${i}:30:00`,
+      value: `${valueSuffix}:30:00`,
     });
 
     generated.push({
       label: `${label}:45${suffix}`,
-      value: `${i}:45:00`,
+      value: `${valueSuffix}:45:00`,
     });
   }
 

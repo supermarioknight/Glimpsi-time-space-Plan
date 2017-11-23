@@ -90,7 +90,7 @@ export default class CardEditing extends Component<Props> {
                   id="date"
                   value={values.start ? moment(values.start) : null}
                   onChange={value =>
-                    setFieldValue('start', value && value.toString())}
+                    setFieldValue('start', value && value.toISOString())}
                 />
 
                 <TimePicker
@@ -102,9 +102,7 @@ export default class CardEditing extends Component<Props> {
                   value={values.duration}
                   label="Duration"
                   name="duration"
-                  type="number"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFieldValue('duration', +e.target.value)}
+                  onChange={handleChange}
                   onBlur={handleBlur}
                 />
               </DateTime>
