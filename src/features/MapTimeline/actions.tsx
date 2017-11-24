@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { Card } from '../types';
 
 const SAVE_CARD = 'SAVE_CARD';
@@ -17,23 +18,12 @@ export type Actions =
 
 export interface FilterTimeline {
   type: typeof FILTER_TIMELINE;
-  payload: FilterTimelinePayload;
+  payload: Moment[];
 }
 
-interface FilterTimelinePayload {
-  start?: number;
-  end?: number;
-}
-
-export const filterTimeline = ({
-  start,
-  end,
-}: FilterTimelinePayload): FilterTimeline => ({
+export const filterTimeline = (filters: Moment[]): FilterTimeline => ({
   type: FILTER_TIMELINE,
-  payload: {
-    start,
-    end,
-  },
+  payload: filters,
 });
 
 export interface SaveCard {

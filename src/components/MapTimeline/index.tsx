@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Moment } from 'moment';
 import Timeline, { Props as TimelineProps } from '../../components/Timeline';
 import ActionButton from '../ActionButton';
 import NewCard from '../CardNew';
 import Map from '../Map';
-// import Slider from '../Slider';
+import Slider from '../Slider';
 import Modal from '../Modal';
 
 const SLIDER_HEIGHT = '35px';
@@ -30,27 +31,31 @@ interface Props extends TimelineProps {
   // tslint:disable-next-line no-any
   cancelNewCard: () => any;
   // tslint:disable-next-line no-any
-  onFilterChange: (data: { start?: number; end?: number }) => any;
-  start: number;
-  end: number;
+  onFilterChange: (filters: Moment[]) => any;
+  start: Moment;
+  end: Moment;
+  filters: Moment[];
 }
 
 const MapTimeline: React.StatelessComponent<Props> = ({
   newCard,
   cancelNewCard,
   adding,
-  // onFilterChange,
-  // start,
-  // end,
+  onFilterChange,
+  start,
+  end,
+  filters,
   ...props,
 }) => (
   <Root>
     <LeftColumn>
-      {/* <Slider
-        onChange={([startFrom, endAt]) =>
-          onFilterChange({ start: startFrom, end: endAt })}
-        values={[start, end]}
-      /> */}
+      <Slider
+        onChange={onFilterChange}
+        type="days"
+        start={start}
+        end={end}
+        values={filters}
+      />
 
       <MapContainer>
         <Map markers={props.items.map(item => item.location)} autofit />

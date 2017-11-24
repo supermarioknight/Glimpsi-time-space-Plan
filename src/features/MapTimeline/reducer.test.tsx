@@ -1,11 +1,13 @@
+import moment from 'moment';
 import reducer, { Store } from './reducer';
 import { SaveCard, NewCard, CancelNewCard, RemoveCard } from './actions';
 
 export const defaultState: Store = {
   adding: false,
   cards: [],
-  start: 0,
-  end: 0,
+  start: moment(),
+  end: moment().add(1, 'days'),
+  filters: [],
 };
 
 describe('timeline reducer', () => {
@@ -130,10 +132,9 @@ describe('timeline reducer', () => {
 
   it('should cancel adding', () => {
     const state: Store = {
+      ...defaultState,
       adding: true,
       cards: [],
-      start: 0,
-      end: 0,
     };
     const action: CancelNewCard = {
       type: 'CANCEL_NEW_CARD',

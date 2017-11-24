@@ -1,3 +1,4 @@
+import moment, { Moment } from 'moment';
 import { Actions } from './actions';
 import { CardWithId } from '../types';
 import exampleCards from './exampleCards';
@@ -5,15 +6,17 @@ import exampleCards from './exampleCards';
 const defaultState: Store = {
   adding: false,
   cards: exampleCards,
-  start: 0,
-  end: 100,
+  start: moment('01/23/2018'),
+  end: moment('01/23/2018').add(10, 'days'),
+  filters: [moment('01/23/2018'), moment('01/23/2018').add(10, 'days')],
 };
 
 export interface Store {
   adding: boolean;
   cards: CardWithId[];
-  start: number;
-  end: number;
+  start: Moment;
+  end: Moment;
+  filters: Moment[];
 }
 
 export default (store: Store = defaultState, action: Actions) => {
@@ -37,6 +40,11 @@ export default (store: Store = defaultState, action: Actions) => {
       };
 
     case 'FILTER_TIMELINE':
+      return {
+        ...store,
+        filters: action.payload,
+      };
+
     case 'UPDATE_TIMELINE':
       return {
         ...store,

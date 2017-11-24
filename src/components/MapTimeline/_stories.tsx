@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import moment from 'moment';
 import exampleCards from '../../features/MapTimeline/exampleCards';
 import MapTimeline from './';
 
 const props = {
-  start: 0,
-  end: 100,
+  start: moment(),
+  end: moment().add(10, 'days'),
+  filters: [moment().add(1, 'days'), moment().add(10, 'days')],
   adding: false,
   items: exampleCards,
 };
