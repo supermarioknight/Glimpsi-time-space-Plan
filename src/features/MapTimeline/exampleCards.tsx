@@ -1,10 +1,12 @@
+import moment from 'moment';
+
 export default [
   {
     id: 1,
-    start: '2018-01-23T21:35:00',
+    start: moment(),
     duration: 400,
     title: 'Fly to Japan',
-    time: '00:30:00',
+    time: moment('1970-01-01 00:30:00Z'),
     location: {
       formattedAddress: 'Sydney Airport (SYD)',
       position: { lat: -33.9399228, lng: 151.1752764 },
@@ -12,10 +14,10 @@ export default [
   },
   {
     id: 2,
-    start: '2018-01-24T05:00:00',
+    start: moment().add(1, 'day'),
     duration: 30,
     title: 'Reach Japan',
-    time: '00:30:00',
+    time: moment('1970-01-01 00:30:00Z'),
     location: {
       formattedAddress: 'Haneda Airport',
       position: { lat: 35.5493932, lng: 139.7798386 },
@@ -23,9 +25,9 @@ export default [
   },
   {
     id: 3,
-    start: '2018-01-25T14:00:00',
+    start: moment().add(1, 'day'),
     duration: 240,
-    time: '00:30:00',
+    time: moment('1970-01-01 00:30:00Z'),
     title: 'Grand Sumo Tournament',
     location: {
       formattedAddress: 'Ryōgoku Kokugikan',
@@ -34,9 +36,9 @@ export default [
   },
   {
     id: 4,
-    start: '2018-01-25T20:00:00',
+    start: moment().add(2, 'day'),
     duration: 60,
-    time: '00:30:00',
+    time: moment('1970-01-01 00:30:00Z'),
     title: 'Hackers Bar',
     location: {
       formattedAddress: '7 Chome-12-3 Roppongi Minato-ku, Tōkyō-to 106-0032',

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
+import moment from 'moment';
 import { action } from '@storybook/addon-actions';
 import CardEditing from './';
 
@@ -13,7 +14,8 @@ storiesOf('Card/Editing', module).add('with values', () => (
         lng: 1,
       },
     }}
-    start="2017-11-04T01:38:55.430Z"
+    time={moment('1970-01-01 00:30:00Z')}
+    start={moment()}
     duration={30}
     onCancel={action('onCancel()')}
     onSave={action('onSave()')}

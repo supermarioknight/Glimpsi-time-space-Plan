@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { differenceInMinutes } from 'date-fns';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
@@ -18,14 +17,23 @@ const Root = styled.div`
   padding-left: 6px;
 `;
 
-const Timeline: React.StatelessComponent<Props> = ({ items, saveCard, removeCard }) => {
+const Timeline: React.StatelessComponent<Props> = ({
+  items,
+  saveCard,
+  removeCard,
+}) => {
   const cardGroups = items
-    .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
+    .sort(
+      (a, b) => Date.parse(a.start.toString()) - Date.parse(b.start.toString())
+    )
     .reduce<CardWithId[][]>((groups, currentItem) => {
       const previousGroup = groups[groups.length - 1];
       if (previousGroup) {
         const lastItemInGroup = previousGroup[previousGroup.length - 1];
-        const difference = differenceInMinutes(currentItem.start, lastItemInGroup.start);
+        const difference = currentItem.start.diff(
+          lastItemInGroup.start,
+          'minutes'
+        );
         const overlap = lastItemInGroup.duration - difference;
         if (overlap > 0) {
           // There is an overlap, add to the group
@@ -43,7 +51,12 @@ const Timeline: React.StatelessComponent<Props> = ({ items, saveCard, removeCard
     <Root>
       {cardGroups.map((group, index) => {
         const groupItems = group.map(item => (
-          <EditableCard onSave={saveCard} key={item.id} onDelete={removeCard} {...item} />
+          <EditableCard
+            onSave={saveCard}
+            key={item.id}
+            onDelete={removeCard}
+            {...item}
+          />
         ));
 
         if (groupItems.length <= 1) {

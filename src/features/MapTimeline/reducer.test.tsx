@@ -18,10 +18,10 @@ describe('timeline reducer', () => {
     const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
-        start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 50,
-        time: '00:35:00',
+        time: moment('1970-01-01 00:30:00Z'),
+        start: moment(),
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -44,10 +44,10 @@ describe('timeline reducer', () => {
     const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
-        start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 50,
-        time: '00:35:00',
+        time: moment('1970-01-01 00:30:00Z'),
+        start: moment(),
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -75,9 +75,9 @@ describe('timeline reducer', () => {
         {
           id: 2,
           title: '',
-          start: '',
           duration: 30,
-          time: '00:35:00',
+          time: moment('1970-01-01 00:30:00Z'),
+          start: moment(),
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',
             position: {
@@ -91,10 +91,10 @@ describe('timeline reducer', () => {
     const action: SaveCard = {
       type: 'SAVE_CARD',
       payload: {
-        start: '2017-11-05T00:00:00',
         title: 'Snow Fight',
         duration: 30,
-        time: '00:35:00',
+        time: moment('1970-01-01 00:30:00Z'),
+        start: moment(),
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -152,8 +152,8 @@ describe('timeline reducer', () => {
         {
           id: 2,
           title: '',
-          start: '',
-          time: '00:35:00',
+          time: moment('1970-01-01 00:30:00Z'),
+          start: moment(),
           duration: 30,
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',

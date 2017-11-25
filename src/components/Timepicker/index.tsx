@@ -1,4 +1,5 @@
 import React from 'react';
+import moment, { Moment } from 'moment';
 import Select from '../Select';
 
 const generateOptions = () => {
@@ -41,13 +42,15 @@ interface Option {
 }
 
 interface Props {
-  onChange: (value: string | null) => void;
-  value: string | undefined;
+  onChange: (value: Moment | null) => void;
+  value: Moment | undefined;
 }
 
 const Timepicker: React.StatelessComponent<Props> = ({ onChange, value }) => (
   <Select
-    onChange={(option: Option) => onChange(option && option.value)}
+    onChange={(option: Option) =>
+      onChange(option && moment(`1970-01-01 ${option.value}Z`))
+    }
     value={value}
     options={options}
   />

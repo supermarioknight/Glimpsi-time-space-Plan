@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { Moment } from 'moment';
 
-export const humanize = (date: string, time: string): string =>
-  format(`${date.split('T')[0]}T${time}`, 'ddd Do MMM, YYYY HH:mma');
+export const humanize = (date: Moment, time: Moment): string =>
+  `${date.format('dd Do MMM, YYYY')} ${time.format('HH:mma')}`;

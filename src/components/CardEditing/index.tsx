@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { noop } from 'lodash-es';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
@@ -23,8 +23,8 @@ export interface Props {
       lng: number;
     };
   };
-  time?: string;
-  start?: string;
+  time?: Moment;
+  start?: Moment;
   duration?: number;
   onSave: OnSave;
   // tslint:disable-next-line no-any
@@ -40,7 +40,7 @@ export default class CardEditing extends Component<Props> {
   static defaultProps: DefaultProps = {
     title: '',
     location: undefined,
-    start: '',
+    start: undefined,
     time: undefined,
     duration: 0,
     renderLeft: () => null,
@@ -89,8 +89,7 @@ export default class CardEditing extends Component<Props> {
                 <DatePicker
                   id="date"
                   value={values.start ? moment(values.start) : null}
-                  onChange={value =>
-                    setFieldValue('start', value && value.toISOString())}
+                  onChange={value => setFieldValue('start', value)}
                 />
 
                 <TimePicker
