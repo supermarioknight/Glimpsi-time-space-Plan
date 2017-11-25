@@ -73,10 +73,12 @@ interface Props {
 
 export default class DateSlider extends React.Component<Props> {
   onChange = ({ values }: { values: number[] }) => {
-    const { type, start, onChange } = this.props;
+    const { type, start, onChange, end } = this.props;
+    const max = end.diff(start, type);
+
     onChange([
       moment(start).add(values[0], type),
-      moment(start).add(values[1], type),
+      moment(end).add(values[1] - max, type),
     ]);
   };
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import { createSelector } from 'reselect';
 import MapTimeline from '../../components/MapTimeline';
 import {
@@ -14,7 +14,8 @@ import { Store, Card } from '../types';
 const filterCards = (items: Card[], filters: Moment[]) => {
   return items.filter(({ start }) => {
     return (
-      moment(start).isAfter(filters[0]) && moment(start).isBefore(filters[1])
+      start.isSameOrAfter(filters[0], 'day') &&
+      start.isSameOrBefore(filters[1], 'day')
     );
   });
 };

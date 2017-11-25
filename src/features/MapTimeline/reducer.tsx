@@ -1,14 +1,36 @@
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import { Actions } from './actions';
-import { CardWithId } from '../types';
+import { CardWithId, Card } from '../types';
 import exampleCards from './exampleCards';
+
+const extractStartEnd = (cards: Card[]) => {
+  return cards.reduce(
+    (obj, card) => {
+      if (card.start.isBefore(obj.start, 'day')) {
+        obj.start = card.start;
+      }
+
+      if (card.start.isAfter(obj.end, 'day')) {
+        obj.end = card.start;
+      }
+
+      return obj;
+    },
+    {
+      start: cards[0].start,
+      end: cards[0].start,
+    }
+  );
+};
 
 const defaultState: Store = {
   adding: false,
   cards: exampleCards,
-  start: moment('01/23/2018'),
-  end: moment('01/23/2018').add(10, 'days'),
-  filters: [moment('01/23/2018'), moment('01/23/2018').add(10, 'days')],
+  ...extractStartEnd(exampleCards),
+  filters: [
+    extractStartEnd(exampleCards).start,
+    extractStartEnd(exampleCards).end,
+  ],
 };
 
 export interface Store {
@@ -46,9 +68,14 @@ export default (store: Store = defaultState, action: Actions) => {
       };
 
     case 'UPDATE_TIMELINE':
-      return {
+      const newState = {
         ...store,
         ...action.payload,
+      };
+
+      return {
+        ...newState,
+        ...extractStartEnd(newState.cards),
       };
 
     case 'SAVE_CARD': {
@@ -74,6 +101,7 @@ export default (store: Store = defaultState, action: Actions) => {
         ...store,
         cards,
         adding: false,
+        ...extractStartEnd(cards),
       };
     }
 

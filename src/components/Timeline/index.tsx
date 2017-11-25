@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import { Moment } from 'moment';
 import styled from 'styled-components';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
@@ -16,6 +17,10 @@ const Root = styled.div`
   width: 400px;
   padding-left: 6px;
 `;
+
+// const isWithinFilters = (date: Moment, filters: Moment[]) =>
+//   date.isSameOrAfter(filters[0], 'day') &&
+//   date.isSameOrBefore(filters[1], 'day');
 
 const Timeline: React.StatelessComponent<Props> = ({
   items,
