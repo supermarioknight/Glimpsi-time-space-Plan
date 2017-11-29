@@ -17,5 +17,6 @@ storiesOf('Timeline', module).add('default', () => (
     saveCard={action('saveCard()')}
     removeCard={action('deleteCard()')}
     days={groups}
+    filters={[]}
   />
 ));

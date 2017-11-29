@@ -43,7 +43,6 @@ interface Props extends TimelineProps {
   onFilterChange: (filters: Moment[]) => any;
   start: Moment;
   end: Moment;
-  filters: Moment[];
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -65,7 +64,6 @@ const MapTimeline: React.StatelessComponent<Props> = ({
   onFilterChange,
   start,
   end,
-  filters,
   ...props,
 }) => (
   <Root>
@@ -75,11 +73,11 @@ const MapTimeline: React.StatelessComponent<Props> = ({
         type="days"
         start={start}
         end={end}
-        values={filters}
+        values={props.filters}
       />
 
       <MapContainer>
-        <Map markers={extractMarkers(props.days, filters)} autofit />
+        <Map markers={extractMarkers(props.days, props.filters)} autofit />
       </MapContainer>
     </LeftColumn>
 

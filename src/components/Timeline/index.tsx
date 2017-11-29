@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
+import { isWithinFilters } from '../../lib/date';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -15,6 +16,7 @@ export interface Props {
   saveCard: OnSave;
   // tslint:disable-next-line no-any
   removeCard: (id: number) => any;
+  filters: Moment[];
 }
 
 const Root = styled.div`
@@ -22,23 +24,38 @@ const Root = styled.div`
   padding-left: 6px;
 `;
 
+interface DayContainerProps {
+  withinFilters: boolean;
+}
+
+const DayContainer = styled.span`
+  display: block;
+  opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
+`;
+
 const Timeline: React.StatelessComponent<Props> = ({
   days,
   saveCard,
   removeCard,
+  filters,
 }) => {
   return (
     <Root>
-      {days.map(day =>
-        day.cards.map(card => (
-          <EditableCard
-            onSave={saveCard}
-            key={card.id}
-            onDelete={removeCard}
-            {...card}
-          />
-        ))
-      )}
+      {days.map(day => (
+        <DayContainer
+          key={day.date.toString()}
+          withinFilters={isWithinFilters(day.date, filters)}
+        >
+          {day.cards.map(card => (
+            <EditableCard
+              onSave={saveCard}
+              key={card.id}
+              onDelete={removeCard}
+              {...card}
+            />
+          ))}
+        </DayContainer>
+      ))}
     </Root>
   );
 };
