@@ -1,12 +1,17 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Moment } from 'moment';
-import Timeline, { Props as TimelineProps } from '../../components/Timeline';
+import Timeline, {
+  Props as TimelineProps,
+  CardDay,
+} from '../../components/Timeline';
 import ActionButton from '../ActionButton';
 import NewCard from '../CardNew';
 import Map from '../Map';
+import { MarkerObj } from '../Map/GoogleMaps';
 import Slider from '../Slider';
 import Modal from '../Modal';
+import { isWithinFilters } from '../../lib/date';
 
 const SLIDER_HEIGHT = '35px';
 
@@ -20,9 +25,13 @@ const RightColumn = styled.div`
   flex-shrink: 0;
 `;
 
-const MapContainer = styled.div`height: calc(100% - ${SLIDER_HEIGHT});`;
+const MapContainer = styled.div`
+  height: calc(100% - ${SLIDER_HEIGHT});
+`;
 
-const LeftColumn = styled.div`width: 100%;`;
+const LeftColumn = styled.div`
+  width: 100%;
+`;
 
 interface Props extends TimelineProps {
   adding: boolean;
@@ -36,6 +45,18 @@ interface Props extends TimelineProps {
   end: Moment;
   filters: Moment[];
 }
+
+const extractMarkers = (days: CardDay[], filters: Moment[]) => {
+  return days.reduce((markers: MarkerObj[], day: CardDay) => {
+    const locations = day.cards
+      .filter(card => isWithinFilters(card.start, filters))
+      .map(card => ({
+        position: card.location.position,
+      }));
+
+    return markers.concat(locations);
+  }, []);
+};
 
 const MapTimeline: React.StatelessComponent<Props> = ({
   newCard,
@@ -58,7 +79,7 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       />
 
       <MapContainer>
-        <Map markers={props.items.map(item => item.location)} autofit />
+        <Map markers={extractMarkers(props.days, filters)} autofit />
       </MapContainer>
     </LeftColumn>
 

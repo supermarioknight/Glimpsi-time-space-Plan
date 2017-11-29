@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { Moment } from 'moment';
 import { createSelector } from 'reselect';
 import MapTimeline from '../../components/MapTimeline';
+import { CardDay } from '../../components/Timeline';
+import moment from 'moment';
 import {
   saveCard,
   newCard,
@@ -9,15 +10,31 @@ import {
   cancelNewCard,
   filterTimeline,
 } from './actions';
-import { Store, Card } from '../types';
+import { Store, CardWithId } from '../types';
 
-const filterCards = (items: Card[], filters: Moment[]) => {
-  return items.filter(({ start }) => {
-    return (
-      start.isSameOrAfter(filters[0], 'day') &&
-      start.isSameOrBefore(filters[1], 'day')
-    );
-  });
+const cardsToDays = (cards: CardWithId[]): CardDay[] => {
+  const sortedCards = cards
+    .sort(
+      (a, b) =>
+        Date.parse(a.start.toISOString()) - Date.parse(b.start.toISOString())
+    )
+    .reduce((days: CardDay[], card) => {
+      const latestDay = days[days.length - 1];
+      const date = moment(card.start.format('YYYY-MM-DD'));
+
+      if (latestDay && latestDay.date.isSame(date, 'day')) {
+        latestDay.cards.push(card);
+      } else {
+        days.push({
+          date,
+          cards: [card],
+        });
+      }
+
+      return days;
+    }, []);
+
+  return sortedCards;
 };
 
 const selector = createSelector(
@@ -26,12 +43,12 @@ const selector = createSelector(
   (store: Store) => store.timeline.start,
   (store: Store) => store.timeline.end,
   (store: Store) => store.timeline.filters,
-  (items, adding, start, end, filters) => ({
+  (cards, adding, start, end, filters) => ({
     adding,
     start,
     end,
     filters,
-    items: filterCards(items, filters),
+    days: cardsToDays(cards),
   })
 );
 

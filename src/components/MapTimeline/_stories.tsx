@@ -10,7 +10,12 @@ const props = {
   end: moment().add(10, 'days'),
   filters: [moment().add(1, 'days'), moment().add(10, 'days')],
   adding: false,
-  items: exampleCards,
+  days: [
+    {
+      date: moment(),
+      cards: exampleCards,
+    },
+  ],
 };
 
 storiesOf('MapTimeline', module)

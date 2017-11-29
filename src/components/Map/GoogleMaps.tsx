@@ -1,8 +1,13 @@
 import React from 'react';
-import { GoogleMap, Marker, withScriptjs, withGoogleMap } from 'react-google-maps';
+import {
+  GoogleMap,
+  Marker,
+  withScriptjs,
+  withGoogleMap,
+} from 'react-google-maps';
 import { flow } from 'lodash-es';
 
-interface MarkerObj {
+export interface MarkerObj {
   position: {
     lat: number;
     lng: number;
@@ -81,8 +86,14 @@ class Map extends React.Component<Props> {
     const { markers } = this.props as DefaultProps;
 
     return (
-      <GoogleMap zoom={this.props.zoom} center={calcCenter(markers)} ref={this.onMapMounted}>
-        {markers.map((marker, index) => <Marker position={marker.position} key={index} />)}
+      <GoogleMap
+        zoom={this.props.zoom}
+        center={calcCenter(markers)}
+        ref={this.onMapMounted}
+      >
+        {markers.map((marker, index) => (
+          <Marker position={marker.position} key={index} />
+        ))}
       </GoogleMap>
     );
   }
