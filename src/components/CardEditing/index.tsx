@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { noop } from 'lodash-es';
+import yup from 'yup';
 import moment, { Moment } from 'moment';
 import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
 import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
+import FormFieldContainer from '../FormFieldContainer';
 
-import { Root, Title, Location, DateTime } from '../Card';
+import { Root, Title, Location, DateTime as DateTimeContainer } from '../Card';
 
 // tslint:disable-next-line no-any
 export type OnSave = (values: Card) => any;
@@ -36,6 +38,14 @@ export interface Props {
 interface DefaultProps extends Props {
   renderLeft: (values: Card) => React.ReactNode;
 }
+
+const schema = yup.object().shape({
+  duration: yup.number().required(),
+  title: yup.string().required(),
+  start: yup.object().required(),
+  time: yup.object().required(),
+  location: yup.object().required(),
+});
 
 export default class CardEditing extends Component<Props> {
   static defaultProps: DefaultProps = {
@@ -75,6 +85,7 @@ export default class CardEditing extends Component<Props> {
     return (
       <Formik
         onSubmit={this.finish}
+        validationSchema={schema}
         initialValues={{ title, location, start, duration, time }}
       >
         {({
@@ -83,6 +94,7 @@ export default class CardEditing extends Component<Props> {
           handleBlur,
           handleSubmit,
           setFieldValue,
+          ...fieldProps,
         }: FormikProps<Card>) => [
           renderLeft(values),
 
@@ -93,43 +105,53 @@ export default class CardEditing extends Component<Props> {
                 Cancel
               </button>
 
-              <DateTime>
-                <DatePicker
-                  id="date"
-                  value={values.start ? moment(values.start) : null}
-                  onChange={value => setFieldValue('start', value)}
-                  datePickerFrom={datePickerFrom}
-                />
+              <DateTimeContainer>
+                <FormFieldContainer name="start" {...fieldProps}>
+                  <DatePicker
+                    id="date"
+                    value={values.start ? moment(values.start) : null}
+                    onChange={value => setFieldValue('start', value)}
+                    datePickerFrom={datePickerFrom}
+                  />
+                </FormFieldContainer>
 
-                <TimePicker
-                  value={values.time}
-                  onChange={value => setFieldValue('time', value)}
-                />
+                <FormFieldContainer name="time" {...fieldProps}>
+                  <TimePicker
+                    value={values.time}
+                    onChange={value => setFieldValue('time', value)}
+                  />
+                </FormFieldContainer>
 
-                <Textbox
-                  value={values.duration}
-                  label="Duration"
-                  name="duration"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </DateTime>
+                <FormFieldContainer name="duration" {...fieldProps}>
+                  <Textbox
+                    value={values.duration}
+                    label="Duration"
+                    name="duration"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
+              </DateTimeContainer>
 
               <Title>
-                <Textbox
-                  value={values.title}
-                  label="Title"
-                  name="title"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                <FormFieldContainer name="title" {...fieldProps}>
+                  <Textbox
+                    value={values.title}
+                    label="Title"
+                    name="title"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
               </Title>
 
               <Location>
-                <LocationSelect
-                  onChange={value => setFieldValue('location', value)}
-                  value={values.location}
-                />
+                <FormFieldContainer name="location" {...fieldProps}>
+                  <LocationSelect
+                    onChange={value => setFieldValue('location', value)}
+                    value={values.location}
+                  />
+                </FormFieldContainer>
               </Location>
             </form>
           </Root>,
