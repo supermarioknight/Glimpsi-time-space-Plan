@@ -7,8 +7,8 @@ import { Card as CardType } from '../../features/types';
 import editable, { InjectedProps } from '../../decorators/editable';
 
 interface Props extends InjectedProps, CardProps {
-  id: number;
-  onDelete: (id: number) => void;
+  id: string;
+  onDelete: (id: string) => void;
   onSave: OnSave;
 }
 
@@ -40,7 +40,8 @@ export default editable<Props>(
                   />
                 )}
               </Card>
-            )}
+            )
+          }
         </Hoverable>
       );
     }

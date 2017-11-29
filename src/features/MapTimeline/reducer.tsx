@@ -1,7 +1,7 @@
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
+import uuid from 'uuid/v1';
 import { Actions } from './actions';
 import { CardWithId, Card } from '../types';
-import exampleCards from './exampleCards';
 
 const extractStartEnd = (cards: Card[]) => {
   return cards.reduce(
@@ -25,12 +25,10 @@ const extractStartEnd = (cards: Card[]) => {
 
 const defaultState: Store = {
   adding: false,
-  cards: exampleCards,
-  ...extractStartEnd(exampleCards),
-  filters: [
-    extractStartEnd(exampleCards).start,
-    extractStartEnd(exampleCards).end,
-  ],
+  filters: [],
+  start: moment(),
+  end: moment(),
+  cards: [],
 };
 
 export interface Store {
@@ -83,14 +81,12 @@ export default (store: Store = defaultState, action: Actions) => {
       let cards;
 
       if (typeof card.id === 'undefined') {
-        const lastCard = store.cards[store.cards.length - 1];
-        const id = lastCard ? lastCard.id + 1 : 1;
-        const newCard = {
-          ...card,
-          id,
-        };
-
-        cards = store.cards.concat([newCard]);
+        cards = store.cards.concat([
+          {
+            ...card,
+            id: uuid(),
+          },
+        ]);
       } else {
         cards = store.cards.map(
           storeCard => (storeCard.id === card.id ? card : storeCard)

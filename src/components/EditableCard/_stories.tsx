@@ -6,7 +6,7 @@ import EditableCard from './';
 
 storiesOf('Card/Editable', module).add('with values', () => (
   <EditableCard
-    id={1}
+    id="1"
     title="Valentines Day"
     location={{
       formattedAddress: 'Sapporo, Hokkaido, Japan',

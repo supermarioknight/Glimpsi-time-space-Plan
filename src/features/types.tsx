@@ -7,7 +7,7 @@ export interface Store {
 }
 
 export interface Card {
-  id?: number;
+  id?: string;
   duration: number;
   title: string;
   start: Moment;
@@ -22,7 +22,7 @@ export interface Card {
 }
 
 export interface CardWithId extends Card {
-  id: number;
+  id: string;
 }
 
 export type Reducer = (store: {}, action: FluxStandardAction) => {};

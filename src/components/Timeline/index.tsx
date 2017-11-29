@@ -15,7 +15,7 @@ export interface Props {
   days: CardDay[];
   saveCard: OnSave;
   // tslint:disable-next-line no-any
-  removeCard: (id: number) => any;
+  removeCard: (id: string) => any;
   filters: Moment[];
 }
 

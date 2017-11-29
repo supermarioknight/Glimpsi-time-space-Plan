@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export default [
   {
-    id: 1,
+    id: '1',
     start: moment(),
     duration: 400,
     title: 'Fly to Japan',
@@ -13,7 +13,7 @@ export default [
     },
   },
   {
-    id: 2,
+    id: '2',
     start: moment().add(1, 'day'),
     duration: 30,
     title: 'Reach Japan',
@@ -24,8 +24,8 @@ export default [
     },
   },
   {
-    id: 3,
-    start: moment().add(1, 'day'),
+    id: '3',
+    start: moment().add(2, 'day'),
     duration: 240,
     time: moment('1970-01-01 00:30:00Z'),
     title: 'Grand Sumo Tournament',
@@ -35,8 +35,8 @@ export default [
     },
   },
   {
-    id: 4,
-    start: moment().add(2, 'day'),
+    id: '4',
+    start: moment().add(3, 'day'),
     duration: 60,
     time: moment('1970-01-01 00:30:00Z'),
     title: 'Hackers Bar',

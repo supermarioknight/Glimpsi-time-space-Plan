@@ -14,7 +14,7 @@ import { Root, Title, Location, DateTime } from '../Card';
 export type OnSave = (values: Card) => any;
 
 export interface Props {
-  id?: number;
+  id?: string;
   title?: string;
   location?: {
     formattedAddress: string;
@@ -30,6 +30,7 @@ export interface Props {
   // tslint:disable-next-line no-any
   onCancel: () => any;
   renderLeft?: (values: Card) => React.ReactNode;
+  datePickerFrom?: Moment;
 }
 
 interface DefaultProps extends Props {
@@ -61,8 +62,15 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration, renderLeft, time } = this
-      .props as DefaultProps;
+    const {
+      title,
+      location,
+      start,
+      duration,
+      renderLeft,
+      time,
+      datePickerFrom,
+    } = this.props as DefaultProps;
 
     return (
       <Formik
@@ -90,6 +98,7 @@ export default class CardEditing extends Component<Props> {
                   id="date"
                   value={values.start ? moment(values.start) : null}
                   onChange={value => setFieldValue('start', value)}
+                  datePickerFrom={datePickerFrom}
                 />
 
                 <TimePicker

@@ -13,24 +13,24 @@ import Slider from '../Slider';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
 
-const SLIDER_HEIGHT = '35px';
-
 const Root = styled.article`
   display: flex;
   flex-grow: 1;
-  height: 100%;
 `;
+
 const RightColumn = styled.div`
-  overflow-y: auto;
   flex-shrink: 0;
+  overflow: auto;
 `;
 
 const MapContainer = styled.div`
-  height: calc(100% - ${SLIDER_HEIGHT});
+  height: 100%;
 `;
 
 const LeftColumn = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
 `;
 
 interface Props extends TimelineProps {
@@ -55,6 +55,16 @@ const extractMarkers = (days: CardDay[], filters: Moment[]) => {
 
     return markers.concat(locations);
   }, []);
+};
+
+const extractLatestDate = (days: CardDay[]) => {
+  const lastDay = days[days.length - 1];
+  if (!lastDay) {
+    return undefined;
+  }
+
+  const lastCard = lastDay.cards[lastDay.cards.length - 1];
+  return lastCard && lastDay.date;
 };
 
 const MapTimeline: React.StatelessComponent<Props> = ({
@@ -86,7 +96,11 @@ const MapTimeline: React.StatelessComponent<Props> = ({
       {adding ? null : <ActionButton newCard={newCard} />}
       {adding ? (
         <Modal>
-          <NewCard onSave={props.saveCard} onCancel={cancelNewCard} />
+          <NewCard
+            datePickerFrom={extractLatestDate(props.days)}
+            onSave={props.saveCard}
+            onCancel={cancelNewCard}
+          />
         </Modal>
       ) : null}
     </RightColumn>

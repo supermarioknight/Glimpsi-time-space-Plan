@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import 'react-dates/lib/css/_datepicker.css';
 
 interface Props {
@@ -9,6 +9,11 @@ interface Props {
   onChange: (date: Moment | null) => void;
   id: string;
   autoFocus?: boolean;
+  datePickerFrom?: Moment;
+}
+
+interface DefaultProps extends Props {
+  datePickerFrom: Moment;
 }
 
 interface State {
@@ -16,6 +21,10 @@ interface State {
 }
 
 class DatePicker extends React.Component<Props, State> {
+  static defaultProps = {
+    datePickerFrom: moment(),
+  };
+
   state = {
     focused: this.props.autoFocus || false,
   };
@@ -26,7 +35,7 @@ class DatePicker extends React.Component<Props, State> {
 
   render() {
     const { focused } = this.state;
-    const { id, value } = this.props;
+    const { id, value, datePickerFrom } = this.props as DefaultProps;
 
     return (
       <SingleDatePicker
@@ -35,6 +44,7 @@ class DatePicker extends React.Component<Props, State> {
         focused={focused}
         onDateChange={this.props.onChange}
         onFocusChange={this.onFocusChange}
+        initialVisibleMonth={() => datePickerFrom}
       />
     );
   }

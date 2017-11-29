@@ -9,7 +9,7 @@ interface Props {
 
 const Root = styled.div`
   background-color: ${colors.background};
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;

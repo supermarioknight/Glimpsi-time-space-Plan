@@ -73,7 +73,7 @@ describe('timeline reducer', () => {
       ...defaultState,
       cards: [
         {
-          id: 2,
+          id: '2',
           title: '',
           duration: 30,
           time: moment('1970-01-01 00:30:00Z'),
@@ -111,7 +111,7 @@ describe('timeline reducer', () => {
       state.cards.concat([
         {
           ...action.payload,
-          id: 3,
+          id: '3',
         },
       ])
     );
@@ -150,7 +150,7 @@ describe('timeline reducer', () => {
       ...defaultState,
       cards: [
         {
-          id: 2,
+          id: '2',
           title: '',
           time: moment('1970-01-01 00:30:00Z'),
           start: moment(),
@@ -168,7 +168,7 @@ describe('timeline reducer', () => {
     const action: RemoveCard = {
       type: 'REMOVE_CARD',
       payload: {
-        id: 2,
+        id: '2',
       },
     };
 

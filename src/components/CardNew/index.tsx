@@ -13,10 +13,7 @@ const MapContainer = styled.div`
   width: 250px;
 `;
 
-// tslint:disable-next-line
-interface Props extends EditingProps {}
-
-const NewCard = (props: Props) => (
+const NewCard = (props: EditingProps) => (
   <Root>
     <CardEditing
       {...props}

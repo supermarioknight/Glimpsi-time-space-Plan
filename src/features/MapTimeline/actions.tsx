@@ -47,11 +47,11 @@ export const newCard = (): NewCard => ({
 export interface RemoveCard {
   type: typeof REMOVE_CARD;
   payload: {
-    id: number;
+    id: string;
   };
 }
 
-export const removeCard = (id: number): RemoveCard => ({
+export const removeCard = (id: string): RemoveCard => ({
   type: 'REMOVE_CARD',
   payload: {
     id,

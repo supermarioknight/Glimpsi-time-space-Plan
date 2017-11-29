@@ -31,9 +31,13 @@ export const Title = styled.h2`
   font-size: 26px;
 `;
 
-const Minutes = styled.div`margin-left: auto;`;
+const Minutes = styled.div`
+  margin-left: auto;
+`;
 
-export const Location = styled.div`font-size: 18px;`;
+export const Location = styled.div`
+  font-size: 18px;
+`;
 
 export const DateTime = styled.div`
   display: flex;
@@ -51,7 +55,7 @@ const Card: React.StatelessComponent<Props> = ({
   <Root>
     <DateTime>
       {humanize(start, time)}
-      <Minutes>{`${duration}min`}</Minutes>
+      {duration ? <Minutes>{`${duration}min`}</Minutes> : null}
     </DateTime>
 
     <div>
