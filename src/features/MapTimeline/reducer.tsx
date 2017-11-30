@@ -60,6 +60,7 @@ export default (store: Store = defaultState, action: Actions) => {
       };
 
     case 'FILTER_TIMELINE':
+      // TODO: Check if filters have updated. Only return new state if they have!
       return {
         ...store,
         filters: action.payload,

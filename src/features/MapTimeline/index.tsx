@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import MapTimeline from '../../components/MapTimeline';
 import { CardDay } from '../../components/Timeline';
 import moment from 'moment';
+import { addTimeToDate } from '../../lib/date';
 import {
   saveCard,
   newCard,
@@ -14,10 +15,13 @@ import { Store, CardWithId } from '../types';
 
 const cardsToDays = (cards: CardWithId[]): CardDay[] => {
   const sortedCards = cards
-    .sort(
-      (a, b) =>
-        Date.parse(a.start.toISOString()) - Date.parse(b.start.toISOString())
-    )
+    .sort((a, b) => {
+      const aDateTime = addTimeToDate(a.start, a.time);
+      const bDateTime = addTimeToDate(b.start, b.time);
+      return (
+        Date.parse(aDateTime.toString()) - Date.parse(bDateTime.toString())
+      );
+    })
     .reduce((days: CardDay[], card) => {
       const latestDay = days[days.length - 1];
       const date = moment(card.start.format('YYYY-MM-DD'));
