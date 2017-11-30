@@ -5,6 +5,7 @@ import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
 import { isWithinFilters } from '../../lib/date';
+import bp from '../../assets/styles/breakpoints';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -20,16 +21,21 @@ export interface Props {
 }
 
 const Root = styled.div`
-  width: 400px;
-  padding-left: 6px;
+  display: flex;
+
+  ${bp.tablet`
+    display: initial;
+    width: 400px;
+    padding-left: 6px;
+  `};
 `;
 
 interface DayContainerProps {
   withinFilters: boolean;
 }
 
-const DayContainer = styled.span`
-  display: block;
+const Card = styled(EditableCard)`
+  flex-shrink: 0;
   opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
 `;
 
@@ -38,26 +44,20 @@ const Timeline: React.StatelessComponent<Props> = ({
   saveCard,
   removeCard,
   filters,
-}) => {
-  return (
-    <Root>
-      {days.map(day => (
-        <DayContainer
-          key={day.date.toString()}
+}) => (
+  <Root>
+    {days.map(day =>
+      day.cards.map(card => (
+        <Card
           withinFilters={isWithinFilters(day.date, filters)}
-        >
-          {day.cards.map(card => (
-            <EditableCard
-              onSave={saveCard}
-              key={card.id}
-              onDelete={removeCard}
-              {...card}
-            />
-          ))}
-        </DayContainer>
-      ))}
-    </Root>
-  );
-};
+          onSave={saveCard}
+          key={card.id}
+          onDelete={removeCard}
+          {...card}
+        />
+      ))
+    )}
+  </Root>
+);
 
 export default Timeline;
