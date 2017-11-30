@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import ConfirmButton from '../ConfirmButton';
 import { colors } from '../../assets/styles/variables';
 
 interface Props {
@@ -16,7 +17,7 @@ const Root = styled.div`
   background-color: ${colors.cardActionsBackground};
 `;
 
-const Button = styled.button`
+const ConfirmButtonStyled = styled(ConfirmButton)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -30,14 +31,17 @@ const Button = styled.button`
   padding: 0;
 `;
 
+export const Button = ConfirmButtonStyled.withComponent('button');
+
 const CardActions = ({ onEdit, onDelete }: Props) => (
   <Root>
     <Button key="edit" onClick={onEdit}>
       edit
     </Button>
-    <Button key="delete" onClick={onDelete}>
+
+    <ConfirmButtonStyled key="delete" onClick={onDelete}>
       delete
-    </Button>
+    </ConfirmButtonStyled>
   </Root>
 );
 
