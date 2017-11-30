@@ -55,10 +55,11 @@ class Map extends React.Component<Props> {
     zoom: 14,
   };
 
-  _map: google.maps.Map;
+  _map: GoogleMap | null;
 
-  onMapMounted = (ref: google.maps.Map) => {
+  onMapMounted = (ref: GoogleMap | null) => {
     this._map = ref;
+
     if (this._map) {
       this.fitBoundsToMarkers();
     }
@@ -69,6 +70,10 @@ class Map extends React.Component<Props> {
   }
 
   fitBoundsToMarkers = () => {
+    if (!this._map) {
+      return;
+    }
+
     const { autofit, markers } = this.props as DefaultProps;
     if (!autofit || !markers.length) {
       return;

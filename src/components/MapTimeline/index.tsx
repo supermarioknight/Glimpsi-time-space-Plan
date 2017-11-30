@@ -16,6 +16,7 @@ import { isWithinFilters } from '../../lib/date';
 const Root = styled.article`
   display: flex;
   flex-grow: 1;
+  height: 100%;
 `;
 
 const RightColumn = styled.div`

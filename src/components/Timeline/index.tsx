@@ -24,7 +24,7 @@ const Root = styled.div`
   display: flex;
 
   ${bp.tablet`
-    display: initial;
+    display: block;
     width: 400px;
     padding-left: 6px;
   `};
