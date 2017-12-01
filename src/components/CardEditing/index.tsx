@@ -10,7 +10,12 @@ import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import FormFieldContainer from '../FormFieldContainer';
 
-import { Root, Title, Location, DateTime as DateTimeContainer } from '../Card';
+import {
+  Root,
+  Title,
+  Location,
+  DateTime as DateTimeContainer,
+} from '../Card/styles';
 
 // tslint:disable-next-line no-any
 export type OnSave = (values: Card) => any;

@@ -33,8 +33,12 @@ const Root = styled.div`
     width: 300px;
   `} ${bp.desktop`
     width: 400px;
-    padding-left: 6px;
+    margin-left: 12px;
   `};
+`;
+
+const Date = styled.div`
+  padding: 20px 10px;
 `;
 
 interface DayContainerProps {
@@ -52,17 +56,20 @@ const Timeline: React.StatelessComponent<Props> = ({
   filters,
 }) => (
   <Root>
-    {days.map(day =>
-      day.cards.map(card => (
-        <Card
-          withinFilters={isWithinFilters(day.date, filters)}
-          onSave={saveCard}
-          key={card.id}
-          onDelete={removeCard}
-          {...card}
-        />
-      ))
-    )}
+    {days.map(day => {
+      return [
+        <Date key={day.date.toString()}>{day.date.format('ddd Do MMM')}</Date>,
+        day.cards.map(card => (
+          <Card
+            withinFilters={isWithinFilters(day.date, filters)}
+            onSave={saveCard}
+            key={card.id}
+            onDelete={removeCard}
+            {...card}
+          />
+        )),
+      ];
+    })}
   </Root>
 );
 
