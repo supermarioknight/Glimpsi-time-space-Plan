@@ -4,7 +4,10 @@ import { colors } from '../../assets/styles/variables';
 import bp from '../../assets/styles/breakpoints';
 
 const Root = styled.header`
+  display: flex;
+  align-items: center;
   height: 42px;
+  padding: 10px;
   background-color: ${colors.primary};
 
   ${bp.tablet`
@@ -16,6 +19,6 @@ const Root = styled.header`
   `};
 `;
 
-const Header = () => <Root />;
+const Header = () => <Root>glimpsi</Root>;
 
 export default Header;

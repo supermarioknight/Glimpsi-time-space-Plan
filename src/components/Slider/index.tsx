@@ -5,7 +5,7 @@ import moment, { Moment } from 'moment';
 
 const Slider = styled(Rheostat)`
   overflow: visible;
-  margin: 10px;
+  margin: 10px 20px;
   flex-basis: 100%;
 
   .rheostat-background {
