@@ -12,11 +12,17 @@ import { MarkerObj } from '../Map/GoogleMaps';
 import Slider from '../Slider';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
+import bp from '../../assets/styles/breakpoints';
 
 const Root = styled.article`
   display: flex;
   flex-grow: 1;
   height: 100%;
+  flex-direction: column;
+
+  ${bp.tablet`
+    flex-direction: row;
+  `};
 `;
 
 const RightColumn = styled.div`

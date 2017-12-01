@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import bp from '../../assets/styles/breakpoints';
 
 const WIDTH = '66px';
 const SPACER = '30px';
@@ -14,7 +15,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Spacer = styled.div`height: 96px;`;
+const Spacer = styled.div`
+  ${bp.tablet`
+    height: 96px;
+  `};
+`;
 
 const block = (cb: () => void) => (e: React.MouseEvent<HTMLElement>) => {
   e.preventDefault();

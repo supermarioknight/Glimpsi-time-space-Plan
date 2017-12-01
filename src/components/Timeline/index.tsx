@@ -22,9 +22,16 @@ export interface Props {
 
 const Root = styled.div`
   display: flex;
+  width: 350px;
+
+  > * {
+    flex-shrink: 0;
+  }
 
   ${bp.tablet`
     display: block;
+    width: 300px;
+  `} ${bp.desktop`
     width: 400px;
     padding-left: 6px;
   `};
@@ -35,7 +42,6 @@ interface DayContainerProps {
 }
 
 const Card = styled(EditableCard)`
-  flex-shrink: 0;
   opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
 `;
 
