@@ -30,10 +30,12 @@ function loadGeocodeOptions(term: string) {
   }
 
   return geocode(term).then(results => ({
-    options: results.map(result => ({
-      formattedAddress: result.formatted_address,
-      position: JSON.stringify(result.geometry.location),
-    })),
+    options: results
+      .map(result => ({
+        formattedAddress: result.formatted_address,
+        position: JSON.stringify(result.geometry.location),
+      }))
+      .concat([]),
   }));
 }
 
@@ -58,6 +60,8 @@ export default (props: Props) => (
         position: JSON.stringify(props.value.position),
       }
     }
+    // This is needed because react select is terrible.
+    filterOptions={(options: ReactSelectOnChange[]) => options}
     labelKey="formattedAddress"
     valueKey="position"
     loadOptions={loadGeocodeOptions}

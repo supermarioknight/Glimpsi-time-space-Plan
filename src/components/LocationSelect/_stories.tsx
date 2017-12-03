@@ -21,4 +21,4 @@ class SelectState extends React.Component {
   }
 }
 
-storiesOf('Select', module).add('default', () => <SelectState />);
+storiesOf('LocationSelect', module).add('default', () => <SelectState />);
