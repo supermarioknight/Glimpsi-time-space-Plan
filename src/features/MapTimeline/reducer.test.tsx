@@ -3,7 +3,7 @@ import reducer, { Store } from './reducer';
 import { SaveCard, NewCard, CancelNewCard, RemoveCard } from './actions';
 
 export const defaultState: Store = {
-  adding: false,
+  adding: null,
   cards: [],
   start: moment(),
   end: moment().add(1, 'days'),
@@ -123,6 +123,7 @@ describe('timeline reducer', () => {
     };
     const action: NewCard = {
       type: 'NEW_CARD',
+      payload: {},
     };
 
     const newState = reducer(state, action);
@@ -133,7 +134,7 @@ describe('timeline reducer', () => {
   it('should cancel adding', () => {
     const state: Store = {
       ...defaultState,
-      adding: true,
+      adding: null,
       cards: [],
     };
     const action: CancelNewCard = {

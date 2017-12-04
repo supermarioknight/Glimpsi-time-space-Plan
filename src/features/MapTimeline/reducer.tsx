@@ -24,7 +24,7 @@ const extractStartEnd = (cards: Card[]) => {
 };
 
 const defaultState: Store = {
-  adding: false,
+  adding: null,
   filters: [],
   start: moment(),
   end: moment(),
@@ -32,7 +32,7 @@ const defaultState: Store = {
 };
 
 export interface Store {
-  adding: boolean;
+  adding: { start?: Moment } | null;
   cards: CardWithId[];
   start: Moment;
   end: Moment;
@@ -44,13 +44,13 @@ export default (store: Store = defaultState, action: Actions) => {
     case 'NEW_CARD':
       return {
         ...store,
-        adding: true,
+        adding: action.payload,
       };
 
     case 'CANCEL_NEW_CARD':
       return {
         ...store,
-        adding: false,
+        adding: null,
       };
 
     case 'REMOVE_CARD':
@@ -97,7 +97,7 @@ export default (store: Store = defaultState, action: Actions) => {
       return {
         ...store,
         cards,
-        adding: false,
+        adding: null,
         ...extractStartEnd(cards),
       };
     }

@@ -38,10 +38,14 @@ export const saveCard = (card: Card): SaveCard => ({
 
 export interface NewCard {
   type: typeof NEW_CARD;
+  payload: { start?: Moment };
 }
 
-export const newCard = (): NewCard => ({
+export const newCard = (options?: { start?: Moment }): NewCard => ({
   type: 'NEW_CARD',
+  payload: {
+    ...options,
+  },
 });
 
 export interface RemoveCard {

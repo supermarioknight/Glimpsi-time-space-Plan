@@ -1,49 +1,22 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import { Moment } from 'moment';
 import Timeline, {
   Props as TimelineProps,
   CardDay,
 } from '../../components/Timeline';
-import ActionButton from '../ActionButton';
 import NewCard from '../CardNew';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
 import Slider from '../Slider';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
-import bp from '../../assets/styles/breakpoints';
-
-const Root = styled.article`
-  display: flex;
-  flex-grow: 1;
-  height: 100%;
-  flex-direction: column;
-
-  ${bp.tablet`
-    flex-direction: row;
-  `};
-`;
-
-const RightColumn = styled.div`
-  flex-shrink: 0;
-  overflow: auto;
-`;
-
-const MapContainer = styled.div`
-  height: 100%;
-`;
-
-const LeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-`;
+import ActionButton from '../ActionButton';
+import { Root, RightColumn, LeftColumn, MapContainer } from './styles';
 
 interface Props extends TimelineProps {
-  adding: boolean;
+  adding: { start?: Moment } | null;
   // tslint:disable-next-line no-any
-  newCard: () => any;
+  newCard: (options?: { start?: Moment }) => any;
   // tslint:disable-next-line no-any
   cancelNewCard: () => any;
   // tslint:disable-next-line no-any
@@ -75,7 +48,6 @@ const extractLatestDate = (days: CardDay[]) => {
 };
 
 const MapTimeline: React.StatelessComponent<Props> = ({
-  newCard,
   cancelNewCard,
   adding,
   onFilterChange,
@@ -100,16 +72,17 @@ const MapTimeline: React.StatelessComponent<Props> = ({
 
     <RightColumn>
       <Timeline {...props} />
-      {adding ? null : <ActionButton newCard={newCard} />}
-      {adding ? (
+      {!adding && <ActionButton newCard={props.newCard} />}
+      {adding && (
         <Modal>
           <NewCard
+            start={adding.start}
             datePickerFrom={extractLatestDate(props.days)}
             onSave={props.saveCard}
             onCancel={cancelNewCard}
           />
         </Modal>
-      ) : null}
+      )}
     </RightColumn>
   </Root>
 );

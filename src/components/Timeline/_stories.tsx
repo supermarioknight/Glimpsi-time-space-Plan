@@ -14,6 +14,7 @@ const groups = [
 
 storiesOf('Timeline', module).add('default', () => (
   <Timeline
+    newCard={action('newCard()')}
     saveCard={action('saveCard()')}
     removeCard={action('deleteCard()')}
     days={groups}

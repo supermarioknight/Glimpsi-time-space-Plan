@@ -9,7 +9,7 @@ const props = {
   start: moment(),
   end: moment().add(10, 'days'),
   filters: [moment().add(1, 'days'), moment().add(10, 'days')],
-  adding: false,
+  adding: null,
   days: [
     {
       date: moment(),
@@ -32,7 +32,7 @@ storiesOf('MapTimeline', module)
   .add('adding card', () => (
     <MapTimeline
       {...props}
-      adding
+      adding={{}}
       newCard={action('newCard()')}
       cancelNewCard={action('cancelNewCard()')}
       saveCard={action('saveCard()')}
