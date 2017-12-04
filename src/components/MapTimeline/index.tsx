@@ -77,7 +77,9 @@ const MapTimeline: React.StatelessComponent<Props> = ({
         <Modal>
           <NewCard
             start={adding.start}
-            datePickerFrom={extractLatestDate(props.days)}
+            datePickerFrom={
+              adding.start ? undefined : extractLatestDate(props.days)
+            }
             onSave={props.saveCard}
             onCancel={cancelNewCard}
           />
