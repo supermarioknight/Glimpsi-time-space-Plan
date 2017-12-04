@@ -2,6 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import ColorStrip from './';
+import { colors } from '../../assets/styles/variables';
 
 interface ChildProps {
   display: string;
@@ -11,7 +12,7 @@ const Child = styled.div`
   display: ${(props: ChildProps) => props.display};
   width: 250px;
   height: 200px;
-  background-color: grey;
+  background-color: ${colors.primary};
 `;
 
 storiesOf('ColorStrip', module)

@@ -9,6 +9,7 @@ const rawColors = {
   whiteSmoke: '#f5f5f5',
   green: 'green',
   orange: 'orange',
+  black: 'black',
 };
 
 export const _colors = {
@@ -17,8 +18,13 @@ export const _colors = {
   positive: rawColors.green,
   warning: rawColors.orange,
   negative: rawColors.red,
+
   cardBackground: rawColors.white,
   cardActionsBackground: 'rgba(0, 0, 0, 0.75)',
+
+  textLight: rawColors.white,
+  textDark: rawColors.black,
+
   modalOverlay: 'rgba(0, 0, 0, 0.5)',
   modalBackground: rawColors.white,
 };
@@ -27,7 +33,10 @@ export const zIndex = {
   top: 999,
 };
 
-export const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);
+export const colors = mapValues(
+  _colors,
+  (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`
+);
 
 // tslint:disable-next-line no-unused-expression
 injectGlobal`

@@ -16,7 +16,7 @@ export const ConfirmButtonStyled = styled(ConfirmButton)`
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: ${colors.textLight};
   font-size: 1em;
   padding: 5px;
 `;

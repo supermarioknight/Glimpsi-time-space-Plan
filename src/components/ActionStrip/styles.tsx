@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../assets/styles/variables';
 
 export const Button = styled.button`
   display: block;
@@ -10,6 +11,6 @@ export const Button = styled.button`
   font-weight: bold;
 
   &:hover {
-    background-color: gray;
+    background-color: ${colors.cardActionsBackground};
   }
 `;
