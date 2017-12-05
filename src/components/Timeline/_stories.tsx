@@ -7,8 +7,35 @@ import Timeline from './';
 
 const groups = [
   {
-    cards,
     date: moment(),
+    cards: [
+      {
+        id: '1',
+        start: moment(),
+        duration: 400,
+        title: 'Fly to Japan',
+        time: moment('1970-01-01 00:30:00Z'),
+        location: {
+          formattedAddress: 'Sydney Airport (SYD)',
+          position: { lat: -33.9399228, lng: 151.1752764 },
+        },
+      },
+      {
+        id: '2',
+        start: moment(),
+        duration: 400,
+        title: 'Another  to Japan',
+        time: moment('1970-01-01 00:30:00Z'),
+        location: {
+          formattedAddress: 'Sydney Airport (SYD)',
+          position: { lat: -33.9399228, lng: 151.1752764 },
+        },
+      },
+    ],
+  },
+  {
+    date: moment().add(1, 'day'),
+    cards: cards.slice(2, 4),
   },
 ];
 
@@ -18,6 +45,6 @@ storiesOf('Timeline', module).add('default', () => (
     saveCard={action('saveCard()')}
     removeCard={action('deleteCard()')}
     days={groups}
-    filters={[]}
+    filters={[moment(), moment().add(1, 'day')]}
   />
 ));

@@ -4,6 +4,7 @@ import bp from '../../assets/styles/breakpoints';
 export const Root = styled.div`
   display: flex;
   width: 350px;
+  padding-left: 8px;
 
   > * {
     flex-shrink: 0;
