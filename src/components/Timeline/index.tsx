@@ -7,6 +7,7 @@ import { isWithinFilters } from '../../lib/date';
 import { Root, Date, Day } from './styles';
 import ActionStrip from '../ActionStrip';
 import ColorStrip from '../ColorStrip';
+import { groupOverlappingCards } from './group';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -22,28 +23,6 @@ export interface Props {
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
 }
-
-const groupOverlappingCards = (cards: CardWithId[]) => {
-  const cardGroups = cards.reduce<CardWithId[][]>((groups, currentItem) => {
-    const previousGroup = groups[groups.length - 1];
-    if (previousGroup) {
-      const lastItemInGroup = previousGroup[previousGroup.length - 1];
-      const difference = currentItem.start.diff(lastItemInGroup.start);
-      const overlap = lastItemInGroup.duration - difference;
-      if (overlap > 0) {
-        // There is an overlap, add to the group
-        previousGroup.push(currentItem);
-        return groups;
-      }
-    }
-
-    // no overlap/no group to compare, push new group
-    groups.push([currentItem]);
-    return groups;
-  }, []);
-
-  return cardGroups;
-};
 
 const Timeline: React.StatelessComponent<Props> = ({
   days,
