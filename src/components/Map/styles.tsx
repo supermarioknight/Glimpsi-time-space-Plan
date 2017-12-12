@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { colors } from '../../assets/styles/variables';
 
+interface MarkerProps {
+  interactive?: boolean;
+}
+
 export const Marker = styled.div`
   display: flex;
   justify-content: center;
@@ -12,4 +16,5 @@ export const Marker = styled.div`
   width: 40px;
   height: 40px;
   font-size: 16px;
+  cursor: ${(props: MarkerProps) => (props.interactive ? 'cursor' : 'default')};
 `;

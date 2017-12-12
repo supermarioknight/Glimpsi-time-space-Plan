@@ -105,9 +105,33 @@ class Map extends React.Component<Props> {
     this._map.fitBounds(bounds);
   };
 
-  render() {
-    const { markers, onMarkerOver, onMarkerOut, onMarkerClick } = this
+  onMarker(
+    e: React.MouseEvent<HTMLElement>,
+    type: 'click' | 'over' | 'out',
+    index: number
+  ) {
+    e.stopPropagation();
+
+    const { onMarkerOver, onMarkerOut, onMarkerClick } = this
       .props as DefaultProps;
+
+    switch (type) {
+      case 'click':
+        return onMarkerClick(index);
+
+      case 'over':
+        return onMarkerOver(index);
+
+      case 'out':
+        return onMarkerOut(index);
+
+      default:
+        return;
+    }
+  }
+
+  render() {
+    const { markers } = this.props as DefaultProps;
 
     return (
       <GoogleMap
@@ -124,9 +148,10 @@ class Map extends React.Component<Props> {
             key={index}
           >
             <Marker
-              onClick={() => onMarkerClick(index)}
-              onMouseOver={() => onMarkerOver(index)}
-              onMouseOut={() => onMarkerOut(index)}
+              interactive
+              onClick={e => this.onMarker(e, 'click', index)}
+              onMouseOver={e => this.onMarker(e, 'over', index)}
+              onMouseOut={e => this.onMarker(e, 'out', index)}
             >
               {index + 1}
             </Marker>

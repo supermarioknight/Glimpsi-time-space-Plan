@@ -30,37 +30,48 @@ const Timeline: React.StatelessComponent<Props> = ({
   removeCard,
   filters,
   newCard,
-}) => (
-  <Root>
-    {days.map(day => (
-      <Day withinFilters={isWithinFilters(day.date, filters)}>
-        <Date id={day.date.format('DD-MM-YY')}>
-          {day.date.format('dddd Do MMMM')}
-        </Date>
+}) => {
+  let markerId = 0;
 
-        {groupOverlappingCards(day.cards).map(cards => {
-          const cardElements = cards.map(card => (
-            <EditableCard
-              onSave={saveCard}
-              key={card.id}
-              onDelete={removeCard}
-              {...card}
-            />
-          ));
+  return (
+    <Root>
+      {days.map(day => {
+        const withinFilters = isWithinFilters(day.date, filters);
 
-          if (cardElements.length > 1) {
-            return (
-              <ColorStrip appearance="vertical">{cardElements}</ColorStrip>
-            );
-          }
+        return (
+          <Day withinFilters={withinFilters} key={day.date.toString()}>
+            <Date id={day.date.format('DD-MM-YY')}>
+              {day.date.format('dddd Do MMMM')}
+            </Date>
 
-          return cardElements;
-        })}
+            {groupOverlappingCards(day.cards).map((group, groupedIndex) => {
+              const cardElements = group.map(card => (
+                <EditableCard
+                  onSave={saveCard}
+                  key={card.id}
+                  onDelete={removeCard}
+                  markerId={withinFilters ? (markerId += 1) : undefined}
+                  {...card}
+                />
+              ));
 
-        <ActionStrip start={day.date} newCard={newCard} />
-      </Day>
-    ))}
-  </Root>
-);
+              if (cardElements.length > 1) {
+                return (
+                  <ColorStrip key={groupedIndex} appearance="vertical">
+                    {cardElements}
+                  </ColorStrip>
+                );
+              }
+
+              return cardElements;
+            })}
+
+            <ActionStrip start={day.date} newCard={newCard} />
+          </Day>
+        );
+      })}
+    </Root>
+  );
+};
 
 export default Timeline;

@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { Card as CardProps } from '../../features/types';
 import { Root, DateTime, Minutes, Title, Location } from './styles';
+import { Marker } from '../Map/styles';
+
 export interface Props extends CardProps {
   children?: React.ReactNode;
+  markerId?: number;
 }
 
 const Card: React.StatelessComponent<Props> = ({
@@ -11,12 +14,15 @@ const Card: React.StatelessComponent<Props> = ({
   time,
   duration,
   children,
+  markerId,
 }) => (
   <Root>
     <DateTime>
       Starts {time.format('hh:mma')}
       {duration ? <Minutes>{`${duration}min`}</Minutes> : null}
     </DateTime>
+
+    {markerId && <Marker>{markerId}</Marker>}
 
     <div>
       <Title>{title}</Title>

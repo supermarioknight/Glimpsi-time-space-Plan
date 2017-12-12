@@ -8,11 +8,11 @@ import MapTimeline from './';
 const props = {
   start: moment(),
   end: moment().add(10, 'days'),
-  filters: [moment().add(1, 'days'), moment().add(10, 'days')],
+  filters: [moment().add(1, 'days'), moment().add(9, 'days')],
   adding: null,
   days: [
     {
-      date: moment(),
+      date: moment().add(2, 'days'),
       cards: exampleCards,
     },
   ],
