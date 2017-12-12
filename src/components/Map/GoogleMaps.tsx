@@ -1,11 +1,13 @@
 import React from 'react';
 import {
   GoogleMap,
-  Marker,
+  OverlayView,
   withScriptjs,
   withGoogleMap,
 } from 'react-google-maps';
-import { flow } from 'lodash-es';
+import { flow, noop } from 'lodash-es';
+
+import { Marker } from './styles';
 
 export interface MarkerObj {
   position: {
@@ -14,16 +16,24 @@ export interface MarkerObj {
   };
 }
 
+type MarkerEvent = (index: number) => void;
+
 export interface Props {
   autofit?: boolean;
   className?: string;
   markers?: MarkerObj[];
   zoom?: number;
+  onMarkerOver?: MarkerEvent;
+  onMarkerOut?: MarkerEvent;
+  onMarkerClick?: MarkerEvent;
 }
 
 interface DefaultProps extends Props {
   markers: MarkerObj[];
   zoom: number;
+  onMarkerOver: MarkerEvent;
+  onMarkerOut: MarkerEvent;
+  onMarkerClick: MarkerEvent;
 }
 
 const calcCenter = (markers: MarkerObj[]) => {
@@ -49,10 +59,18 @@ const calcCenter = (markers: MarkerObj[]) => {
   };
 };
 
+const getPixelPositionOffset = (width: number, height: number) => ({
+  x: -(width / 2),
+  y: -(height / 2),
+});
+
 class Map extends React.Component<Props> {
   static defaultProps: DefaultProps = {
     markers: [],
     zoom: 14,
+    onMarkerOver: noop,
+    onMarkerOut: noop,
+    onMarkerClick: noop,
   };
 
   _map: GoogleMap | null;
@@ -88,7 +106,8 @@ class Map extends React.Component<Props> {
   };
 
   render() {
-    const { markers } = this.props as DefaultProps;
+    const { markers, onMarkerOver, onMarkerOut, onMarkerClick } = this
+      .props as DefaultProps;
 
     return (
       <GoogleMap
@@ -97,7 +116,21 @@ class Map extends React.Component<Props> {
         ref={this.onMapMounted}
       >
         {markers.map((marker, index) => (
-          <Marker position={marker.position} key={index} />
+          <OverlayView
+            position={marker.position}
+            getPixelPositionOffset={getPixelPositionOffset}
+            // tslint:disable-next-line no-any
+            mapPaneName={(OverlayView as any).OVERLAY_MOUSE_TARGET}
+            key={index}
+          >
+            <Marker
+              onClick={() => onMarkerClick(index)}
+              onMouseOver={() => onMarkerOver(index)}
+              onMouseOut={() => onMarkerOut(index)}
+            >
+              {index + 1}
+            </Marker>
+          </OverlayView>
         ))}
       </GoogleMap>
     );

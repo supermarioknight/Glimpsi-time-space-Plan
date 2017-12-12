@@ -4,7 +4,7 @@ import bp from '../../assets/styles/breakpoints';
 export const Root = styled.div`
   display: flex;
   width: 350px;
-  padding-left: 8px;
+  padding: 0 12px;
 
   > * {
     flex-shrink: 0;
@@ -15,7 +15,6 @@ export const Root = styled.div`
   width: 300px;
 `} ${bp.desktop`
   width: 400px;
-  margin-left: 12px;
 `};
 `;
 
