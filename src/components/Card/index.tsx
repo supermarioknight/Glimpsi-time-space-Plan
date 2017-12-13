@@ -15,8 +15,9 @@ const Card: React.StatelessComponent<Props> = ({
   duration,
   children,
   markerId,
+  ...props
 }) => (
-  <Root>
+  <Root {...props}>
     <DateTime>
       Starts {time.format('hh:mma')}
       {duration ? <Minutes>{`${duration}min`}</Minutes> : null}

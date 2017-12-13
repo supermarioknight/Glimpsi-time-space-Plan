@@ -7,6 +7,7 @@ import { isWithinFilters } from '../../lib/date';
 import { Root, Date, Day } from './styles';
 import ActionStrip from '../ActionStrip';
 import ColorStrip from '../ColorStrip';
+import ScrollIntoView from '../ScrollIntoView';
 import { groupOverlappingCards } from './group';
 
 export interface CardDay {
@@ -22,6 +23,7 @@ export interface Props {
   filters: Moment[];
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
+  focusedCard?: number;
 }
 
 const Timeline: React.StatelessComponent<Props> = ({
@@ -30,6 +32,7 @@ const Timeline: React.StatelessComponent<Props> = ({
   removeCard,
   filters,
   newCard,
+  focusedCard,
 }) => {
   let markerId = 0;
 
@@ -40,20 +43,28 @@ const Timeline: React.StatelessComponent<Props> = ({
 
         return (
           <Day withinFilters={withinFilters} key={day.date.toString()}>
-            <Date id={day.date.format('DD-MM-YY')}>
-              {day.date.format('dddd Do MMMM')}
-            </Date>
+            <Date id={day.date.format('DD-MM-YY')}>{day.date.format('dddd Do MMMM')}</Date>
 
             {groupOverlappingCards(day.cards).map((group, groupedIndex) => {
-              const cardElements = group.map(card => (
-                <EditableCard
-                  onSave={saveCard}
-                  key={card.id}
-                  onDelete={removeCard}
-                  markerId={withinFilters ? (markerId += 1) : undefined}
-                  {...card}
-                />
-              ));
+              const cardElements = group.map(card => {
+                if (withinFilters) {
+                  markerId += 1;
+                }
+
+                return (
+                  <ScrollIntoView
+                    key={card.id}
+                    disabled={!(withinFilters && markerId === focusedCard)}
+                  >
+                    <EditableCard
+                      onSave={saveCard}
+                      onDelete={removeCard}
+                      markerId={withinFilters ? markerId : undefined}
+                      {...card}
+                    />
+                  </ScrollIntoView>
+                );
+              });
 
               if (cardElements.length > 1) {
                 return (

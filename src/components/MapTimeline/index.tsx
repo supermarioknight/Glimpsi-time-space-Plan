@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Moment } from 'moment';
-import Timeline, {
-  Props as TimelineProps,
-  CardDay,
-} from '../../components/Timeline';
+import Timeline, { Props as TimelineProps, CardDay } from '../../components/Timeline';
 import NewCard from '../CardNew';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
@@ -27,11 +24,9 @@ interface Props extends TimelineProps {
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
   return days.reduce((markers: MarkerObj[], day: CardDay) => {
-    const locations = day.cards
-      .filter(card => isWithinFilters(card.start, filters))
-      .map(card => ({
-        position: card.location.position,
-      }));
+    const locations = day.cards.filter(card => isWithinFilters(card.start, filters)).map(card => ({
+      position: card.location.position,
+    }));
 
     return markers.concat(locations);
   }, []);
@@ -47,46 +42,62 @@ const extractLatestDate = (days: CardDay[]) => {
   return lastCard && lastDay.date;
 };
 
-const MapTimeline: React.StatelessComponent<Props> = ({
-  cancelNewCard,
-  adding,
-  onFilterChange,
-  start,
-  end,
-  ...props,
-}) => (
-  <Root>
-    <LeftColumn>
-      <Slider
-        onChange={onFilterChange}
-        type="days"
-        start={start}
-        end={end}
-        values={props.filters}
-      />
+interface State {
+  focusedCard: number | undefined;
+}
 
-      <MapContainer>
-        <Map markers={extractMarkers(props.days, props.filters)} autofit />
-      </MapContainer>
-    </LeftColumn>
+export default class MapTimeline extends React.Component<Props, State> {
+  state: State = {
+    focusedCard: undefined,
+  };
 
-    <RightColumn>
-      <Timeline {...props} />
-      {!adding && <ActionButton newCard={props.newCard} />}
-      {adding && (
-        <Modal>
-          <NewCard
-            start={adding.start}
-            datePickerFrom={
-              adding.start ? undefined : extractLatestDate(props.days)
-            }
-            onSave={props.saveCard}
-            onCancel={cancelNewCard}
+  setFocus = (cardIndex: number) => {
+    this.setState({
+      focusedCard: cardIndex,
+    });
+  };
+
+  render() {
+    const { cancelNewCard, adding, onFilterChange, start, end, ...props } = this.props;
+    const { focusedCard } = this.state;
+
+    return (
+      <Root>
+        <LeftColumn>
+          <Slider
+            onChange={onFilterChange}
+            type="days"
+            start={start}
+            end={end}
+            values={props.filters}
           />
-        </Modal>
-      )}
-    </RightColumn>
-  </Root>
-);
 
-export default MapTimeline;
+          <MapContainer>
+            <Map
+              markers={extractMarkers(props.days, props.filters)}
+              autofit
+              onMarkerClick={this.setFocus}
+            />
+          </MapContainer>
+        </LeftColumn>
+
+        <RightColumn>
+          <Timeline {...props} focusedCard={focusedCard} />
+
+          {!adding && <ActionButton newCard={props.newCard} />}
+
+          {adding && (
+            <Modal>
+              <NewCard
+                start={adding.start}
+                datePickerFrom={adding.start ? undefined : extractLatestDate(props.days)}
+                onSave={props.saveCard}
+                onCancel={cancelNewCard}
+              />
+            </Modal>
+          )}
+        </RightColumn>
+      </Root>
+    );
+  }
+}

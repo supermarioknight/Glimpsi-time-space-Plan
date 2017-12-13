@@ -102,18 +102,18 @@ class Map extends React.Component<Props> {
 
   onMarker(e: React.MouseEvent<HTMLElement>, type: 'click' | 'over' | 'out', index: number) {
     e.stopPropagation();
-
     const { onMarkerOver, onMarkerOut, onMarkerClick } = this.props as DefaultProps;
+    const indexFromOne = index + 1;
 
     switch (type) {
       case 'click':
-        return onMarkerClick(index);
+        return onMarkerClick(indexFromOne);
 
       case 'over':
-        return onMarkerOver(index);
+        return onMarkerOver(indexFromOne);
 
       case 'out':
-        return onMarkerOut(index);
+        return onMarkerOut(indexFromOne);
 
       default:
         return;
