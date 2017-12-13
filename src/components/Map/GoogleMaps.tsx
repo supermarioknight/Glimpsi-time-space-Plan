@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  GoogleMap,
-  OverlayView,
-  withScriptjs,
-  withGoogleMap,
-} from 'react-google-maps';
+import { GoogleMap, OverlayView, withScriptjs, withGoogleMap } from 'react-google-maps';
 import { flow, noop } from 'lodash-es';
 
 import { Marker } from './styles';
@@ -65,7 +60,7 @@ const getPixelPositionOffset = (width: number, height: number) => ({
 });
 
 class Map extends React.Component<Props> {
-  static defaultProps: DefaultProps = {
+  static defaultProps = {
     markers: [],
     zoom: 14,
     onMarkerOver: noop,
@@ -105,15 +100,10 @@ class Map extends React.Component<Props> {
     this._map.fitBounds(bounds);
   };
 
-  onMarker(
-    e: React.MouseEvent<HTMLElement>,
-    type: 'click' | 'over' | 'out',
-    index: number
-  ) {
+  onMarker(e: React.MouseEvent<HTMLElement>, type: 'click' | 'over' | 'out', index: number) {
     e.stopPropagation();
 
-    const { onMarkerOver, onMarkerOut, onMarkerClick } = this
-      .props as DefaultProps;
+    const { onMarkerOver, onMarkerOut, onMarkerClick } = this.props as DefaultProps;
 
     switch (type) {
       case 'click':
@@ -134,11 +124,7 @@ class Map extends React.Component<Props> {
     const { markers } = this.props as DefaultProps;
 
     return (
-      <GoogleMap
-        zoom={this.props.zoom}
-        center={calcCenter(markers)}
-        ref={this.onMapMounted}
-      >
+      <GoogleMap zoom={this.props.zoom} center={calcCenter(markers)} ref={this.onMapMounted}>
         {markers.map((marker, index) => (
           <OverlayView
             position={marker.position}
