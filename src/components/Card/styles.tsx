@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { colors } from '../../assets/styles/variables';
 
+interface RootProps {
+  focused?: boolean;
+}
+
 export const Root = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,6 +20,8 @@ export const Root = styled.div`
   background-color: ${colors.cardBackground};
   position: relative;
   margin: 12px 0;
+  box-shadow: ${(props: RootProps) =>
+    props.focused ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
 `;
 
 export const Title = styled.h2`

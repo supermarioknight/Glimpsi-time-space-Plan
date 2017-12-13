@@ -19,6 +19,7 @@ export const _colors = {
   warning: rawColors.orange,
   negative: rawColors.red,
 
+  cardFocused: 'rgba(0, 0, 0, 0.50)',
   cardBackground: rawColors.white,
   cardActionsBackground: 'rgba(0, 0, 0, 0.75)',
 
@@ -33,10 +34,7 @@ export const zIndex = {
   top: 999,
 };
 
-export const colors = mapValues(
-  _colors,
-  (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`
-);
+export const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);
 
 // tslint:disable-next-line no-unused-expression
 injectGlobal`

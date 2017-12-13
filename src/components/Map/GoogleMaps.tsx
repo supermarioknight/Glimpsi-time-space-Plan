@@ -19,7 +19,7 @@ export interface Props {
   markers?: MarkerObj[];
   zoom?: number;
   onMarkerOver?: MarkerEvent;
-  onMarkerOut?: MarkerEvent;
+  onMarkerOut?: () => void;
   onMarkerClick?: MarkerEvent;
 }
 
@@ -27,7 +27,7 @@ interface DefaultProps extends Props {
   markers: MarkerObj[];
   zoom: number;
   onMarkerOver: MarkerEvent;
-  onMarkerOut: MarkerEvent;
+  onMarkerOut: () => void;
   onMarkerClick: MarkerEvent;
 }
 
@@ -113,7 +113,7 @@ class Map extends React.Component<Props> {
         return onMarkerOver(indexFromOne);
 
       case 'out':
-        return onMarkerOut(indexFromOne);
+        return onMarkerOut();
 
       default:
         return;

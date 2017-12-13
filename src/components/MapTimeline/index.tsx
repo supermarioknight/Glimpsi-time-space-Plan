@@ -44,22 +44,29 @@ const extractLatestDate = (days: CardDay[]) => {
 
 interface State {
   focusedCard: number | undefined;
+  cardScrolledIntoView: number | undefined;
 }
 
 export default class MapTimeline extends React.Component<Props, State> {
   state: State = {
     focusedCard: undefined,
+    cardScrolledIntoView: undefined,
   };
 
-  setFocus = (cardIndex: number) => {
+  setFocus = (cardIndex?: number) => {
     this.setState({
       focusedCard: cardIndex,
     });
   };
 
+  setCardScrolledIntoView = (cardIndex: number) => {
+    this.setState({
+      cardScrolledIntoView: cardIndex,
+    });
+  };
+
   render() {
     const { cancelNewCard, adding, onFilterChange, start, end, ...props } = this.props;
-    const { focusedCard } = this.state;
 
     return (
       <Root>
@@ -76,13 +83,15 @@ export default class MapTimeline extends React.Component<Props, State> {
             <Map
               markers={extractMarkers(props.days, props.filters)}
               autofit
-              onMarkerClick={this.setFocus}
+              onMarkerClick={this.setCardScrolledIntoView}
+              onMarkerOver={this.setFocus}
+              onMarkerOut={this.setFocus}
             />
           </MapContainer>
         </LeftColumn>
 
         <RightColumn>
-          <Timeline {...props} focusedCard={focusedCard} />
+          <Timeline {...props} {...this.state} />
 
           {!adding && <ActionButton newCard={props.newCard} />}
 

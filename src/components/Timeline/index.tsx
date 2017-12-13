@@ -23,7 +23,8 @@ export interface Props {
   filters: Moment[];
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
-  focusedCard?: number;
+  focusedCard?: number | undefined;
+  cardScrolledIntoView?: number | undefined;
 }
 
 const Timeline: React.StatelessComponent<Props> = ({
@@ -33,6 +34,7 @@ const Timeline: React.StatelessComponent<Props> = ({
   filters,
   newCard,
   focusedCard,
+  cardScrolledIntoView,
 }) => {
   let markerId = 0;
 
@@ -54,12 +56,19 @@ const Timeline: React.StatelessComponent<Props> = ({
                 return (
                   <ScrollIntoView
                     key={card.id}
-                    disabled={!(withinFilters && markerId === focusedCard)}
+                    disabled={
+                      !(
+                        withinFilters &&
+                        ((markerId === 1 && cardScrolledIntoView === undefined) ||
+                          markerId === cardScrolledIntoView)
+                      )
+                    }
                   >
                     <EditableCard
                       onSave={saveCard}
                       onDelete={removeCard}
                       markerId={withinFilters ? markerId : undefined}
+                      focused={withinFilters && markerId === focusedCard}
                       {...card}
                     />
                   </ScrollIntoView>
