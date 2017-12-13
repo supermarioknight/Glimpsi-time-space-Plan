@@ -5,7 +5,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const ref = (el: HTMLElement | null) => el && el.scrollIntoView();
+const ref = (el: HTMLElement | null) => el && el.scrollIntoView({ block: 'center' });
 
 const ScrollIntoView: React.StatelessComponent<Props> = ({ children, disabled }) => {
   return React.cloneElement(children, {
