@@ -13,10 +13,11 @@ export const Marker = styled.div`
   border: 3px solid ${colors.primary};
   color: ${colors.textLight};
   background: ${colors.primary};
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   font-size: 16px;
   cursor: ${(props: MarkerProps) => (props.interactive ? 'pointer' : 'default')};
+
   &:hover {
     box-shadow: 0 1px 10px ${colors.cardFocused};
   }

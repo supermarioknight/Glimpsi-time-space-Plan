@@ -57,3 +57,7 @@ export const Handle = styled.button`
     opacity: 1;
   }
 `;
+
+export const DateLabel = styled.span`
+  white-space: nowrap;
+`;

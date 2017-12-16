@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Rheostat from 'rheostat';
 import moment, { Moment } from 'moment';
-import { slider, Root, HandleTooltip, Handle } from './styles';
+import { slider, Root, HandleTooltip, Handle, DateLabel } from './styles';
 
 const Slider = styled(Rheostat)`
   ${slider};
@@ -37,15 +37,17 @@ export default class DateSlider extends React.Component<Props> {
 
     return (
       <Root>
-        {start.format('DD/MMM')}
+        <DateLabel>{start.format('Do MMM')}</DateLabel>
 
         <Slider
           handle={({ className: _, ...handleProps }: HandleProps) => (
             <Handle {...handleProps}>
               <HandleTooltip>
-                {moment(start)
-                  .add(handleProps['aria-valuenow'], type)
-                  .format('DD/MMM')}
+                <DateLabel>
+                  {moment(start)
+                    .add(handleProps['aria-valuenow'], type)
+                    .format('Do MMM')}
+                </DateLabel>
               </HandleTooltip>
             </Handle>
           )}
@@ -58,7 +60,7 @@ export default class DateSlider extends React.Component<Props> {
           values={valuesAsNumbers}
         />
 
-        {end.format('DD/MMM')}
+        <DateLabel>{end.format('Do MMM')}</DateLabel>
       </Root>
     );
   }
