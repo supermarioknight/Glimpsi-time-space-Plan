@@ -20,41 +20,40 @@ export const slider = css`
     height: 13px;
     top: 1px;
   }
-
-  .rheostat-handle {
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
-    border-radius: 20%;
-    height: 24px;
-    outline: none;
-    z-index: 2;
-    width: 24px;
-    margin-left: -12px;
-    top: -5px;
-  }
-
-  .rheostat-handle:before,
-  .rheostat-handle:after {
-    content: '';
-    display: block;
-    position: absolute;
-    background-color: #dadfe8;
-    top: 7px;
-    height: 10px;
-    width: 1px;
-  }
-
-  .rheostat-handle:before {
-    left: 10px;
-  }
-
-  .rheostat-handle:after {
-    left: 13px;
-  }
 `;
 
 export const Root = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 10px;
+`;
+
+const handleTooltipMarkup = 'div';
+
+export const HandleTooltip = styled[handleTooltipMarkup]`
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  padding-left: 50%;
+  transform: translate3d(-50%, -180%, 0);
+  font-size: 15px;
+  transition: opacity 0.2s;
+`;
+
+export const Handle = styled.button`
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  z-index: 2;
+  margin-left: -12px;
+  top: -5px;
+
+  &:hover
+    > ${handleTooltipMarkup},
+    &:focus
+    > ${handleTooltipMarkup},
+    &:active
+    > ${handleTooltipMarkup} {
+    opacity: 1;
+  }
 `;

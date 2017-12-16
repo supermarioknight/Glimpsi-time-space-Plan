@@ -16,5 +16,8 @@ export const Marker = styled.div`
   width: 40px;
   height: 40px;
   font-size: 16px;
-  cursor: ${(props: MarkerProps) => (props.interactive ? 'cursor' : 'default')};
+  cursor: ${(props: MarkerProps) => (props.interactive ? 'pointer' : 'default')};
+  &:hover {
+    box-shadow: 0 1px 10px ${colors.cardFocused};
+  }
 `;

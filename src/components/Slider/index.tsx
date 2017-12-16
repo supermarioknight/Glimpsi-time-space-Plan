@@ -2,11 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Rheostat from 'rheostat';
 import moment, { Moment } from 'moment';
-import { slider, Root } from './styles';
+import { slider, Root, HandleTooltip, Handle } from './styles';
 
 const Slider = styled(Rheostat)`
   ${slider};
 `;
+
+interface HandleProps {
+  className: string;
+}
 
 interface Props {
   className?: string;
@@ -33,15 +37,17 @@ export default class DateSlider extends React.Component<Props> {
 
     return (
       <Root>
-        {start.format('MM/DD')}
+        {start.format('DD/MMM')}
 
         <Slider
-          handle={(handleProps: any) => (
-            <div {...handleProps}>
-              {moment(start)
-                .add(handleProps['aria-valuenow'], type)
-                .format('MM/DD')}
-            </div>
+          handle={({ className: _, ...handleProps }: HandleProps) => (
+            <Handle {...handleProps}>
+              <HandleTooltip>
+                {moment(start)
+                  .add(handleProps['aria-valuenow'], type)
+                  .format('DD/MMM')}
+              </HandleTooltip>
+            </Handle>
           )}
           className={className}
           onChange={this.onChange}
@@ -52,7 +58,7 @@ export default class DateSlider extends React.Component<Props> {
           values={valuesAsNumbers}
         />
 
-        {end.format('MM/DD')}
+        {end.format('DD/MMM')}
       </Root>
     );
   }
