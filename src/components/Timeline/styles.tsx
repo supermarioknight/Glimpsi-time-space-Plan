@@ -3,7 +3,6 @@ import bp from '../../assets/styles/breakpoints';
 
 export const Root = styled.div`
   display: flex;
-  width: 350px;
   padding: 0 12px;
 
   > * {
@@ -27,5 +26,10 @@ interface DayContainerProps {
 }
 
 export const Day = styled.div`
+  display: flex;
   opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
+
+  ${bp.tablet`
+    display: block;
+  `};
 `;
