@@ -96,7 +96,10 @@ export default class MapTimeline extends React.Component<Props, State> {
           {!adding && <ActionButton newCard={props.newCard} />}
 
           {adding && (
-            <Modal>
+            <Modal
+              onRequestClose={cancelNewCard}
+              appRoot={document.getElementById('root') as HTMLElement}
+            >
               <NewCard
                 start={adding.start}
                 datePickerFrom={adding.start ? undefined : extractLatestDate(props.days)}
