@@ -43,6 +43,7 @@ storiesOf('Timeline', module).add('default', () => (
   <Timeline
     newCard={action('newCard()')}
     saveCard={action('saveCard()')}
+    onFilterChange={action('onFilterChange()')}
     removeCard={action('deleteCard()')}
     days={groups}
     filters={[moment(), moment().add(1, 'day')]}

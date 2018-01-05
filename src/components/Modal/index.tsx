@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BestModal from 'react-best-modal';
-import { Props } from 'react-best-modal/dist/BestModal';
+import { Props as ModalProps } from 'react-best-modal/dist/BestModal';
 import Blanket from '../Blanket';
 import { colors, zIndex } from '../../assets/styles/variables';
 
@@ -24,9 +24,13 @@ const Card = styled.div`
   z-index: 1;
 `;
 
+interface Props extends ModalProps {
+  onRequestClose: () => void;
+}
+
 const Modal: React.StatelessComponent<Props> = ({ children, ...props }) => (
   <FixedBestModal {...props}>
-    <Blanket onClick={props.onRequestClose as any} />
+    <Blanket onClick={props.onRequestClose} />
     <Card>{children}</Card>
   </FixedBestModal>
 );

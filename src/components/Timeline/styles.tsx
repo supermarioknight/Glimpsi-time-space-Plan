@@ -17,8 +17,11 @@ export const Root = styled.div`
 `};
 `;
 
-export const Date = styled.div`
+export const Date = styled.button`
   padding: 20px 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 interface DayContainerProps {

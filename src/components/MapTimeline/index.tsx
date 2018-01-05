@@ -16,8 +16,6 @@ interface Props extends TimelineProps {
   newCard: (options?: { start?: Moment }) => any;
   // tslint:disable-next-line no-any
   cancelNewCard: () => any;
-  // tslint:disable-next-line no-any
-  onFilterChange: (filters: Moment[]) => any;
   start: Moment;
   end: Moment;
 }
@@ -91,7 +89,7 @@ export default class MapTimeline extends React.Component<Props, State> {
         </LeftColumn>
 
         <RightColumn>
-          <Timeline {...props} {...this.state} />
+          <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
 
           {!adding && <ActionButton newCard={props.newCard} />}
 

@@ -22,6 +22,8 @@ export interface Props {
   removeCard: (id: string) => any;
   filters: Moment[];
   // tslint:disable-next-line no-any
+  onFilterChange: (filters: Moment[]) => any;
+  // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
   focusedCard?: number | undefined;
   cardScrolledIntoView?: number | undefined;
@@ -34,6 +36,7 @@ const Timeline: React.StatelessComponent<Props> = ({
   filters,
   newCard,
   focusedCard,
+  onFilterChange,
   cardScrolledIntoView,
 }) => {
   let markerId = 0;
@@ -45,7 +48,13 @@ const Timeline: React.StatelessComponent<Props> = ({
 
         return (
           <Day withinFilters={withinFilters} key={day.date.toString()}>
-            <Date id={day.date.format('DD-MM-YY')}>{day.date.format('dddd Do MMMM')}</Date>
+            <Date
+              title="Focus on day"
+              onClick={() => onFilterChange([day.date, day.date])}
+              id={day.date.format('DD-MM-YY')}
+            >
+              {day.date.format('dddd Do MMMM')}
+            </Date>
 
             {groupOverlappingCards(day.cards).map((group, groupedIndex) => {
               const cardElements = group.map(card => {
