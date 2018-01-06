@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "@types/react-dates": "^12.1.6",
+    "@types/react-dates": "^16.0.1",
     "axios": "^0.17.1",
     "formik": "^0.10.0",
     "history": "^4.7.2",
@@ -24,7 +24,7 @@
     "react-addons-shallow-compare": "^15.6.2",
     "react-async-component": "^1.0.2",
     "react-best-modal": "^1.0.4",
-    "react-dates": "^15.1.0",
+    "react-dates": "^16.0.1",
     "react-dom": "^16.0.0",
     "react-focus-lock": "^1.6.3",
     "react-google-maps": "^9.2.2",
