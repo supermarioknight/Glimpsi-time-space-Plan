@@ -22,6 +22,7 @@ describe('timeline reducer', () => {
         duration: 50,
         time: moment('1970-01-01 00:30:00Z'),
         start: moment(),
+        labels: [],
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -48,6 +49,7 @@ describe('timeline reducer', () => {
         duration: 50,
         time: moment('1970-01-01 00:30:00Z'),
         start: moment(),
+        labels: [],
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -78,6 +80,7 @@ describe('timeline reducer', () => {
           duration: 30,
           time: moment('1970-01-01 00:30:00Z'),
           start: moment(),
+          labels: [],
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',
             position: {
@@ -95,6 +98,7 @@ describe('timeline reducer', () => {
         duration: 30,
         time: moment('1970-01-01 00:30:00Z'),
         start: moment(),
+        labels: [],
         location: {
           formattedAddress: 'Sapporo, Hokkaido, Japan',
           position: {
@@ -156,6 +160,7 @@ describe('timeline reducer', () => {
           time: moment('1970-01-01 00:30:00Z'),
           start: moment(),
           duration: 30,
+          labels: [],
           location: {
             formattedAddress: 'Sapporo, Hokkaido, Japan',
             position: {

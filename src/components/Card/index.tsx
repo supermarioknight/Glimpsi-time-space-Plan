@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card as CardProps } from '../../features/types';
 import { Root, DateTime, Minutes, Title, Location } from './styles';
+import Label from '../Label';
 import { Marker } from '../Map/styles';
 
 export interface Props extends CardProps {
@@ -16,6 +17,7 @@ const Card: React.StatelessComponent<Props> = ({
   duration,
   children,
   markerId,
+  labels,
   ...props
 }) => (
   <Root {...props}>
@@ -25,6 +27,8 @@ const Card: React.StatelessComponent<Props> = ({
     </DateTime>
 
     {markerId && <Marker>{markerId}</Marker>}
+
+    <div>{labels && labels.map(label => <Label key={label}>{label}</Label>)}</div>
 
     <div>
       <Title>{title}</Title>

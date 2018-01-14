@@ -8,6 +8,7 @@ storiesOf('Card/Editable', module).add('with values', () => (
   <EditableCard
     id="1"
     title="Valentines Day"
+    labels={[]}
     location={{
       formattedAddress: 'Sapporo, Hokkaido, Japan',
       position: {

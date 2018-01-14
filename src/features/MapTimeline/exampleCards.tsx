@@ -7,6 +7,7 @@ export default [
     duration: 400,
     title: 'Fly to Japan',
     time: moment('1970-01-01 00:30:00Z'),
+    labels: ['travel'],
     location: {
       formattedAddress: 'Sydney Airport (SYD)',
       position: { lat: -33.9399228, lng: 151.1752764 },
@@ -17,6 +18,7 @@ export default [
     start: moment().add(1, 'day'),
     duration: 30,
     title: 'Reach Japan',
+    labels: ['travel'],
     time: moment('1970-01-01 00:30:00Z'),
     location: {
       formattedAddress: 'Haneda Airport',
@@ -29,6 +31,7 @@ export default [
     duration: 240,
     time: moment('1970-01-01 00:30:00Z'),
     title: 'Grand Sumo Tournament',
+    labels: ['fun'],
     location: {
       formattedAddress: 'Ryōgoku Kokugikan',
       position: { lat: 35.696944, lng: 139.793333 },
@@ -40,6 +43,7 @@ export default [
     duration: 60,
     time: moment('1970-01-01 00:30:00Z'),
     title: 'Hackers Bar',
+    labels: ['fun'],
     location: {
       formattedAddress: '7 Chome-12-3 Roppongi Minato-ku, Tōkyō-to 106-0032',
       position: { lat: 35.664375, lng: 139.730543 },

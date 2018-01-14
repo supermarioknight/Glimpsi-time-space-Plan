@@ -23,6 +23,8 @@ export const _colors = {
   cardBackground: rawColors.white,
   cardActionsBackground: 'rgba(0, 0, 0, 0.75)',
 
+  label: 'yellow',
+
   textLight: rawColors.white,
   textDark: rawColors.black,
 

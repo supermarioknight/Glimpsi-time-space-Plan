@@ -5,6 +5,7 @@ import Card from './';
 
 storiesOf('Card/Card', module).add('start date', () => (
   <Card
+    labels={['fun', 'gf']}
     title="Valentines Day"
     location={{
       formattedAddress: 'Sapporo, Hokkaido, Japan',

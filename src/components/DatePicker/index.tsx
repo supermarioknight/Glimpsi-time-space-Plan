@@ -30,7 +30,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   onFocusChange = ({ focused }: { focused: boolean }) => {
-    this.setState({ focused });
+    this.setState({ focused }, () => this.setState({ focused: false }));
   };
 
   render() {

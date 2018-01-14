@@ -11,6 +11,7 @@ describe.only('card grouping', () => {
     return {
       start,
       time,
+      labels: [],
       id: `${id}`,
       duration: 400,
       title: 'Fly to Japan',

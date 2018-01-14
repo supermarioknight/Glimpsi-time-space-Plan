@@ -19,6 +19,7 @@ const groups = [
           formattedAddress: 'Sydney Airport (SYD)',
           position: { lat: -33.9399228, lng: 151.1752764 },
         },
+        labels: ['travel'],
       },
       {
         id: '2',
@@ -30,6 +31,7 @@ const groups = [
           formattedAddress: 'Sydney Airport (SYD)',
           position: { lat: -33.9399228, lng: 151.1752764 },
         },
+        labels: ['travel'],
       },
     ],
   },

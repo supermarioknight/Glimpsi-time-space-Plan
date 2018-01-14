@@ -19,5 +19,6 @@ storiesOf('Card/Editing', module).add('with values', () => (
     duration={30}
     onCancel={action('onCancel()')}
     onSave={action('onSave()')}
+    labels={[]}
   />
 ));

@@ -8,14 +8,10 @@ import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
 import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
+import LabelSelect from '../LabelSelect';
 import FormFieldContainer from '../FormFieldContainer';
 
-import {
-  Root,
-  Title,
-  Location,
-  DateTime as DateTimeContainer,
-} from '../Card/styles';
+import { Root, Title, Location, DateTime as DateTimeContainer } from '../Card/styles';
 
 // tslint:disable-next-line no-any
 export type OnSave = (values: Card) => any;
@@ -34,6 +30,7 @@ export interface Props {
   start?: Moment;
   duration?: number;
   onSave: OnSave;
+  labels?: string[];
   // tslint:disable-next-line no-any
   onCancel: () => any;
   renderLeft?: (values: Card) => React.ReactNode;
@@ -50,6 +47,7 @@ const schema = yup.object().shape({
   start: yup.object().required(),
   time: yup.object().required(),
   location: yup.object().required(),
+  labels: yup.array(),
 });
 
 export default class CardEditing extends Component<Props> {
@@ -58,6 +56,7 @@ export default class CardEditing extends Component<Props> {
     location: undefined,
     start: undefined,
     time: undefined,
+    labels: [],
     duration: 0,
     renderLeft: () => null,
     onSave: noop,
@@ -77,21 +76,14 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const {
-      title,
-      location,
-      start,
-      duration,
-      renderLeft,
-      time,
-      datePickerFrom,
-    } = this.props as DefaultProps;
+    const { title, location, start, duration, renderLeft, time, datePickerFrom, labels } = this
+      .props as DefaultProps;
 
     return (
       <Formik
         onSubmit={this.finish}
         validationSchema={schema}
-        initialValues={{ title, location, start, duration, time }}
+        initialValues={{ title, location, start, duration, time, labels }}
       >
         {({
           values,
@@ -99,7 +91,7 @@ export default class CardEditing extends Component<Props> {
           handleBlur,
           handleSubmit,
           setFieldValue,
-          ...fieldProps,
+          ...fieldProps
         }: FormikProps<Card>) => [
           renderLeft(values),
 
@@ -124,6 +116,14 @@ export default class CardEditing extends Component<Props> {
                   <TimePicker
                     value={values.time}
                     onChange={value => setFieldValue('time', value)}
+                  />
+                </FormFieldContainer>
+
+                <FormFieldContainer name="labels" {...fieldProps}>
+                  <LabelSelect
+                    name="labels"
+                    value={values.labels}
+                    onChange={labelOptions => setFieldValue('labels', labelOptions)}
                   />
                 </FormFieldContainer>
 
