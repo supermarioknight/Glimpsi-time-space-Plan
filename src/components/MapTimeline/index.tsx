@@ -92,15 +92,13 @@ export default class MapTimeline extends React.Component<Props, State> {
         </LeftColumn>
 
         <RightColumn>
-          <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
+          <ActionButton
+            newCard={props.newCard}
+            onLabelFilter={props.filterLabels}
+            labels={props.labels}
+          />
 
-          {!adding && (
-            <ActionButton
-              newCard={props.newCard}
-              onLabelFilter={props.filterLabels}
-              labels={props.labels}
-            />
-          )}
+          <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
 
           {adding && (
             <Modal

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 
 export const Label = styled.div`
   display: inline-block;

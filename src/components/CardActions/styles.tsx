@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ConfirmButton from '../ConfirmButton';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 
 export const Root = styled.div`
   position: absolute;

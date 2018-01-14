@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 
 interface Props {
   children: React.ReactNode;

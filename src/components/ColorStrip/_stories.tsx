@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import ColorStrip from './';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 
 interface ChildProps {
   display: string;

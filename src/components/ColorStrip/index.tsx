@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 import { Root, Strip } from './styles';
 
 interface Props {

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import BestModal from 'react-best-modal';
 import { Props as ModalProps } from 'react-best-modal/dist/BestModal';
 import Blanket from '../Blanket';
-import { colors, zIndex } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
+import * as zIndex from '../../assets/styles/zIndex';
 
 export const FixedBestModal = styled(BestModal)`
   position: fixed;
@@ -14,7 +15,7 @@ export const FixedBestModal = styled(BestModal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: ${zIndex.top};
+  z-index: ${zIndex.modal};
 `;
 
 const Card = styled.div`

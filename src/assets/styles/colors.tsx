@@ -12,7 +12,7 @@ const rawColors = {
   black: 'black',
 };
 
-export const _colors = {
+const _colors = {
   primary: rawColors.red,
   background: rawColors.whiteSmoke,
   positive: rawColors.green,
@@ -32,11 +32,9 @@ export const _colors = {
   modalBackground: rawColors.white,
 };
 
-export const zIndex = {
-  top: 999,
-};
+const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);
 
-export const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);
+export default colors;
 
 // tslint:disable-next-line no-unused-expression
 injectGlobal`

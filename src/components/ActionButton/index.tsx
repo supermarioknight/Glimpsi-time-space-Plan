@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import LabelSelect from '../LabelSelect';
-import bp from '../../assets/styles/breakpoints';
+import * as zIndex from '../../assets/styles/zIndex';
 
 const WIDTH = '66px';
 const SPACER = '30px';
@@ -10,6 +10,7 @@ const Container = styled.div`
   position: absolute;
   bottom: ${SPACER};
   right: ${SPACER};
+  z-index: ${zIndex.actionButtons};
 `;
 
 const Button = styled.button`
@@ -17,12 +18,6 @@ const Button = styled.button`
   height: ${WIDTH};
   border-radius: 50%;
   cursor: pointer;
-`;
-
-const Spacer = styled.div`
-  ${bp.tablet`
-    height: 96px;
-  `};
 `;
 
 const block = (cb: () => void) => (e: React.MouseEvent<HTMLElement>) => {
@@ -37,14 +32,11 @@ interface Props {
 }
 
 // tslint:disable-next-line no-any
-const ActionButton: React.StatelessComponent<Props> = ({ newCard, onLabelFilter, labels }): any => [
-  <Spacer key="spacer" />,
-  <Container key="ok">
-    <LabelSelect name="lol" key="filter" onChange={onLabelFilter} value={labels} />
-    <Button onClick={block(newCard)} key="button">
-      Add
-    </Button>
-  </Container>,
-];
+const ActionButton: React.StatelessComponent<Props> = ({ newCard, onLabelFilter, labels }): any => (
+  <Container>
+    <LabelSelect name="label-filter" onChange={onLabelFilter} value={labels} />
+    <Button onClick={block(newCard)}>Add</Button>
+  </Container>
+);
 
 export default ActionButton;

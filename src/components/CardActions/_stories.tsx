@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import styled from 'styled-components';
 import { image } from 'faker';
 import CardActions from './';
-import { colors } from '../../assets/styles/variables';
+import colors from '../../assets/styles/colors';
 
 const Box = styled.div`
   height: 150px;
