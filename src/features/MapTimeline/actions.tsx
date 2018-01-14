@@ -7,6 +7,7 @@ const REMOVE_CARD = 'REMOVE_CARD';
 const UPDATE_TIMELINE = 'UPDATE_TIMELINE';
 const CANCEL_NEW_CARD = 'CANCEL_NEW_CARD';
 const FILTER_TIMELINE = 'FILTER_TIMELINE';
+const FILTER_LABELS = 'FILTER_LABELS';
 
 export type Actions =
   | NewCard
@@ -14,7 +15,8 @@ export type Actions =
   | RemoveCard
   | UpdateTimeline
   | SaveCard
-  | FilterTimeline;
+  | FilterTimeline
+  | FilterLabels;
 
 export interface FilterTimeline {
   type: typeof FILTER_TIMELINE;
@@ -24,6 +26,16 @@ export interface FilterTimeline {
 export const filterTimeline = (filters: Moment[]): FilterTimeline => ({
   type: FILTER_TIMELINE,
   payload: filters,
+});
+
+export interface FilterLabels {
+  type: typeof FILTER_LABELS;
+  payload: string[];
+}
+
+export const filterLabels = (labels: string[]): FilterLabels => ({
+  type: FILTER_LABELS,
+  payload: labels,
 });
 
 export interface SaveCard {
@@ -67,9 +79,7 @@ export interface UpdateTimeline {
   payload: { [key: string]: string };
 }
 
-export const updateTimeline = (data: {
-  [key: string]: string;
-}): UpdateTimeline => ({
+export const updateTimeline = (data: { [key: string]: string }): UpdateTimeline => ({
   type: 'UPDATE_TIMELINE',
   payload: data,
 });

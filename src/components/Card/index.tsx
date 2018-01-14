@@ -32,7 +32,7 @@ const Card: React.StatelessComponent<Props> = ({
 
     <div>
       <Title>{title}</Title>
-      <Location>{location.formattedAddress}</Location>
+      <Location tabIndex={0}>{location.formattedAddress}</Location>
     </div>
 
     {children}

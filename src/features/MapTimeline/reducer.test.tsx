@@ -8,6 +8,7 @@ export const defaultState: Store = {
   start: moment(),
   end: moment().add(1, 'days'),
   filters: [],
+  labels: [],
 };
 
 describe('timeline reducer', () => {

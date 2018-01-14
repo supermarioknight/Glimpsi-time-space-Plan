@@ -10,21 +10,29 @@ import {
   removeCard,
   cancelNewCard,
   filterTimeline,
+  filterLabels,
 } from './actions';
 import { Store, CardWithId } from '../types';
 
-const cardsToDays = (cards: CardWithId[]): CardDay[] => {
+const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
   const sortedCards = cards
     .sort((a, b) => {
       const aDateTime = addTimeToDate(a.start, a.time);
       const bDateTime = addTimeToDate(b.start, b.time);
-      return (
-        Date.parse(aDateTime.toString()) - Date.parse(bDateTime.toString())
-      );
+      return Date.parse(aDateTime.toString()) - Date.parse(bDateTime.toString());
     })
     .reduce((days: CardDay[], card) => {
       const latestDay = days[days.length - 1];
       const date = moment(card.start.format('YYYY-MM-DD'));
+      const hasLabel =
+        !labels.length ||
+        labels.find(label => {
+          return card.labels.includes(label);
+        });
+
+      if (!hasLabel) {
+        return days;
+      }
 
       if (latestDay && latestDay.date.isSame(date, 'day')) {
         latestDay.cards.push(card);
@@ -47,12 +55,14 @@ const selector = createSelector(
   (store: Store) => store.timeline.start,
   (store: Store) => store.timeline.end,
   (store: Store) => store.timeline.filters,
-  (cards, adding, start, end, filters) => ({
+  (store: Store) => store.timeline.labels,
+  (cards, adding, start, end, filters, labels) => ({
     adding,
     start,
     end,
     filters,
-    days: cardsToDays(cards),
+    labels,
+    days: cardsToDays(cards, labels),
   })
 );
 
@@ -61,5 +71,6 @@ export default connect(selector, {
   newCard,
   removeCard,
   cancelNewCard,
+  filterLabels,
   onFilterChange: filterTimeline,
 })(MapTimeline);

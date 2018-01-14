@@ -29,6 +29,7 @@ const defaultState: Store = {
   start: moment(),
   end: moment(),
   cards: [],
+  labels: [],
 };
 
 export interface Store {
@@ -37,6 +38,7 @@ export interface Store {
   start: Moment;
   end: Moment;
   filters: Moment[];
+  labels: string[];
 }
 
 export default (store: Store = defaultState, action: Actions) => {
@@ -57,6 +59,12 @@ export default (store: Store = defaultState, action: Actions) => {
       return {
         ...store,
         cards: store.cards.filter(card => card.id !== action.payload.id),
+      };
+
+    case 'FILTER_LABELS':
+      return {
+        ...store,
+        labels: action.payload,
       };
 
     case 'FILTER_TIMELINE':
@@ -89,9 +97,7 @@ export default (store: Store = defaultState, action: Actions) => {
           },
         ]);
       } else {
-        cards = store.cards.map(
-          storeCard => (storeCard.id === card.id ? card : storeCard)
-        );
+        cards = store.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
       }
 
       return {

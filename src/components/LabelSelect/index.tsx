@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Option } from 'react-select';
-import CreateableSelect from '../Select/Createable';
+import Select from '../Select';
 
-const promptTextCreator = (label: string) => `Create new label "${label}"`;
 const options = ['travel', 'fun', 'accom'].map(option => ({ value: option, label: option }));
 
 type StringOrUndefined = string | undefined;
@@ -14,10 +13,9 @@ interface Props {
 }
 
 const LabelSelect: React.StatelessComponent<Props> = ({ value, onChange, ...props }) => (
-  <CreateableSelect
+  <Select
     {...props}
     multi
-    promptTextCreator={promptTextCreator}
     options={options}
     value={value}
     onChange={(opts: Option<string>[]) =>

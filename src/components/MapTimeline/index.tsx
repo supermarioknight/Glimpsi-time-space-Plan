@@ -18,6 +18,9 @@ interface Props extends TimelineProps {
   cancelNewCard: () => any;
   start: Moment;
   end: Moment;
+  // tslint:disable-next-line no-any
+  filterLabels: (labels: string[]) => any;
+  labels: string[];
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -91,7 +94,13 @@ export default class MapTimeline extends React.Component<Props, State> {
         <RightColumn>
           <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
 
-          {!adding && <ActionButton newCard={props.newCard} />}
+          {!adding && (
+            <ActionButton
+              newCard={props.newCard}
+              onLabelFilter={props.filterLabels}
+              labels={props.labels}
+            />
+          )}
 
           {adding && (
             <Modal
