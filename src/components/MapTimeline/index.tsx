@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Moment } from 'moment';
-import Timeline, { Props as TimelineProps, CardDay } from '../../components/Timeline';
+import { Props as TimelineProps, CardDay } from '../../components/Timeline';
 import NewCard from '../CardNew';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
-import Slider from '../Slider';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
 import ActionButton from '../ActionButton';
-import { Root, RightColumn, LeftColumn, MapContainer } from './styles';
+import { Root, MapContainer, Slider, Timeline } from './styles';
 
 interface Props extends TimelineProps {
   adding: { start?: Moment } | null;
@@ -71,49 +70,45 @@ export default class MapTimeline extends React.Component<Props, State> {
 
     return (
       <Root>
-        <LeftColumn>
-          <Slider
-            onChange={onFilterChange}
-            type="days"
-            start={start}
-            end={end}
-            values={props.filters}
-          />
+        <Slider
+          onChange={onFilterChange}
+          type="days"
+          start={start}
+          end={end}
+          values={props.filters}
+        />
 
-          <MapContainer>
-            <Map
-              markers={extractMarkers(props.days, props.filters)}
-              autofit
-              onMarkerClick={this.setCardScrolledIntoView}
-              onMarkerOver={this.setFocus}
-              onMarkerOut={this.setFocus}
+        <MapContainer>
+          <Map
+            markers={extractMarkers(props.days, props.filters)}
+            autofit
+            onMarkerClick={this.setCardScrolledIntoView}
+            onMarkerOver={this.setFocus}
+            onMarkerOut={this.setFocus}
+          />
+        </MapContainer>
+
+        <ActionButton
+          newCard={props.newCard}
+          onLabelFilter={props.filterLabels}
+          labels={props.labels}
+        />
+
+        <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
+
+        {adding && (
+          <Modal
+            onRequestClose={cancelNewCard}
+            appRoot={document.getElementById('root') as HTMLElement}
+          >
+            <NewCard
+              start={adding.start}
+              datePickerFrom={adding.start ? undefined : extractLatestDate(props.days)}
+              onSave={props.saveCard}
+              onCancel={cancelNewCard}
             />
-          </MapContainer>
-        </LeftColumn>
-
-        <RightColumn>
-          <ActionButton
-            newCard={props.newCard}
-            onLabelFilter={props.filterLabels}
-            labels={props.labels}
-          />
-
-          <Timeline {...props} {...this.state} onFilterChange={onFilterChange} />
-
-          {adding && (
-            <Modal
-              onRequestClose={cancelNewCard}
-              appRoot={document.getElementById('root') as HTMLElement}
-            >
-              <NewCard
-                start={adding.start}
-                datePickerFrom={adding.start ? undefined : extractLatestDate(props.days)}
-                onSave={props.saveCard}
-                onCancel={cancelNewCard}
-              />
-            </Modal>
-          )}
-        </RightColumn>
+          </Modal>
+        )}
       </Root>
     );
   }

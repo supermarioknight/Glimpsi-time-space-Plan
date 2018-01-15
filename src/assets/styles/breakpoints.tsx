@@ -16,9 +16,16 @@ const breakpoints = mapValues(sizes, value => {
   const func: ThemedCssFunction<any> = (
     strings: TemplateStringsArray,
     ...interpolations: SimpleInterpolation[]
-  ) => css`@media (min-width: ${emSize}em) {${css(strings, ...interpolations)};}`;
+  ) =>
+    css`
+      @media (min-width: ${emSize}em) {
+        ${css(strings, ...interpolations)};
+      }
+    `;
 
-  return func;
+  return {
+    css: func,
+  };
 });
 
 export default breakpoints;

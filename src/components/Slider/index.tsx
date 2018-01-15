@@ -36,7 +36,7 @@ export default class DateSlider extends React.Component<Props> {
     const valuesAsNumbers = values.map(value => value.diff(start, type));
 
     return (
-      <Root>
+      <Root className={className}>
         <DateLabel>{start.format('Do MMM')}</DateLabel>
 
         <Slider
@@ -51,7 +51,6 @@ export default class DateSlider extends React.Component<Props> {
               </HandleTooltip>
             </Handle>
           )}
-          className={className}
           onChange={this.onChange}
           orientation="horizontal"
           snap

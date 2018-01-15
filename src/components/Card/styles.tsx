@@ -13,9 +13,8 @@ export const Root = styled.div`
   border-radius: 2px;
   padding: 10px;
   font-family: sans-serif;
-  max-width: 400px;
   height: 150px;
-  width: 350px;
+  min-width: 300px;
   background-size: cover;
   background-position: center center;
   background-color: ${colors.cardBackground};
@@ -24,8 +23,7 @@ export const Root = styled.div`
   box-shadow: ${(props: RootProps) =>
     props.focused ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
 
-  ${bp.tablet`
-    width: 100%;
+  ${bp.tablet.css`
     margin: 12px 0;
   `};
 `;

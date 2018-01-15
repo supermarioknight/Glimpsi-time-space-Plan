@@ -10,15 +10,21 @@ const Root = styled.header`
   padding: 10px;
   background-color: ${colors.primary};
 
-  ${bp.tablet`
+  ${bp.tablet.css`
     height: 51px;
   `};
 
-  ${bp.desktop`
+  ${bp.desktop.css`
     height: 64px;
   `};
 `;
 
-const Header = () => <Root>glimpsi</Root>;
+interface Props {
+  className?: string;
+}
+
+const Header: React.StatelessComponent<Props> = ({ className }) => (
+  <Root className={className}>glimpsi</Root>
+);
 
 export default Header;

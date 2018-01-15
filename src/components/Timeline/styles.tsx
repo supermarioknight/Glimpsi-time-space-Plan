@@ -8,14 +8,8 @@ export const Root = styled.div`
     flex-shrink: 0;
   }
 
-  ${bp.tablet`
+  ${bp.tablet.css`
     display: block;
-    width: 300px;
-    padding: 0 12px;
-  `};
-
-  ${bp.desktop`
-    width: 400px;
   `};
 `;
 
@@ -34,7 +28,7 @@ export const Day = styled.div`
   display: flex;
   opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
 
-  ${bp.tablet`
+  ${bp.tablet.css`
     display: block;
   `};
 `;

@@ -14,6 +14,7 @@ export interface CardDay {
 }
 
 export interface Props {
+  className?: string;
   days: CardDay[];
   saveCard: OnSave;
   // tslint:disable-next-line no-any
@@ -36,11 +37,12 @@ const Timeline: React.StatelessComponent<Props> = ({
   focusedCard,
   onFilterChange,
   cardScrolledIntoView,
+  className,
 }) => {
   let markerId = 0;
 
   return (
-    <Root>
+    <Root className={className}>
       {days.map(day => {
         const withinFilters = isWithinFilters(day.date, filters);
 
