@@ -3,18 +3,20 @@ import bp from '../../assets/styles/breakpoints';
 
 export const Root = styled.div`
   display: flex;
-  padding: 0 12px;
 
   > * {
     flex-shrink: 0;
   }
 
   ${bp.tablet`
-  display: block;
-  width: 300px;
-`} ${bp.desktop`
-  width: 400px;
-`};
+    display: block;
+    width: 300px;
+    padding: 0 12px;
+  `};
+
+  ${bp.desktop`
+    width: 400px;
+  `};
 `;
 
 export const Date = styled.button`

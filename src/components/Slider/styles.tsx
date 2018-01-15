@@ -26,6 +26,7 @@ export const Root = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 10px;
+  flex-shrink: 0;
 `;
 
 const handleTooltipMarkup = 'div';

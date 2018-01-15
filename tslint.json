@@ -2,11 +2,12 @@
   "extends": ["tslint-react", "tslint-config-airbnb", "tslint:latest"],
   "rules": {
     "semicolon": [true, "strict-bound-class-methods"],
-    "arrow-parens": [true, "ban-single-arg-parens"],
+    "arrow-parens": false,
     "jsx-wrap-multiline": false,
     "jsx-boolean-value": [true, "never"],
     "ter-arrow-parens": false,
     "member-access": [true, "no-public"],
+    "space-in-parens": false,
     "space-before-function-paren": false,
     "object-literal-sort-keys": false,
     "strict-boolean-expressions": false,

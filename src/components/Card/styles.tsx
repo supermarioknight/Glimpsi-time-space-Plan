@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../assets/styles/colors';
+import bp from '../../assets/styles/breakpoints';
 
 interface RootProps {
   focused?: boolean;
@@ -12,16 +13,21 @@ export const Root = styled.div`
   border-radius: 2px;
   padding: 10px;
   font-family: sans-serif;
-  width: 100%;
   max-width: 400px;
   height: 150px;
+  width: 350px;
   background-size: cover;
   background-position: center center;
   background-color: ${colors.cardBackground};
   position: relative;
-  margin: 12px 0;
+  margin: 0;
   box-shadow: ${(props: RootProps) =>
     props.focused ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
+
+  ${bp.tablet`
+    width: 100%;
+    margin: 12px 0;
+  `};
 `;
 
 export const Title = styled.h2`

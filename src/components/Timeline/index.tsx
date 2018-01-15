@@ -6,9 +6,7 @@ import { CardWithId } from '../../features/types';
 import { isWithinFilters } from '../../lib/date';
 import { Root, Date, Day } from './styles';
 import ActionStrip from '../ActionStrip';
-import ColorStrip from '../ColorStrip';
 import ScrollIntoView from '../ScrollIntoView';
-import { groupOverlappingCards } from './group';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -56,43 +54,31 @@ const Timeline: React.StatelessComponent<Props> = ({
               {day.date.format('dddd Do MMMM')}
             </Date>
 
-            {groupOverlappingCards(day.cards).map((group, groupedIndex) => {
-              const cardElements = group.map(card => {
-                if (withinFilters) {
-                  markerId += 1;
-                }
-
-                return (
-                  <ScrollIntoView
-                    key={card.id}
-                    disabled={
-                      !(
-                        withinFilters &&
-                        ((markerId === 1 && cardScrolledIntoView === undefined) ||
-                          markerId === cardScrolledIntoView)
-                      )
-                    }
-                  >
-                    <EditableCard
-                      onSave={saveCard}
-                      onDelete={removeCard}
-                      markerId={withinFilters ? markerId : undefined}
-                      focused={withinFilters && markerId === focusedCard}
-                      {...card}
-                    />
-                  </ScrollIntoView>
-                );
-              });
-
-              if (cardElements.length > 1) {
-                return (
-                  <ColorStrip key={groupedIndex} appearance="vertical">
-                    {cardElements}
-                  </ColorStrip>
-                );
+            {day.cards.map(card => {
+              if (withinFilters) {
+                markerId += 1;
               }
 
-              return cardElements;
+              return (
+                <ScrollIntoView
+                  key={card.id}
+                  disabled={
+                    !(
+                      withinFilters &&
+                      ((markerId === 1 && cardScrolledIntoView === undefined) ||
+                        markerId === cardScrolledIntoView)
+                    )
+                  }
+                >
+                  <EditableCard
+                    onSave={saveCard}
+                    onDelete={removeCard}
+                    markerId={withinFilters ? markerId : undefined}
+                    focused={withinFilters && markerId === focusedCard}
+                    {...card}
+                  />
+                </ScrollIntoView>
+              );
             })}
 
             <ActionStrip start={day.date} newCard={newCard} />

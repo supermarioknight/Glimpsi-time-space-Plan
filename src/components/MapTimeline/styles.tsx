@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import bp from '../../assets/styles/breakpoints';
 
-export const Root = styled.article`
+export const Root = styled.main`
   display: flex;
   flex-grow: 1;
   height: 100%;
@@ -18,6 +18,7 @@ export const RightColumn = styled.div`
 `;
 
 export const MapContainer = styled.div`
+  display: flex;
   height: 100%;
 `;
 

@@ -6,6 +6,7 @@ interface Props {
   appearance: 'horizontal' | 'vertical';
   children: React.ReactNode;
   color?: string;
+  className?: string;
 }
 
 interface DefaultProps extends Props {
@@ -13,10 +14,10 @@ interface DefaultProps extends Props {
 }
 
 const ColorStrip: React.StatelessComponent<Props> = props => {
-  const { appearance, children, color } = props as DefaultProps;
+  const { appearance, children, color, className } = props as DefaultProps;
 
   return (
-    <Root>
+    <Root className={className}>
       <Strip appearance={appearance} color={color} />
       {children}
     </Root>
