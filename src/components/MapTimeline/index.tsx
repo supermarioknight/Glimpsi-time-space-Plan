@@ -52,8 +52,19 @@ interface State {
 export default class MapTimeline extends React.Component<Props, State> {
   state: State = {
     focusedCard: undefined,
-    cardScrolledIntoView: undefined,
+    // SCROLL INTO VIEW JUMP
+    // Set this to 1 initially so on page load it jumps to
+    // the card in question.
+    cardScrolledIntoView: 1,
   };
+
+  componentDidMount() {
+    // SCROLL INTO VIEW JUMP
+    // Reset to undefined so it only jumps to the card in
+    // question _once_, and then from there requires user
+    // interaction.
+    this.setCardScrolledIntoView(undefined);
+  }
 
   setFocus = (cardIndex?: number) => {
     this.setState({
@@ -61,7 +72,7 @@ export default class MapTimeline extends React.Component<Props, State> {
     });
   };
 
-  setCardScrolledIntoView = (cardIndex: number) => {
+  setCardScrolledIntoView = (cardIndex?: number) => {
     this.setState({
       cardScrolledIntoView: cardIndex,
     });

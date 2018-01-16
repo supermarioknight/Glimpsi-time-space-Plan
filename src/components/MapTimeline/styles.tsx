@@ -21,7 +21,6 @@ export const Root = styled.main`
       'map cards';
     grid-template-rows: auto 1fr 1fr;
     grid-template-columns: 1fr auto;
-    grid-column-gap: ${grid.px};
   `};
 `;
 
@@ -37,6 +36,7 @@ export const Timeline = styled(Timelinee)`
   grid-area: cards;
   width: 100%;
   overflow: auto;
+  padding-left: ${grid.px};
 
   ${bp.tablet.css`
     width: ${grid.unitless * 45}px;

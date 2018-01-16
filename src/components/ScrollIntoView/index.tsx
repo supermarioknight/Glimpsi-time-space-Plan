@@ -2,14 +2,14 @@ import * as React from 'react';
 
 interface Props {
   children: React.ReactElement<{}>;
-  disabled?: boolean;
+  enabled?: boolean;
 }
 
 const ref = (el: HTMLElement | null) => el && el.scrollIntoView({ block: 'center' });
 
-const ScrollIntoView: React.StatelessComponent<Props> = ({ children, disabled }) => {
+const ScrollIntoView: React.StatelessComponent<Props> = ({ children, enabled }) => {
   return React.cloneElement(children, {
-    innerRef: disabled || ref,
+    innerRef: enabled ? ref : undefined,
   });
 };
 

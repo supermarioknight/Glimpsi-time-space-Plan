@@ -64,14 +64,7 @@ const Timeline: React.StatelessComponent<Props> = ({
               return (
                 <ScrollIntoView
                   key={card.id}
-                  disabled={
-                    // This is focusing when it shouldn't. Fix it.
-                    !(
-                      withinFilters &&
-                      ((markerId === 1 && cardScrolledIntoView === undefined) ||
-                        markerId === cardScrolledIntoView)
-                    )
-                  }
+                  enabled={withinFilters && markerId === cardScrolledIntoView}
                 >
                   <EditableCard
                     onSave={saveCard}
