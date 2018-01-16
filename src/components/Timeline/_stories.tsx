@@ -45,7 +45,7 @@ storiesOf('Timeline', module).add('default', () => (
   <Timeline
     newCard={action('newCard()')}
     saveCard={action('saveCard()')}
-    onFilterChange={action('onFilterChange()')}
+    focusDate={action('focusDate()')}
     removeCard={action('deleteCard()')}
     days={groups}
     filters={[moment(), moment().add(1, 'day')]}

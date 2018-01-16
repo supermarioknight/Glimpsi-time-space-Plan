@@ -21,12 +21,12 @@ export const Date = styled.button`
 `;
 
 interface DayContainerProps {
-  withinFilters: boolean;
+  fade: boolean;
 }
 
 export const Day = styled.div`
   display: flex;
-  opacity: ${(props: DayContainerProps) => (props.withinFilters ? '1' : '0.5')};
+  opacity: ${(props: DayContainerProps) => (props.fade ? '0.5' : '1')};
 
   ${bp.tablet.css`
     display: block;

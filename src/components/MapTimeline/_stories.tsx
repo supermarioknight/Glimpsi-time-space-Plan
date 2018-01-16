@@ -27,6 +27,7 @@ storiesOf('MapTimeline', module)
       cancelNewCard={action('cancelNewCard()')}
       removeCard={action('removeCard()')}
       onFilterChange={action('onFilterChange()')}
+      focusDate={action('focusDate()')}
       filterLabels={action('onLabelFilter()')}
       labels={[]}
     />
@@ -39,6 +40,7 @@ storiesOf('MapTimeline', module)
       cancelNewCard={action('cancelNewCard()')}
       saveCard={action('saveCard()')}
       removeCard={action('removeCard()')}
+      focusDate={action('focusDate()')}
       onFilterChange={action('onFilterChange()')}
       filterLabels={action('onLabelFilter()')}
       labels={[]}

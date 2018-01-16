@@ -42,7 +42,7 @@ interface DefaultProps extends Props {
 }
 
 const schema = yup.object().shape({
-  duration: yup.number().required(),
+  duration: yup.number(),
   title: yup.string().required(),
   start: yup.object().required(),
   time: yup.object().required(),

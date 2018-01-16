@@ -23,13 +23,16 @@ const _colors = {
   cardBackground: rawColors.white,
   cardActionsBackground: 'rgba(0, 0, 0, 0.75)',
 
-  label: 'yellow',
-
   textLight: rawColors.white,
   textDark: rawColors.black,
 
   modalOverlay: 'rgba(0, 0, 0, 0.5)',
   modalBackground: rawColors.white,
+
+  label: 'yellow',
+  labelFun: 'red',
+  labelAccom: 'blue',
+  labelTravel: 'green',
 };
 
 const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);

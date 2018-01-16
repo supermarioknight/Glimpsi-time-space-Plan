@@ -22,11 +22,22 @@ interface Props {
 }
 
 export default class DateSlider extends React.Component<Props> {
+  changing: boolean;
+
   onChange = ({ values }: { values: number[] }) => {
+    if (!this.changing) {
+      return;
+    }
+
     const { type, start, onChange, end } = this.props;
     const max = end.diff(start, type);
 
     onChange([moment(start).add(values[0], type), moment(end).add(values[1] - max, type)]);
+    this.changing = false;
+  };
+
+  setChanging = () => {
+    this.changing = true;
   };
 
   render() {
@@ -52,6 +63,7 @@ export default class DateSlider extends React.Component<Props> {
             </Handle>
           )}
           onChange={this.onChange}
+          onValuesUpdated={this.setChanging}
           orientation="horizontal"
           snap
           min={min}

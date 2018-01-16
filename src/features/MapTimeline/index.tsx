@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import MapTimeline from '../../components/MapTimeline';
 import { CardDay } from '../../components/Timeline';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { addTimeToDate } from '../../lib/date';
 import {
   saveCard,
@@ -73,4 +73,6 @@ export default connect(selector, {
   cancelNewCard,
   filterLabels,
   onFilterChange: filterTimeline,
+  focusDate: (date: Moment) =>
+    filterTimeline([moment(date).set('hours', 0), moment(date).set('hours', 23)]),
 })(MapTimeline);
