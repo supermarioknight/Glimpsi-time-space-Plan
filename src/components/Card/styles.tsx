@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../assets/styles/colors';
 import bp from '../../assets/styles/breakpoints';
+import * as mixins from '../../assets/styles/mixins';
 
 interface RootProps {
   focused?: boolean;
@@ -12,7 +13,6 @@ export const Root = styled.div`
   justify-content: space-between;
   border-radius: 2px;
   padding: 10px;
-  font-family: sans-serif;
   height: 150px;
   min-width: 300px;
   background-size: cover;
@@ -29,7 +29,6 @@ export const Root = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-family: serif;
   margin: 0;
   font-size: 26px;
 `;
@@ -39,6 +38,7 @@ export const Minutes = styled.div`
 `;
 
 export const Location = styled.div`
+  ${mixins.focusRing.keyboardOnly};
   font-size: 18px;
 `;
 

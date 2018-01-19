@@ -6,7 +6,7 @@ import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
-import ActionButton from '../ActionButton';
+import TimelineActions from '../TimelineActions';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
 interface Props extends TimelineProps {
@@ -101,7 +101,7 @@ export default class MapTimeline extends React.Component<Props, State> {
           />
         </MapContainer>
 
-        <ActionButton
+        <TimelineActions
           newCard={props.newCard}
           onLabelFilter={props.filterLabels}
           labels={props.labels}

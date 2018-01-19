@@ -36,7 +36,7 @@ export const Timeline = styled(Timelinee)`
   grid-area: cards;
   width: 100%;
   overflow: auto;
-  padding-left: ${grid.px};
+  padding: 0 ${grid.px};
 
   ${bp.tablet.css`
     width: ${grid.unitless * 45}px;

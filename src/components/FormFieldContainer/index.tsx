@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as fonts from '../../assets/styles/fonts';
 
 interface Props {
   name: string;
@@ -9,15 +10,10 @@ interface Props {
 }
 
 const Error = styled.div`
-  font-weight: bold;
+  ${fonts.weight.thick};
 `;
 
-const FormError: React.StatelessComponent<Props> = ({
-  name,
-  errors,
-  touched,
-  children,
-}) => {
+const FormError: React.StatelessComponent<Props> = ({ name, errors, touched, children }) => {
   if (touched[name] && errors[name]) {
     return (
       <div>

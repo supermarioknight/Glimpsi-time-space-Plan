@@ -1,12 +1,12 @@
 import React from 'react';
-import AppSkeleton from '../../components/AppSkeleton';
+import AppLayout from '../../components/AppLayout';
 import AsyncMapTimeline from '../MapTimeline/Async';
 import Store from '../../Store';
 
 export default () => (
   <Store>
-    <AppSkeleton>
+    <AppLayout>
       <AsyncMapTimeline />
-    </AppSkeleton>
+    </AppLayout>
   </Store>
 );

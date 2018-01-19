@@ -10,11 +10,11 @@ export const Marker = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 3px solid ${colors.primary};
   color: ${colors.textLight};
-  background: ${colors.primary};
+  background: ${colors.marker};
   width: 32px;
   height: 32px;
+  flex-shrink: 0;
   font-size: 16px;
   cursor: ${(props: MarkerProps) => (props.interactive ? 'pointer' : 'default')};
 

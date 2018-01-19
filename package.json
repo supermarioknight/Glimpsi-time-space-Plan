@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "focus-visible": "^4.0.1",
     "formik": "^0.10.0",
     "history": "^4.7.2",
     "lodash-es": "^4.17.4",
     "moment": "^2.20.1",
+    "polished": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-addons-shallow-compare": "^15.6.2",

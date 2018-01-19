@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import colors from '../../assets/styles/colors';
 import * as grid from '../../assets/styles/grid';
+import * as fonts from '../../assets/styles/fonts';
+import * as mixins from '../../assets/styles/mixins';
 
 interface Props {
   children: string;
@@ -13,9 +15,11 @@ const colorMap = {
 };
 
 export const Label = styled.div`
+  ${fonts.size.small};
+  ${mixins.borderRadius};
   display: inline-block;
   padding: ${grid.unitless / 2}px ${grid.px};
-  border-radius: 4px;
   margin: ${grid.px};
   background-color: ${(props: Props) => colorMap[props.children] || colors.label};
+  color: ${colors.labelText};
 `;

@@ -5,7 +5,7 @@ import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
 import { isWithinFilters } from '../../lib/date';
 import { Root, Date, Day } from './styles';
-import ActionStrip from '../ActionStrip';
+import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
 
 export interface CardDay {
@@ -77,7 +77,7 @@ const Timeline: React.StatelessComponent<Props> = ({
               );
             })}
 
-            <ActionStrip start={day.date} newCard={newCard} />
+            <DayActions start={day.date} newCard={newCard} />
           </Day>
         );
       })}
