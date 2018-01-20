@@ -1,10 +1,15 @@
 import { css } from 'styled-components';
+import colors from '../../assets/styles/colors';
+import * as grid from '../../assets/styles/grid';
+import * as mixins from '../../assets/styles/mixins';
 
 export const root = css`
+  ${mixins.borderRadius};
   position: relative;
+  min-width: 150px;
 
   &.is-disabled > .Select-control {
-    background-color: #f9f9f9;
+    background-color: ${colors.inputDisabled};
   }
 
   &.is-disabled > .Select-control:hover {
@@ -17,18 +22,38 @@ export const root = css`
     opacity: 0.35;
   }
 
+  .Select-value {
+    ${mixins.borderRadius};
+    display: inline-block;
+    padding: ${grid.unitless / 2}px ${grid.px};
+    margin: 0 ${grid.px};
+    background-color: ${colors.selectValue};
+  }
+
+  .Select-value-icon {
+    border-radius: 3px 0 0 3px;
+    background-color: ${colors.negative};
+    color: ${colors.textLight};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: ${grid.px};
+    margin-left: -${grid.px};
+    margin-top: -${grid.unitless / 2}px;
+    margin-bottom: -${grid.unitless / 2}px;
+    padding: ${grid.unitless / 2}px ${grid.px};
+    cursor: pointer;
+  }
+
   .Select-control {
-    background-color: #fff;
-    border-color: #d9d9d9 #ccc #b3b3b3;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    color: #333;
+    ${mixins.borderRadius};
+    background-color: ${colors.input};
+    color: ${colors.textDark};
     cursor: default;
     display: table;
     border-spacing: 0;
     border-collapse: separate;
-    height: 36px;
-    outline: none;
+    height: ${grid.unitless * 4}px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -39,7 +64,12 @@ export const root = css`
   }
 
   .Select-control .Select-input:focus {
-    outline: none;
+    outline: 0;
+  }
+
+  &.is-focused {
+    ${mixins.focusRing.raw};
+    outline-offset: 0;
   }
 
   .is-searchable.is-open > .Select-control {
@@ -49,8 +79,7 @@ export const root = css`
   .is-open > .Select-control {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    background: #fff;
-    border-color: #b3b3b3 #ccc #d9d9d9;
+    background: ${colors.input};
   }
 
   .is-open > .Select-control .Select-arrow {
@@ -91,7 +120,7 @@ export const root = css`
 
   .has-value.Select--single > .Select-control .Select-value .Select-value-label,
   .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
-    color: #333;
+    color: ${colors.textDark};
   }
 
   .has-value.Select--single > .Select-control .Select-value a.Select-value-label,
@@ -169,8 +198,7 @@ export const root = css`
     height: 16px;
     box-sizing: border-box;
     border-radius: 50%;
-    border: 2px solid #ccc;
-    border-right-color: #333;
+    border-right-color: ${colors.textDark};
     display: inline-block;
     position: relative;
     vertical-align: middle;
@@ -264,11 +292,10 @@ export const root = css`
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
     background-color: #fff;
-    border: 1px solid #ccc;
     border-top-color: #e6e6e6;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
     box-sizing: border-box;
-    margin-top: -1px;
+    margin-top: 2px;
     max-height: 200px;
     position: absolute;
     top: 100%;
@@ -300,14 +327,14 @@ export const root = css`
     background-color: #f5faff;
     /* Fallback color for IE 8 */
     background-color: rgba(0, 126, 255, 0.04);
-    color: #333;
+    color: ${colors.textDark};
   }
 
   .Select-option.is-focused {
     background-color: #ebf5ff;
     /* Fallback color for IE 8 */
-    background-color: rgba(0, 126, 255, 0.08);
-    color: #333;
+    background-color: ${colors.inputFocus};
+    color: ${colors.textDark};
   }
 
   .Select-option.is-disabled {
@@ -338,9 +365,6 @@ export const root = css`
     /* Fallback color for IE 8 */
     background-color: rgba(0, 126, 255, 0.08);
     border-radius: 2px;
-    border: 1px solid #c2e0ff;
-    /* Fallback color for IE 8 */
-    border: 1px solid rgba(0, 126, 255, 0.24);
     color: #007eff;
     display: inline-block;
     font-size: 0.9em;
@@ -398,8 +422,7 @@ export const root = css`
 
   .Select--multi.is-disabled .Select-value {
     background-color: #fcfcfc;
-    border: 1px solid #e3e3e3;
-    color: #333;
+    color: ${colors.textDark};
   }
 
   .Select--multi.is-disabled .Select-value-icon {

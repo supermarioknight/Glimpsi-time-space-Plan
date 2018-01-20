@@ -48,11 +48,10 @@ interface Props {
 
 const Timepicker: React.StatelessComponent<Props> = ({ onChange, value }) => (
   <Select
-    onChange={(option: Option) =>
-      onChange(option && moment(`1970-01-01 ${option.value}`))
-    }
+    onChange={(option: Option) => onChange(option && moment(`1970-01-01 ${option.value}`))}
     value={value && value.format('HH:mm:ss')}
     options={options}
+    placeholder="At time"
   />
 );
 

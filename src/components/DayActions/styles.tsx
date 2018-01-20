@@ -1,12 +1,7 @@
 import styled from 'styled-components';
-import * as fonts from '../../assets/styles/fonts';
+import BButton from '../Button';
 
-export const Button = styled.button`
-  ${fonts.weight.thick};
+export const Button = styled(BButton)`
   display: block;
-  width: 100%;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  padding: 10px;
+  margin: 0 auto;
 `;

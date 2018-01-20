@@ -10,6 +10,7 @@ interface Props {
   value: string[];
   onChange: (label: StringOrUndefined[]) => void;
   name: string;
+  placeholder?: string;
 }
 
 const LabelSelect: React.StatelessComponent<Props> = ({ value, onChange, ...props }) => (

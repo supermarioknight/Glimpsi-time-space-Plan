@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
 import moment, { Moment } from 'moment';
-import 'react-dates/lib/css/_datepicker.css';
+import { SingleDatePicker } from 'react-dates';
+import { Root } from './styles';
 
 interface Props {
   value: Moment | null;
@@ -38,14 +38,16 @@ class DatePicker extends React.Component<Props, State> {
     const { id, value, datePickerFrom } = this.props as DefaultProps;
 
     return (
-      <SingleDatePicker
-        id={id}
-        date={value}
-        focused={focused}
-        onDateChange={this.props.onChange}
-        onFocusChange={this.onFocusChange}
-        initialVisibleMonth={() => datePickerFrom}
-      />
+      <Root>
+        <SingleDatePicker
+          id={id}
+          date={value}
+          focused={focused}
+          onDateChange={this.props.onChange}
+          onFocusChange={this.onFocusChange}
+          initialVisibleMonth={() => datePickerFrom}
+        />
+      </Root>
     );
   }
 }

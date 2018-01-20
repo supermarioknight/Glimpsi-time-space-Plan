@@ -18,6 +18,11 @@ export const focusRing = {
     }
   `,
 
+  raw: css`
+    outline: 2px solid ${colors.focusRing};
+    outline-offset: 2px;
+  `,
+
   default: css`
     :focus {
       outline: 2px solid ${colors.focusRing};

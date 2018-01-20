@@ -13,7 +13,6 @@ const raw = {
   black: '#2c3e50',
   blue: '#3498db',
   bluealt: '#2980b9',
-  gray: '#95a5a6',
   yellow: '#f1c40f',
 };
 
@@ -30,7 +29,8 @@ const _colors = {
   textLight: raw.white,
   textDark: raw.black,
 
-  marker: raw.red,
+  marker: raw.blue,
+  markerBorder: raw.bluealt,
 
   modalOverlay: rgba(raw.black, 0.88),
   modalBackground: raw.white,
@@ -41,7 +41,11 @@ const _colors = {
   labelAccom: raw.blue,
   labelTravel: raw.green,
 
-  focusRing: raw.blue,
+  slider: raw.white,
+  sliderProgress: raw.blue,
+  sliderTooltip: raw.black,
+
+  focusRing: raw.bluealt,
 
   buttonPositive: raw.green,
   buttonPositiveText: raw.white,
@@ -60,8 +64,15 @@ const _colors = {
 
   buttonTransparent: 'transparent',
   buttonTransparentText: raw.black,
-  buttonTransparentClick: lighten(0.2)(raw.gray),
-  buttonTransparentHover: lighten(0.3)(raw.gray),
+  buttonTransparentClick: rgba(darken(0.1)(raw.white), 0.5),
+  buttonTransparentHover: rgba(raw.white, 0.5),
+
+  input: raw.white,
+  inputDisabled: raw.whitesmoke,
+  inputFocus: rgba(raw.blue, 0.5),
+  selectValue: raw.whitesmoke,
+
+  datePicker: raw.white,
 };
 
 const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);

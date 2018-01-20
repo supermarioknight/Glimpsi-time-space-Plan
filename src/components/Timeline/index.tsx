@@ -4,9 +4,10 @@ import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';
 import { isWithinFilters } from '../../lib/date';
-import { Root, Date, Day } from './styles';
+import { Root, Day } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
+import Button from '../Button';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -48,13 +49,15 @@ const Timeline: React.StatelessComponent<Props> = ({
 
         return (
           <Day fade={!withinFilters} key={day.date.toString()}>
-            <Date
+            <Button
+              appearance="transparent"
               title={`Focus ${day.date.format('dddd Do MMMM')}`}
               onClick={() => focusDate(day.date)}
               id={day.date.format('DD-MM-YY')}
             >
               {day.date.format('dddd Do MMMM')}
-            </Date>
+              {day.date.isSame(new Date(), 'day') ? ' today' : undefined}
+            </Button>
 
             {day.cards.map(card => {
               if (withinFilters) {

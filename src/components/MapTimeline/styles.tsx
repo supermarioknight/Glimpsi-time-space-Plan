@@ -40,6 +40,7 @@ export const Timeline = styled(Timelinee)`
 
   ${bp.tablet.css`
     width: ${grid.unitless * 45}px;
+    padding: ${grid.px};
   `};
 
   ${bp.desktop.css`

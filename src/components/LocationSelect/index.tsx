@@ -66,5 +66,6 @@ export default (props: Props) => (
     valueKey="position"
     loadOptions={loadGeocodeOptions}
     autoload={false}
+    placeholder="Find your location"
   />
 );

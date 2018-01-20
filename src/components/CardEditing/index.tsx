@@ -123,6 +123,7 @@ export default class CardEditing extends Component<Props> {
                   <LabelSelect
                     name="labels"
                     value={values.labels}
+                    placeholder="Labels"
                     onChange={labelOptions => setFieldValue('labels', labelOptions)}
                   />
                 </FormFieldContainer>

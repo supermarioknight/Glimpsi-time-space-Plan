@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import * as mixins from '../../assets/styles/mixins';
 import colors, { keys } from '../../assets/styles/colors';
 import * as grid from '../../assets/styles/grid';
+import * as fonts from '../../assets/styles/fonts';
 
 export type Theme = 'default' | 'positive' | 'negative' | 'transparent';
 
@@ -47,20 +48,19 @@ export const Root = styled.button.attrs({
 })`
   ${mixins.focusRing.keyboardOnly};
   ${mixins.borderRadius};
+  ${fonts.weight.thickish};
   cursor: pointer;
   padding: ${grid.px} ${grid.unitless * 2}px;
   background-color: ${colors.button};
-  border: 1px solid ${colors.button};
   color: ${colors.buttonText};
-  transition: 0.2s background-color, 0.2s border-color;
+  border: none;
+  transition: 0.2s background-color;
 
   :hover {
     background-color: ${colors.buttonHover};
-    border-color: ${colors.buttonHover};
   }
 
   :active {
     background-color: ${colors.buttonClick};
-    border-color: ${colors.buttonClick};
   }
 `;

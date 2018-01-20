@@ -1,6 +1,7 @@
 import * as React from 'react';
 import LabelSelect from '../LabelSelect';
-import { Root, Button } from './styles';
+import Button from '../Button';
+import { Root, Text } from './styles';
 
 const block = (cb: () => void) => (e: React.MouseEvent<HTMLElement>) => {
   e.preventDefault();
@@ -15,8 +16,16 @@ interface Props {
 
 const TimelineActions: React.StatelessComponent<Props> = ({ newCard, onLabelFilter, labels }) => (
   <Root>
-    <LabelSelect name="label-filter" onChange={onLabelFilter} value={labels} />
-    <Button onClick={block(newCard)}>Add</Button>
+    <LabelSelect
+      placeholder="Filter cards..."
+      name="label-filter"
+      onChange={onLabelFilter}
+      value={labels}
+    />
+
+    <Button appearance="transparent" onClick={block(newCard)}>
+      <Text>Add</Text>
+    </Button>
   </Root>
 );
 

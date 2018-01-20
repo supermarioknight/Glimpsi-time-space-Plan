@@ -6,7 +6,6 @@ import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
 import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
-import TimelineActions from '../TimelineActions';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
 interface Props extends TimelineProps {
@@ -18,10 +17,7 @@ interface Props extends TimelineProps {
   start: Moment;
   end: Moment;
   // tslint:disable-next-line no-any
-  filterLabels: (labels: string[]) => any;
-  // tslint:disable-next-line no-any
   onFilterChange: (dates: Moment[]) => any;
-  labels: string[];
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -100,12 +96,6 @@ export default class MapTimeline extends React.Component<Props, State> {
             onMarkerOut={this.setFocus}
           />
         </MapContainer>
-
-        <TimelineActions
-          newCard={props.newCard}
-          onLabelFilter={props.filterLabels}
-          labels={props.labels}
-        />
 
         <Timeline {...props} {...this.state} focusDate={focusDate} />
 

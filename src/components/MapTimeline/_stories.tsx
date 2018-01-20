@@ -28,8 +28,6 @@ storiesOf('MapTimeline', module)
       removeCard={action('removeCard()')}
       onFilterChange={action('onFilterChange()')}
       focusDate={action('focusDate()')}
-      filterLabels={action('onLabelFilter()')}
-      labels={[]}
     />
   ))
   .add('adding card', () => (
@@ -42,7 +40,5 @@ storiesOf('MapTimeline', module)
       removeCard={action('removeCard()')}
       focusDate={action('focusDate()')}
       onFilterChange={action('onFilterChange()')}
-      filterLabels={action('onLabelFilter()')}
-      labels={[]}
     />
   ));

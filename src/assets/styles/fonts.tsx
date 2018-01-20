@@ -27,6 +27,10 @@ export const weight = {
     font-weight: 400;
   `,
 
+  thickish: css`
+    font-weight: 500;
+  `,
+
   thick: css`
     font-weight: 600;
   `,

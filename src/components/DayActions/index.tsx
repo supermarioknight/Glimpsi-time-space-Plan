@@ -15,7 +15,7 @@ interface Props {
 }
 
 const DayActions: React.StatelessComponent<Props> = ({ newCard, start }) => (
-  <Button onClick={block(newCard, start)} key="button">
+  <Button appearance="transparent" onClick={block(newCard, start)} key="button">
     Add more for {start.format('dddd Do MMMM')}
   </Button>
 );
