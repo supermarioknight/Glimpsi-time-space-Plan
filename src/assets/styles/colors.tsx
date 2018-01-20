@@ -26,7 +26,6 @@ const _colors = {
 
   cardFocused: rgba(raw.black, 0.25),
   cardBackground: raw.white,
-  cardActionsBackground: rgba(raw.black, 0.75),
 
   textLight: raw.white,
   textDark: raw.black,
@@ -44,15 +43,20 @@ const _colors = {
 
   focusRing: raw.blue,
 
-  button: raw.green,
-  buttonText: raw.white,
-  buttonClick: darken(0.1)(raw.green),
-  buttonHover: lighten(0.1)(raw.green),
+  buttonPositive: raw.green,
+  buttonPositiveText: raw.white,
+  buttonPositiveClick: darken(0.1)(raw.green),
+  buttonPositiveHover: lighten(0.1)(raw.green),
 
-  buttonSecondary: raw.blue,
-  buttonSecondaryText: raw.white,
-  buttonSecondaryClick: darken(0.1)(raw.blue),
-  buttonSecondaryHover: lighten(0.1)(raw.blue),
+  buttonNegative: raw.red,
+  buttonNegativeText: raw.white,
+  buttonNegativeClick: darken(0.1)(raw.red),
+  buttonNegativeHover: lighten(0.1)(raw.red),
+
+  button: raw.blue,
+  buttonText: raw.white,
+  buttonClick: darken(0.1)(raw.blue),
+  buttonHover: lighten(0.1)(raw.blue),
 
   buttonTransparent: 'transparent',
   buttonTransparentText: raw.black,

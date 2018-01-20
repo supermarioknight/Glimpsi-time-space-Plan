@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import styled from 'styled-components';
 import Textbox from '../Textbox';
 import editable, { InjectedProps } from '../../decorators/editable';
+import { Text } from './styles';
 
 export interface RenderTextProps {
   children: string;
@@ -28,7 +29,9 @@ interface State {
   editing: boolean;
 }
 
-const Clickable = styled.span`cursor: pointer;`;
+const Clickable = styled.span`
+  cursor: pointer;
+`;
 
 function selectText(ref: HTMLFormElement | null) {
   if (ref) {
@@ -43,7 +46,7 @@ export default editable<Props>(
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11640
     static defaultProps: DefaultProps = {
       name: 'text',
-      renderText: props => <div {...props} />,
+      renderText: props => <Text {...props} />,
     };
 
     finish = (values: { [value: string]: string }) => {

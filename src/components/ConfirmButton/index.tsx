@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '../Button';
 
 interface Props {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
@@ -34,9 +35,9 @@ export default class ConfirmButton extends React.Component<Props, State> {
     const { children, confirmText, ...props } = this.props;
 
     return (
-      <button {...props} onClick={this.onClick}>
+      <Button appearance="negative" {...props} onClick={this.onClick}>
         {confirming ? confirmText : children}
-      </button>
+      </Button>
     );
   }
 }

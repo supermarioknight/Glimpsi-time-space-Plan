@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Root, Button, ConfirmButtonStyled } from './styles';
+import { Root } from './styles';
+import ConfirmButton from '../ConfirmButton';
+import Button from '../Button';
 
 interface Props {
   onEdit: (e: React.MouseEvent<HTMLElement>) => void;
@@ -8,13 +10,8 @@ interface Props {
 
 const CardActions = ({ onEdit, onDelete }: Props) => (
   <Root>
-    <Button key="edit" onClick={onEdit}>
-      edit
-    </Button>
-
-    <ConfirmButtonStyled key="delete" onClick={onDelete}>
-      delete
-    </ConfirmButtonStyled>
+    <Button onClick={onEdit}>edit</Button>
+    <ConfirmButton onClick={onDelete}>delete</ConfirmButton>
   </Root>
 );
 

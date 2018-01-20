@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import { Label, LabelText, Input } from './styles';
 
 interface Props {
   label: string;
@@ -13,17 +13,6 @@ interface Props {
   placeholder?: string;
   type?: string;
 }
-
-const Input = styled.input`font-size: 16px;`;
-
-const Label = styled.label`font-size: 16px;`;
-
-const LabelText = styled.span`
-  display: block;
-  opacity: 0;
-  position: absolute;
-  pointer-events: none;
-`;
 
 const Textbox: React.StatelessComponent<Props> = ({ label, placeholder, innerRef, ...props }) => (
   <Label>
