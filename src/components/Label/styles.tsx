@@ -12,6 +12,8 @@ const colorMap = {
   accom: colors.labelAccom,
   travel: colors.labelTravel,
   fun: colors.labelFun,
+  'need to book': colors.labelWarning,
+  booked: colors.labelBooked,
 };
 
 export const Label = styled.div`
@@ -19,7 +21,6 @@ export const Label = styled.div`
   ${mixins.borderRadius};
   display: inline-block;
   padding: ${grid.unitless / 2}px ${grid.px};
-  margin: ${grid.px};
   background-color: ${(props: Props) => colorMap[props.children] || colors.label};
   color: ${colors.labelText};
 `;

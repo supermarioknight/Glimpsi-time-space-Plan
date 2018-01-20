@@ -17,7 +17,7 @@ interface Props {
 const TimelineActions: React.StatelessComponent<Props> = ({ newCard, onLabelFilter, labels }) => (
   <Root>
     <LabelSelect
-      placeholder="Filter cards..."
+      placeholder="Filter cards"
       name="label-filter"
       onChange={onLabelFilter}
       value={labels}

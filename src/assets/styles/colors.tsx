@@ -35,11 +35,13 @@ const _colors = {
   modalOverlay: rgba(raw.black, 0.88),
   modalBackground: raw.white,
 
+  label: raw.red,
   labelText: raw.white,
-  label: raw.yellow,
-  labelFun: raw.red,
+  labelFun: raw.green,
   labelAccom: raw.blue,
-  labelTravel: raw.green,
+  labelTravel: raw.yellow,
+  labelWarning: raw.orange,
+  labelBooked: raw.green,
 
   slider: raw.white,
   sliderProgress: raw.blue,
@@ -69,7 +71,7 @@ const _colors = {
 
   input: raw.white,
   inputDisabled: raw.whitesmoke,
-  inputFocus: rgba(raw.blue, 0.5),
+  inputFocus: raw.whitesmoke,
   selectValue: raw.whitesmoke,
 
   datePicker: raw.white,
