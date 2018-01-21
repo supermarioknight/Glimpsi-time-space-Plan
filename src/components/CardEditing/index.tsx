@@ -107,6 +107,16 @@ export default class CardEditing extends Component<Props> {
           renderLeft(values),
 
           <form onSubmit={handleSubmit} key="div">
+            <FormFieldContainer name="title" {...fieldProps}>
+              <Textbox
+                value={values.title}
+                label="Title"
+                name="title"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
             <FormFieldContainer name="start" {...fieldProps}>
               <DatePicker
                 id="date"
@@ -145,16 +155,6 @@ export default class CardEditing extends Component<Props> {
                 value={values.notes}
                 label="Notes"
                 name="notes"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
-
-            <FormFieldContainer name="title" {...fieldProps}>
-              <Textbox
-                value={values.title}
-                label="Title"
-                name="title"
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
