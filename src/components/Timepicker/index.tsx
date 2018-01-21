@@ -44,6 +44,7 @@ interface Option {
 interface Props {
   onChange: (value: Moment | null) => void;
   value: Moment | undefined;
+  onBlur?: (e: any) => void;
 }
 
 const Timepicker: React.StatelessComponent<Props> = ({ onChange, value }) => (

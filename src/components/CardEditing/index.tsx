@@ -9,9 +9,9 @@ import { Card } from '../../features/types';
 import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import LabelSelect from '../LabelSelect';
+import Button from '../Button';
+import ButtonGroup from '../Button/Group';
 import FormFieldContainer from '../FormFieldContainer';
-
-import { Root, Title, Location, DateTime as DateTimeContainer } from '../Card/styles';
 
 // tslint:disable-next-line no-any
 export type OnSave = (values: Card) => any;
@@ -106,82 +106,78 @@ export default class CardEditing extends Component<Props> {
         }: FormikProps<Card>) => [
           renderLeft(values),
 
-          <Root key="root">
-            <form onSubmit={handleSubmit}>
-              <button type="submit">Save</button>
-              <button type="cancel" onClick={this.cancel}>
+          <form onSubmit={handleSubmit} key="div">
+            <FormFieldContainer name="start" {...fieldProps}>
+              <DatePicker
+                id="date"
+                value={values.start ? moment(values.start) : null}
+                onChange={value => setFieldValue('start', value)}
+                datePickerFrom={datePickerFrom}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="time" {...fieldProps}>
+              <TimePicker value={values.time} onChange={value => setFieldValue('time', value)} />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="labels" {...fieldProps}>
+              <LabelSelect
+                name="labels"
+                value={values.labels}
+                placeholder="Labels"
+                onBlur={handleBlur}
+                onChange={labelOptions => setFieldValue('labels', labelOptions)}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="duration" {...fieldProps}>
+              <Textbox
+                value={values.duration}
+                label="Duration"
+                name="duration"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="notes" {...fieldProps}>
+              <Textbox
+                value={values.notes}
+                label="Notes"
+                name="notes"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="title" {...fieldProps}>
+              <Textbox
+                value={values.title}
+                label="Title"
+                name="title"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="location" {...fieldProps}>
+              <LocationSelect
+                onChange={value => setFieldValue('location', value)}
+                value={values.location}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
+            <ButtonGroup>
+              <Button type="cancel" onClick={this.cancel}>
                 Cancel
-              </button>
+              </Button>
 
-              <DateTimeContainer>
-                <FormFieldContainer name="start" {...fieldProps}>
-                  <DatePicker
-                    id="date"
-                    value={values.start ? moment(values.start) : null}
-                    onChange={value => setFieldValue('start', value)}
-                    datePickerFrom={datePickerFrom}
-                  />
-                </FormFieldContainer>
-
-                <FormFieldContainer name="time" {...fieldProps}>
-                  <TimePicker
-                    value={values.time}
-                    onChange={value => setFieldValue('time', value)}
-                  />
-                </FormFieldContainer>
-
-                <FormFieldContainer name="labels" {...fieldProps}>
-                  <LabelSelect
-                    name="labels"
-                    value={values.labels}
-                    placeholder="Labels"
-                    onChange={labelOptions => setFieldValue('labels', labelOptions)}
-                  />
-                </FormFieldContainer>
-
-                <FormFieldContainer name="duration" {...fieldProps}>
-                  <Textbox
-                    value={values.duration}
-                    label="Duration"
-                    name="duration"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
-
-                <FormFieldContainer name="notes" {...fieldProps}>
-                  <Textbox
-                    value={values.notes}
-                    label="Notes"
-                    name="notes"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
-              </DateTimeContainer>
-
-              <Title>
-                <FormFieldContainer name="title" {...fieldProps}>
-                  <Textbox
-                    value={values.title}
-                    label="Title"
-                    name="title"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
-              </Title>
-
-              <Location>
-                <FormFieldContainer name="location" {...fieldProps}>
-                  <LocationSelect
-                    onChange={value => setFieldValue('location', value)}
-                    value={values.location}
-                  />
-                </FormFieldContainer>
-              </Location>
-            </form>
-          </Root>,
+              <Button appearance="positive" type="submit">
+                Save
+              </Button>
+            </ButtonGroup>
+          </form>,
         ]}
       </Formik>
     );

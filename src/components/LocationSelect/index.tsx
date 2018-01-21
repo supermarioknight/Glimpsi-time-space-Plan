@@ -15,6 +15,7 @@ export type OnChange = (geocode: Geocode) => void;
 interface Props {
   onChange: OnChange;
   value?: Geocode;
+  onBlur?: (e: any) => void;
 }
 
 interface ReactSelectOnChange {

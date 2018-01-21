@@ -17,6 +17,7 @@ interface Props {
   onChange: (label: StringOrUndefined[]) => void;
   name: string;
   placeholder?: string;
+  onBlur?: (e: any) => void;
 }
 
 const LabelSelect: React.StatelessComponent<Props> = ({ value, onChange, ...props }) => (

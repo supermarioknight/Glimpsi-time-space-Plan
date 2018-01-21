@@ -7,6 +7,8 @@ export const Input = styled.input`
   ${fonts.size.large};
   ${mixins.focusRing.default};
   ${mixins.borderRadius};
+  display: block;
+  width: 100%;
   border: none;
   padding: ${grid.px};
 
