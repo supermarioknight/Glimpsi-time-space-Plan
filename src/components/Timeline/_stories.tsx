@@ -15,6 +15,7 @@ const groups = [
         duration: 400,
         title: 'Fly to Japan',
         time: moment('1970-01-01 00:30:00Z'),
+        notes: '',
         location: {
           formattedAddress: 'Sydney Airport (SYD)',
           position: { lat: -33.9399228, lng: 151.1752764 },
@@ -25,6 +26,7 @@ const groups = [
         id: '2',
         start: moment(),
         duration: 400,
+        notes: 'meh',
         title: 'Another  to Japan',
         time: moment('1970-01-01 00:30:00Z'),
         location: {

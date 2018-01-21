@@ -12,6 +12,7 @@ export interface Card {
   title: string;
   start: Moment;
   time: Moment;
+  notes: string;
   labels: string[];
   location: {
     formattedAddress: string;

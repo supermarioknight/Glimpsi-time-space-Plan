@@ -16,6 +16,7 @@ const Card: React.StatelessComponent<Props> = ({
   time,
   duration,
   children,
+  notes,
   markerId,
   labels,
   ...props
@@ -27,6 +28,8 @@ const Card: React.StatelessComponent<Props> = ({
     </DateTime>
 
     {markerId && <Marker>{markerId}</Marker>}
+
+    {notes}
 
     <div>{labels && labels.map(label => <Label key={label}>{label}</Label>)}</div>
 

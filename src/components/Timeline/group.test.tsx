@@ -15,6 +15,7 @@ describe.only('card grouping', () => {
       id: `${id}`,
       duration: 400,
       title: 'Fly to Japan',
+      notes: '',
       location: {
         formattedAddress: 'Sydney Airport (SYD)',
         position: { lat: -33.9399228, lng: 151.1752764 },

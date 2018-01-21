@@ -30,6 +30,7 @@ export interface Props {
   start?: Moment;
   duration?: number;
   onSave: OnSave;
+  notes?: string;
   labels?: string[];
   // tslint:disable-next-line no-any
   onCancel: () => any;
@@ -48,6 +49,7 @@ const schema = yup.object().shape({
   time: yup.object().required(),
   location: yup.object().required(),
   labels: yup.array(),
+  notes: yup.string(),
 });
 
 export default class CardEditing extends Component<Props> {
@@ -76,14 +78,23 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration, renderLeft, time, datePickerFrom, labels } = this
-      .props as DefaultProps;
+    const {
+      title,
+      location,
+      start,
+      duration,
+      renderLeft,
+      time,
+      datePickerFrom,
+      labels,
+      notes,
+    } = this.props as DefaultProps;
 
     return (
       <Formik
         onSubmit={this.finish}
         validationSchema={schema}
-        initialValues={{ title, location, start, duration, time, labels }}
+        initialValues={{ title, location, start, duration, time, labels, notes }}
       >
         {({
           values,
@@ -133,6 +144,16 @@ export default class CardEditing extends Component<Props> {
                     value={values.duration}
                     label="Duration"
                     name="duration"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
+
+                <FormFieldContainer name="notes" {...fieldProps}>
+                  <Textbox
+                    value={values.notes}
+                    label="Notes"
+                    name="notes"
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
