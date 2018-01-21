@@ -21,5 +21,6 @@ storiesOf('Card/Editable', module).add('with values', () => (
     duration={30}
     onSave={action('onSave()')}
     onDelete={action('onDelete()')}
+    onEditing={action('onEditing()')}
   />
 ));

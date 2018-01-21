@@ -9,6 +9,7 @@ import editable, { InjectedProps } from '../../decorators/editable';
 interface Props extends InjectedProps, CardProps {
   id: string;
   onDelete: (id: string) => void;
+  onEditing: (id: string) => void;
   onSave: OnSave;
 }
 
@@ -20,7 +21,7 @@ export default editable<Props>(
     };
 
     render() {
-      const { onDelete, id, editing } = this.props;
+      const { onDelete, id, editing, onEditing } = this.props;
 
       return (
         <Hoverable>
@@ -34,10 +35,7 @@ export default editable<Props>(
             ) : (
               <Card {...this.props}>
                 {hovering && (
-                  <CardActions
-                    onEdit={() => this.props.setEditing(true)}
-                    onDelete={() => onDelete(id)}
-                  />
+                  <CardActions onEdit={() => onEditing(id)} onDelete={() => onDelete(id)} />
                 )}
               </Card>
             )

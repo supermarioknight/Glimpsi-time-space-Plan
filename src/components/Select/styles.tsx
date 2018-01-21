@@ -1,10 +1,12 @@
 import { css } from 'styled-components';
 import colors from '../../assets/styles/colors';
 import * as grid from '../../assets/styles/grid';
+import * as fonts from '../../assets/styles/fonts';
 import * as mixins from '../../assets/styles/mixins';
 
 export const root = css`
   ${mixins.borderRadius};
+  ${fonts.size.large};
   position: relative;
   min-width: 150px;
 
@@ -24,6 +26,7 @@ export const root = css`
 
   .Select-value {
     ${mixins.borderRadius};
+    ${fonts.size.regular};
     display: inline-block;
     padding: ${grid.unitless / 2}px ${grid.px};
     margin: 0 ${grid.px};
@@ -53,7 +56,7 @@ export const root = css`
     display: table;
     border-spacing: 0;
     border-collapse: separate;
-    height: ${grid.unitless * 4}px;
+    height: 37px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -102,7 +105,7 @@ export const root = css`
     bottom: 0;
     color: #aaa;
     left: 0;
-    line-height: 34px;
+    line-height: 37px;
     padding-left: 10px;
     padding-right: 10px;
     position: absolute;
@@ -145,7 +148,7 @@ export const root = css`
   }
 
   .Select-input {
-    height: 34px;
+    height: 36px;
     padding-left: 10px;
     padding-right: 10px;
     vertical-align: middle;
@@ -223,7 +226,7 @@ export const root = css`
 
   .Select-clear {
     display: inline-block;
-    font-size: 18px;
+    font-size: inherit;
     line-height: 1;
   }
 
@@ -289,6 +292,7 @@ export const root = css`
   }
 
   .Select-menu-outer {
+    ${fonts.size.regular};
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
     background-color: #fff;
@@ -367,7 +371,6 @@ export const root = css`
     border-radius: 2px;
     color: #007eff;
     display: inline-block;
-    font-size: 0.9em;
     line-height: 1.4;
     margin-left: 5px;
     margin-top: 5px;

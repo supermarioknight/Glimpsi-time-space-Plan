@@ -20,6 +20,8 @@ export interface Props {
   saveCard: OnSave;
   // tslint:disable-next-line no-any
   removeCard: (id: string) => any;
+  // tslint:disable-next-line no-any
+  editCard: (id: string) => any;
   filters: Moment[];
   // tslint:disable-next-line no-any
   focusDate: (date: Moment) => any;
@@ -37,6 +39,7 @@ const Timeline: React.StatelessComponent<Props> = ({
   newCard,
   focusedCard,
   focusDate,
+  editCard,
   cardScrolledIntoView,
   className,
 }) => {
@@ -72,6 +75,7 @@ const Timeline: React.StatelessComponent<Props> = ({
                   <EditableCard
                     onSave={saveCard}
                     onDelete={removeCard}
+                    onEditing={editCard}
                     markerId={withinFilters ? markerId : undefined}
                     focused={withinFilters && markerId === focusedCard}
                     {...card}

@@ -4,7 +4,14 @@ import MapTimeline from '../../components/MapTimeline';
 import { CardDay } from '../../components/Timeline';
 import moment, { Moment } from 'moment';
 import { addTimeToDate } from '../../lib/date';
-import { saveCard, newCard, removeCard, cancelNewCard, filterTimeline } from './actions';
+import {
+  saveCard,
+  newCard,
+  removeCard,
+  cancelNewCard,
+  filterTimeline,
+  updateCard,
+} from './actions';
 import { Store, CardWithId } from '../types';
 
 const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
@@ -63,6 +70,7 @@ export default connect(selector, {
   newCard,
   removeCard,
   cancelNewCard,
+  editCard: updateCard,
   onFilterChange: filterTimeline,
   focusDate: (date: Moment) =>
     filterTimeline([moment(date).set('hours', 0), moment(date).set('hours', 23)]),

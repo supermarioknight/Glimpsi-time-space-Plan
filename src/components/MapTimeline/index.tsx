@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Moment } from 'moment';
 import { Props as TimelineProps, CardDay } from '../../components/Timeline';
-import NewCard from '../CardNew';
+import NewCard from '../CardNew/Connected';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
 import Modal from '../Modal';
@@ -30,15 +30,15 @@ const extractMarkers = (days: CardDay[], filters: Moment[]) => {
   }, []);
 };
 
-const extractLatestDate = (days: CardDay[]) => {
-  const lastDay = days[days.length - 1];
-  if (!lastDay) {
-    return undefined;
-  }
+// const extractLatestDate = (days: CardDay[]) => {
+//   const lastDay = days[days.length - 1];
+//   if (!lastDay) {
+//     return undefined;
+//   }
 
-  const lastCard = lastDay.cards[lastDay.cards.length - 1];
-  return lastCard && lastDay.date;
-};
+//   const lastCard = lastDay.cards[lastDay.cards.length - 1];
+//   return lastCard && lastDay.date;
+// };
 
 interface State {
   focusedCard: number | undefined;
@@ -104,12 +104,7 @@ export default class MapTimeline extends React.Component<Props, State> {
             onRequestClose={cancelNewCard}
             appRoot={document.getElementById('root') as HTMLElement}
           >
-            <NewCard
-              start={adding.start}
-              datePickerFrom={adding.start ? undefined : extractLatestDate(props.days)}
-              onSave={props.saveCard}
-              onCancel={cancelNewCard}
-            />
+            <NewCard />
           </Modal>
         )}
       </Root>

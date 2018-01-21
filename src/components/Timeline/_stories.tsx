@@ -49,5 +49,6 @@ storiesOf('Timeline', module).add('default', () => (
     removeCard={action('deleteCard()')}
     days={groups}
     filters={[moment(), moment().add(1, 'day')]}
+    editCard={action('editCard()')}
   />
 ));

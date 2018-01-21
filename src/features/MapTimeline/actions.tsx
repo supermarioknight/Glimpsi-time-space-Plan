@@ -3,11 +3,13 @@ import { Card } from '../types';
 
 const SAVE_CARD = 'SAVE_CARD';
 const NEW_CARD = 'NEW_CARD';
+const UPDATE_CARD = 'UPDATE_CARD';
 const REMOVE_CARD = 'REMOVE_CARD';
 const UPDATE_TIMELINE = 'UPDATE_TIMELINE';
 const CANCEL_NEW_CARD = 'CANCEL_NEW_CARD';
 const FILTER_TIMELINE = 'FILTER_TIMELINE';
 const FILTER_LABELS = 'FILTER_LABELS';
+const CANCEL_UPDATE_CARD = 'CANCEL_UPDATE_CARD';
 
 export type Actions =
   | NewCard
@@ -16,7 +18,9 @@ export type Actions =
   | UpdateTimeline
   | SaveCard
   | FilterTimeline
-  | FilterLabels;
+  | FilterLabels
+  | UpdateCard
+  | CancelUpdateCard;
 
 export interface FilterTimeline {
   type: typeof FILTER_TIMELINE;
@@ -58,6 +62,24 @@ export const newCard = (options?: { start?: Moment }): NewCard => ({
   payload: {
     ...options,
   },
+});
+
+export interface UpdateCard {
+  type: typeof UPDATE_CARD;
+  payload: string;
+}
+
+export const updateCard = (id: string): UpdateCard => ({
+  type: 'UPDATE_CARD',
+  payload: id,
+});
+
+export interface CancelUpdateCard {
+  type: typeof CANCEL_UPDATE_CARD;
+}
+
+export const cancelUpdateCard = (): CancelUpdateCard => ({
+  type: 'CANCEL_UPDATE_CARD',
 });
 
 export interface RemoveCard {

@@ -25,6 +25,7 @@ const extractStartEnd = (cards: Card[]) => {
 
 const defaultState: Store = {
   adding: null,
+  updating: null,
   filters: [],
   start: moment(),
   end: moment(),
@@ -39,6 +40,7 @@ export interface Store {
   end: Moment;
   filters: Moment[];
   labels: string[];
+  updating: CardWithId | null;
 }
 
 export default (store: Store = defaultState, action: Actions) => {
@@ -53,6 +55,16 @@ export default (store: Store = defaultState, action: Actions) => {
       return {
         ...store,
         adding: null,
+        updating: null,
+      };
+
+    case 'UPDATE_CARD':
+      return {
+        ...store,
+        adding: true,
+        updating: {
+          ...store.cards.filter(card => card.id === action.payload)[0],
+        },
       };
 
     case 'REMOVE_CARD':
@@ -104,6 +116,7 @@ export default (store: Store = defaultState, action: Actions) => {
         ...store,
         cards,
         adding: null,
+        updating: null,
         ...extractStartEnd(cards),
       };
     }
