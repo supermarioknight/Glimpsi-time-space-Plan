@@ -67,11 +67,15 @@ export default (store: Store = defaultState, action: Actions) => {
         },
       };
 
-    case 'REMOVE_CARD':
+    case 'REMOVE_CARD': {
+      const cards = store.cards.filter(card => card.id !== action.payload.id);
+
       return {
+        cards,
         ...store,
-        cards: store.cards.filter(card => card.id !== action.payload.id),
+        ...extractStartEnd(cards),
       };
+    }
 
     case 'FILTER_LABELS':
       return {

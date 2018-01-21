@@ -10,8 +10,8 @@ interface Props {
 
 const CardActions = ({ onEdit, onDelete }: Props) => (
   <Root>
-    <Button onClick={onEdit}>edit</Button>
     <ConfirmButton onClick={onDelete}>delete</ConfirmButton>
+    <Button onClick={onEdit}>edit</Button>
   </Root>
 );
 

@@ -2,19 +2,21 @@ import styled from 'styled-components';
 import colors from '../../assets/styles/colors';
 import bp from '../../assets/styles/breakpoints';
 import * as mixins from '../../assets/styles/mixins';
+import * as grid from '../../assets/styles/grid';
+import * as fonts from '../../assets/styles/fonts';
 
 interface RootProps {
   focused?: boolean;
 }
 
 export const Root = styled.div`
+  ${mixins.borderRadius};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 2px;
-  padding: 10px;
-  height: 150px;
-  min-width: 300px;
+  padding: ${grid.px};
+  height: ${grid.unitless * 19}px;
+  min-width: ${grid.unitless * 38}px;
   background-size: cover;
   background-position: center center;
   background-color: ${colors.cardBackground};
@@ -24,13 +26,24 @@ export const Root = styled.div`
     props.focused ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
 
   ${bp.tablet.css`
-    margin: 12px 0;
+    margin: ${grid.px} 0;
   `};
 `;
 
 export const Title = styled.h2`
+  ${fonts.size.large};
+  display: flex;
+  align-items: center;
   margin: 0;
-  font-size: 26px;
+
+  > :first-child {
+    margin-right: ${grid.px};
+  }
+`;
+
+export const Notes = styled.p`
+  ${mixins.clamp};
+  margin: 0;
 `;
 
 export const Minutes = styled.div`
@@ -39,10 +52,14 @@ export const Minutes = styled.div`
 
 export const Location = styled.div`
   ${mixins.focusRing.keyboardOnly};
-  font-size: 18px;
+  ${mixins.clamp};
+  ${fonts.size.large};
 `;
 
 export const DateTime = styled.div`
   display: flex;
-  font-size: 16px;
+`;
+
+export const NoWrap = styled.span`
+  ${mixins.clamp};
 `;

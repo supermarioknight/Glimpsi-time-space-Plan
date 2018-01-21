@@ -5,18 +5,20 @@ import * as fonts from '../../assets/styles/fonts';
 
 interface MarkerProps {
   interactive?: boolean;
+  small?: boolean;
 }
 
 export const Marker = styled.div`
-  ${fonts.size.large};
+  ${(props: MarkerProps) => (props.small ? fonts.size.small : fonts.size.large)};
+  ${fonts.weight.normal};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   color: ${colors.textLight};
   background: ${colors.marker};
-  width: ${grid.unitless * 4}px;
-  height: ${grid.unitless * 4}px;
+  width: ${(props: MarkerProps) => grid.unitless * (props.small ? 3 : 4)}px;
+  height: ${(props: MarkerProps) => grid.unitless * (props.small ? 3 : 4)}px;
   flex-shrink: 0;
   border: 2px solid ${colors.markerBorder};
   cursor: ${(props: MarkerProps) => (props.interactive ? 'pointer' : 'default')};

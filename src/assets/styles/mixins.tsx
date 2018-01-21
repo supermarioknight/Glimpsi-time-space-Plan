@@ -6,6 +6,12 @@ export const borderRadius = css`
   border-radius: 2px;
 `;
 
+export const clamp = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 export const focusRing = {
   keyboardOnly: css`
     :focus {

@@ -24,3 +24,15 @@ export const Label = styled.div`
   background-color: ${(props: Props) => colorMap[props.children] || colors.label};
   color: ${colors.labelText};
 `;
+
+export const LabelGroup = styled.div`
+  text-align: right;
+
+  > ${Label} {
+    margin-right: ${grid.px};
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+`;
