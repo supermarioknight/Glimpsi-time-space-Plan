@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { withNetwork, NetworkProps } from 'react-fns';
+import { NetworkProps } from 'react-fns';
 import Notification from '../Notification';
 
 interface State {
   wasOffline: boolean;
 }
 
-class NetworkNotifier extends React.Component<NetworkProps, State> {
+export default class NetworkNotifier extends React.Component<NetworkProps, State> {
   state = {
     wasOffline: false,
   };
@@ -29,13 +29,19 @@ class NetworkNotifier extends React.Component<NetworkProps, State> {
     return (
       <div>
         {!this.props.online &&
-          this.props.offlineAt && <Notification appearance="warning">oh no</Notification>}
+          this.props.offlineAt && (
+            <Notification appearance="warning">
+              You've lost your internet connection! Don't worry, any changes you make will be saved.
+            </Notification>
+          )}
 
         {this.props.online &&
-          this.state.wasOffline && <Notification appearance="info">we back</Notification>}
+          this.state.wasOffline && (
+            <Notification appearance="info" autoHide>
+              And we're back online!
+            </Notification>
+          )}
       </div>
     );
   }
 }
-
-export default withNetwork<{}>(NetworkNotifier);

@@ -4,6 +4,7 @@ import { Root } from './styles';
 
 interface Props {
   children: string;
+  autoHide?: boolean;
   appearance: 'warning' | 'info' | 'default';
 }
 
@@ -13,7 +14,7 @@ interface State {
 
 type TransitionState = 'entering' | 'entered' | 'exited' | 'exiting';
 
-const clearTimeout = 5000;
+const clearTimeout = 2500;
 
 export default class Notification extends React.Component<Props, State> {
   timeoutId: number;
@@ -23,22 +24,26 @@ export default class Notification extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.timeoutId = window.setTimeout(() => {
-      this.setState({
-        finished: true,
-      });
-    }, clearTimeout);
+    if (this.props.autoHide) {
+      this.timeoutId = window.setTimeout(() => {
+        this.setState({
+          finished: true,
+        });
+      }, clearTimeout);
+    }
   }
 
   componentWillUnmount() {
-    window.clearTimeout(this.timeoutId);
+    if (this.props.autoHide && this.timeoutId) {
+      window.clearTimeout(this.timeoutId);
+    }
   }
 
   render() {
     return (
       <Transition in={!this.state.finished} timeout={200} appear>
         {(state: TransitionState) => (
-          <Root state={state} {...this.props}>
+          <Root role="alert" state={state} {...this.props}>
             {this.props.children}
           </Root>
         )}
