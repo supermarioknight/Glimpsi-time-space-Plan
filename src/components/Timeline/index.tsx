@@ -59,7 +59,7 @@ const Timeline: React.StatelessComponent<Props> = ({
               id={day.date.format('DD-MM-YY')}
             >
               {day.date.format('dddd Do MMMM')}
-              {day.date.isSame(new Date(), 'day') ? ' today' : undefined}
+              {day.date.isSame(new Date(), 'day') ? ' [TODAY]' : undefined}
             </Button>
 
             {day.cards.map(card => {

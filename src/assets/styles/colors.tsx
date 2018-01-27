@@ -75,6 +75,10 @@ const _colors = {
   selectValue: raw.whitesmoke,
 
   datePicker: raw.white,
+
+  notification: raw.black,
+  notificationWarning: raw.orange,
+  notificationGood: raw.green,
 };
 
 const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);
