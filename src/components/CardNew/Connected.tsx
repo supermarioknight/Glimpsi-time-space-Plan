@@ -8,7 +8,8 @@ const selector = createSelector(
   (store: Store) => store.timeline.updating,
   (store: Store) => store.timeline.adding,
   (updatingCard, adding) => ({
-    adding,
+    start: adding && adding.start,
+    datePickerFrom: adding && adding.datePickerFrom,
     ...updatingCard,
   })
 );

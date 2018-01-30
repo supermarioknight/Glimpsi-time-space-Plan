@@ -134,6 +134,7 @@ export default class CardEditing extends Component<Props> {
                 value={values.start ? moment(values.start) : null}
                 onChange={value => {
                   setFieldValue('start', value);
+                  setFieldValue('timeZoneId', undefined);
 
                   if (value && values.location) {
                     timezone(
@@ -141,8 +142,6 @@ export default class CardEditing extends Component<Props> {
                       values.location.position.lng,
                       value.unix()
                     ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
-                  } else {
-                    setFieldValue('timeZoneId', undefined);
                   }
                 }}
                 datePickerFrom={datePickerFrom}
@@ -161,13 +160,12 @@ export default class CardEditing extends Component<Props> {
               <LocationSelect
                 onChange={value => {
                   setFieldValue('location', value || undefined);
+                  setFieldValue('timeZoneId', undefined);
 
                   if (value && values.start) {
                     timezone(value.position.lat, value.position.lng, values.start.unix()).then(tz =>
                       setFieldValue('timeZoneId', tz.timeZoneId)
                     );
-                  } else {
-                    setFieldValue('timeZoneId', undefined);
                   }
                 }}
                 value={values.location}

@@ -57,11 +57,9 @@ export interface NewCard {
   payload: { start?: Moment };
 }
 
-export const newCard = (options?: { start?: Moment }): NewCard => ({
+export const newCard = (options: { start?: Moment } = {}): NewCard => ({
   type: 'NEW_CARD',
-  payload: {
-    ...options,
-  },
+  payload: options,
 });
 
 export interface UpdateCard {

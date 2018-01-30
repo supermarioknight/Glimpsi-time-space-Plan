@@ -34,7 +34,7 @@ const defaultState: Store = {
 };
 
 export interface Store {
-  adding: { start?: Moment } | null;
+  adding: { start?: Moment; datePickerFrom?: Moment } | null;
   cards: CardWithId[];
   start: Moment;
   end: Moment;
@@ -48,7 +48,10 @@ export default (store: Store = defaultState, action: Actions) => {
     case 'NEW_CARD':
       return {
         ...store,
-        adding: action.payload,
+        adding: {
+          ...action.payload,
+          datePickerFrom: action.payload.start ? undefined : store.end,
+        },
       };
 
     case 'CANCEL_NEW_CARD':

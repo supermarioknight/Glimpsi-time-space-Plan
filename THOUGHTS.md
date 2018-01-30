@@ -22,3 +22,5 @@ names
 
 * Load current date when loaded on a fresh day
 * Share your trip
+* Freemium (upload 1 pic, pay to upload multiple)
+* Map shouldn't bounce around, only if marker input changes
