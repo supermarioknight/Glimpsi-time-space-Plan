@@ -2131,14 +2131,14 @@ To add a specific Moment.js locale to your bundle, you need to import it explici
 For example:
 
 ```js
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'moment/locale/fr';
 ```
 
 If import multiple locales this way, you can later switch between them by calling `moment.locale()` with the locale name:
 
 ```js
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'moment/locale/fr';
 import 'moment/locale/es';
 

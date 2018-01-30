@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { noop } from 'lodash-es';
 import yup from 'yup';
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
 import { Card } from '../../features/types';
@@ -10,11 +10,18 @@ import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import LabelSelect from '../LabelSelect';
 import Button from '../Button';
+import { setTime } from '../../lib/date';
+import { timezone } from '../../lib/maps';
 import ButtonGroup from '../Button/Group';
 import FormFieldContainer from '../FormFieldContainer';
 
 // tslint:disable-next-line no-any
 export type OnSave = (values: Card) => any;
+
+interface FormValues extends Card {
+  time: Moment;
+  timeZoneId: string;
+}
 
 export interface Props {
   id?: string;
@@ -26,7 +33,6 @@ export interface Props {
       lng: number;
     };
   };
-  time?: Moment;
   start?: Moment;
   duration?: number;
   onSave: OnSave;
@@ -34,12 +40,12 @@ export interface Props {
   labels?: string[];
   // tslint:disable-next-line no-any
   onCancel: () => any;
-  renderLeft?: (values: Card) => React.ReactNode;
+  renderLeft?: (values: FormValues) => React.ReactNode;
   datePickerFrom?: Moment;
 }
 
 interface DefaultProps extends Props {
-  renderLeft: (values: Card) => React.ReactNode;
+  renderLeft: (values: FormValues) => React.ReactNode;
 }
 
 const schema = yup.object().shape({
@@ -50,6 +56,7 @@ const schema = yup.object().shape({
   location: yup.object().required(),
   labels: yup.array(),
   notes: yup.string(),
+  timeZoneId: yup.string().required(),
 });
 
 export default class CardEditing extends Component<Props> {
@@ -57,7 +64,6 @@ export default class CardEditing extends Component<Props> {
     title: '',
     location: undefined,
     start: undefined,
-    time: undefined,
     labels: [],
     duration: 0,
     renderLeft: () => null,
@@ -65,9 +71,14 @@ export default class CardEditing extends Component<Props> {
     onCancel: noop,
   };
 
-  finish = (values: Card) => {
+  finish = (values: FormValues) => {
+    const { start, time, timeZoneId, ...props } = values;
+
+    const startWithTz = moment.tz(setTime(start, time), timeZoneId);
+
     this.props.onSave({
-      ...values,
+      ...props,
+      start: startWithTz,
       id: this.props.id,
     });
   };
@@ -78,23 +89,23 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const {
-      title,
-      location,
-      start,
-      duration,
-      renderLeft,
-      time,
-      datePickerFrom,
-      labels,
-      notes,
-    } = this.props as DefaultProps;
+    const { title, location, start, duration, renderLeft, datePickerFrom, labels, notes } = this
+      .props as DefaultProps;
 
     return (
       <Formik
         onSubmit={this.finish}
         validationSchema={schema}
-        initialValues={{ title, location, start, duration, time, labels, notes }}
+        initialValues={{
+          title,
+          location,
+          start,
+          duration,
+          labels,
+          notes,
+          time: start,
+          timeZoneId: start && start.zoneName(),
+        }}
       >
         {({
           values,
@@ -103,7 +114,7 @@ export default class CardEditing extends Component<Props> {
           handleSubmit,
           setFieldValue,
           ...fieldProps
-        }: FormikProps<Card>) => [
+        }: FormikProps<FormValues>) => [
           renderLeft(values),
 
           <form onSubmit={handleSubmit} key="div">
@@ -113,6 +124,24 @@ export default class CardEditing extends Component<Props> {
                 label="Title"
                 name="title"
                 onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="location" {...fieldProps}>
+              <LocationSelect
+                onChange={value => {
+                  setFieldValue('location', value || undefined);
+
+                  if (value) {
+                    timezone(value.position.lat, value.position.lng, values.start.unix()).then(tz =>
+                      setFieldValue('timeZoneId', tz.timeZoneId)
+                    );
+                  } else {
+                    setFieldValue('timeZoneId', '');
+                  }
+                }}
+                value={values.location}
                 onBlur={handleBlur}
               />
             </FormFieldContainer>
@@ -127,7 +156,11 @@ export default class CardEditing extends Component<Props> {
             </FormFieldContainer>
 
             <FormFieldContainer name="time" {...fieldProps}>
-              <TimePicker value={values.time} onChange={value => setFieldValue('time', value)} />
+              <TimePicker
+                onBlur={handleBlur}
+                value={values.time}
+                onChange={value => setFieldValue('time', value)}
+              />
             </FormFieldContainer>
 
             <FormFieldContainer name="labels" {...fieldProps}>
@@ -160,19 +193,7 @@ export default class CardEditing extends Component<Props> {
               />
             </FormFieldContainer>
 
-            <FormFieldContainer name="location" {...fieldProps}>
-              <LocationSelect
-                onChange={value => setFieldValue('location', value)}
-                value={values.location}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
-
             <ButtonGroup>
-              <Button type="cancel" onClick={this.cancel}>
-                Cancel
-              </Button>
-
               <Button appearance="positive" type="submit">
                 Save
               </Button>

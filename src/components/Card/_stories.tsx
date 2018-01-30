@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import styled from 'styled-components';
 import Card from './';
 
@@ -22,7 +22,6 @@ storiesOf('Card/Card', module)
         },
       }}
       notes=""
-      time={moment('1970-01-01 00:30:00Z')}
       start={moment()}
       duration={240}
     />
@@ -40,7 +39,6 @@ storiesOf('Card/Card', module)
         },
       }}
       notes="The sickers on the back of the ticket are for the bento boxes. The day starts at 9am but probably get there at 2am. See: https://buysumotickets.com/faq.html#day-of-the-event"
-      time={moment('1970-01-01 00:30:00Z')}
       start={moment()}
       duration={30}
     />

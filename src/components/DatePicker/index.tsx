@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-dates/initialize';
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import { SingleDatePicker } from 'react-dates';
 import { Root } from './styles';
 
@@ -41,6 +41,7 @@ class DatePicker extends React.Component<Props, State> {
       <Root>
         <SingleDatePicker
           id={id}
+          isOutsideRange={() => false}
           date={value}
           focused={focused}
           onDateChange={this.props.onChange}

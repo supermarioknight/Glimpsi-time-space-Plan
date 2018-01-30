@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { Moment } from 'moment';
+import { Moment } from 'moment-timezone';
 import { Store as Timeline } from './MapTimeline/reducer';
 
 export interface Store {
@@ -11,7 +11,6 @@ export interface Card {
   duration: number;
   title: string;
   start: Moment;
-  time: Moment;
   notes: string;
   labels: string[];
   location: {

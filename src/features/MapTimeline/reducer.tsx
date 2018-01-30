@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import uuid from 'uuid/v1';
 import { Actions } from './actions';
 import { CardWithId, Card } from '../types';

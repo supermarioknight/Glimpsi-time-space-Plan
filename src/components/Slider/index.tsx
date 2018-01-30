@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Rheostat from 'rheostat';
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import { slider, Root, HandleTooltip, Handle, DateLabel } from './styles';
 
 const Slider = styled(Rheostat)`

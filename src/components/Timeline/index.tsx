@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Moment } from 'moment';
+import { Moment } from 'moment-timezone';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../features/types';

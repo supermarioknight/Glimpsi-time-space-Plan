@@ -13,7 +13,6 @@ export interface Props extends CardProps {
 const Card: React.StatelessComponent<Props> = ({
   title,
   location,
-  time,
   duration,
   children,
   notes,
@@ -23,7 +22,7 @@ const Card: React.StatelessComponent<Props> = ({
 }) => (
   <Root {...props}>
     <DateTime>
-      Starts at {time.format('hh:mma')}
+      Starts at {props.start.format('hh:mma')}
       {duration ? <Minutes>Goes for {`${duration}min`}</Minutes> : null}
     </DateTime>
 

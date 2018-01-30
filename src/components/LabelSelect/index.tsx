@@ -3,7 +3,7 @@ import { Option } from 'react-select';
 import Select from '../Select';
 import { FullWidthLabel } from './styles';
 
-const options = ['travel', 'fun', 'accom', 'need to book', 'booked', 'unsure']
+const options = ['travel', 'fun', 'accom', 'need to book', 'booked', 'unsure', 'missed']
   .sort()
   .map(option => ({
     value: option,

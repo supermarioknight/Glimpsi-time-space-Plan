@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 export default [
   {
@@ -6,7 +6,6 @@ export default [
     start: moment(),
     duration: 400,
     title: 'Fly to Japan',
-    time: moment('1970-01-01 00:30:00Z'),
     labels: ['travel'],
     notes: '',
     location: {
@@ -21,7 +20,6 @@ export default [
     title: 'Reach Japan',
     labels: ['travel'],
     notes: '',
-    time: moment('1970-01-01 00:30:00Z'),
     location: {
       formattedAddress: 'Haneda Airport',
       position: { lat: 35.5493932, lng: 139.7798386 },
@@ -31,7 +29,7 @@ export default [
     id: '3',
     start: moment().add(2, 'day'),
     duration: 240,
-    time: moment('1970-01-01 00:30:00Z'),
+
     title: 'Grand Sumo Tournament',
     labels: ['fun'],
     notes: '',
@@ -44,7 +42,6 @@ export default [
     id: '4',
     start: moment().add(3, 'day'),
     duration: 60,
-    time: moment('1970-01-01 00:30:00Z'),
     title: 'Hackers Bar',
     labels: ['fun'],
     notes: '',

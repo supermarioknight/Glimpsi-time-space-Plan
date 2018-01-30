@@ -1,4 +1,4 @@
-import { Moment } from 'moment';
+import { Moment } from 'moment-timezone';
 import { Card } from '../types';
 
 const SAVE_CARD = 'SAVE_CARD';

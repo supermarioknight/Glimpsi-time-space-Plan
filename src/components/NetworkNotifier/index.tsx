@@ -31,7 +31,7 @@ export default class NetworkNotifier extends React.Component<NetworkProps, State
         {!this.props.online &&
           this.props.offlineAt && (
             <Notification appearance="warning">
-              You've lost your internet connection! Don't worry, any changes you make will be saved.
+              You've lost your internet! Don't worry, any changes you make will be saved.
             </Notification>
           )}
 

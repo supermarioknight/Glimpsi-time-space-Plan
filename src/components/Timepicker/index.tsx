@@ -1,5 +1,5 @@
 import React from 'react';
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import Select from '../Select';
 
 const generateOptions = () => {
