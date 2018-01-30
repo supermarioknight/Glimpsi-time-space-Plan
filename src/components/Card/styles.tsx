@@ -46,10 +46,6 @@ export const Notes = styled.p`
   margin: 0;
 `;
 
-export const Minutes = styled.div`
-  margin-left: auto;
-`;
-
 export const Location = styled.div`
   ${mixins.focusRing.keyboardOnly};
   ${mixins.clamp};

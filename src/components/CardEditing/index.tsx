@@ -162,12 +162,10 @@ export default class CardEditing extends Component<Props> {
                 onChange={value => {
                   setFieldValue('location', value || undefined);
 
-                  if (value) {
-                    timezone(
-                      value.position.lat,
-                      value.position.lng,
-                      values.start ? values.start.unix() : moment().unix()
-                    ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
+                  if (value && values.start) {
+                    timezone(value.position.lat, value.position.lng, values.start.unix()).then(tz =>
+                      setFieldValue('timeZoneId', tz.timeZoneId)
+                    );
                   } else {
                     setFieldValue('timeZoneId', undefined);
                   }

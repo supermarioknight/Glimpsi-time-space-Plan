@@ -23,7 +23,7 @@ storiesOf('Card/Card', module)
       }}
       notes=""
       start={moment()}
-      duration={240}
+      duration={60}
     />
   ))
   .add('with everything maxed out', () => (
@@ -41,5 +41,21 @@ storiesOf('Card/Card', module)
       notes="The sickers on the back of the ticket are for the bento boxes. The day starts at 9am but probably get there at 2am. See: https://buysumotickets.com/faq.html#day-of-the-event"
       start={moment()}
       duration={30}
+    />
+  ))
+  .add('different timezone', () => (
+    <Card
+      labels={['fun']}
+      title="MariCar Kawaguchiko"
+      location={{
+        formattedAddress: 'Kawaguchiko, Japan',
+        position: {
+          lat: 1,
+          lng: 1,
+        },
+      }}
+      notes=""
+      start={moment.tz('2018-01-30T11:55:00', 'America/Los_Angeles')}
+      duration={60}
     />
   ));
