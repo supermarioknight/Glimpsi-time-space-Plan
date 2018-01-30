@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import NewCard from './';
+import CardNew from './';
 import { saveCard, cancelNewCard } from '../../features/MapTimeline/actions';
 import { Store } from '../../features/types';
 
@@ -8,8 +8,7 @@ const selector = createSelector(
   (store: Store) => store.timeline.updating,
   (store: Store) => store.timeline.adding,
   (updatingCard, adding) => ({
-    start: adding && adding.start,
-    datePickerFrom: adding && adding.datePickerFrom,
+    ...adding,
     ...updatingCard,
   })
 );
@@ -17,4 +16,4 @@ const selector = createSelector(
 export default connect(selector, {
   onSave: saveCard,
   onCancel: cancelNewCard,
-})(NewCard);
+})(CardNew);

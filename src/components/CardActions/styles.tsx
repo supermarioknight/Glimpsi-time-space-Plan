@@ -4,7 +4,7 @@ import * as grid from '../../assets/styles/grid';
 
 export const Root = styled.div`
   position: absolute;
-  bottom: ${grid.px};
+  top: ${grid.px};
   right: ${grid.px};
 
   ${ButtonRoot} {

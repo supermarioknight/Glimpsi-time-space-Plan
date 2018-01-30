@@ -10,9 +10,11 @@ import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import LabelSelect from '../LabelSelect';
 import Button from '../Button';
+import Map from '../Map';
 import { setTime } from '../../lib/date';
 import { timezone } from '../../lib/maps';
 import ButtonGroup from '../Button/Group';
+import { MapContainer, Form, Root } from './styles';
 import FormFieldContainer from '../FormFieldContainer';
 
 // tslint:disable-next-line no-any
@@ -35,17 +37,12 @@ export interface Props {
   };
   start?: Moment;
   duration?: number;
-  onSave: OnSave;
   notes?: string;
   labels?: string[];
+  onSave: OnSave;
   // tslint:disable-next-line no-any
   onCancel: () => any;
-  renderLeft?: (values: FormValues) => React.ReactNode;
   datePickerFrom?: Moment;
-}
-
-interface DefaultProps extends Props {
-  renderLeft: (values: FormValues) => React.ReactNode;
 }
 
 const schema = yup.object().shape({
@@ -60,13 +57,12 @@ const schema = yup.object().shape({
 });
 
 export default class CardEditing extends Component<Props> {
-  static defaultProps: DefaultProps = {
+  static defaultProps: Props = {
     title: '',
     location: undefined,
     start: undefined,
+    duration: undefined,
     labels: [],
-    duration: 0,
-    renderLeft: () => null,
     onSave: noop,
     onCancel: noop,
   };
@@ -89,128 +85,133 @@ export default class CardEditing extends Component<Props> {
   };
 
   render() {
-    const { title, location, start, duration, renderLeft, datePickerFrom, labels, notes } = this
-      .props as DefaultProps;
+    const { title, location, start, duration, datePickerFrom, labels, notes } = this.props;
 
     return (
-      <Formik
-        onSubmit={this.finish}
-        validationSchema={schema}
-        initialValues={{
-          title,
-          location,
-          start,
-          duration,
-          labels,
-          notes,
-          time: start,
-          timeZoneId: start && start.tz(),
-        }}
-      >
-        {({
-          values,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          setFieldValue,
-          ...fieldProps
-        }: FormikProps<FormValues>) => [
-          renderLeft(values),
+      <Root>
+        <Formik
+          onSubmit={this.finish}
+          validationSchema={schema}
+          initialValues={{
+            title,
+            location,
+            start,
+            duration,
+            labels,
+            notes,
+            time: start,
+            timeZoneId: start && start.tz(),
+          }}
+        >
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            setFieldValue,
+            ...fieldProps
+          }: FormikProps<FormValues>) => (
+            <React.Fragment>
+              <MapContainer>
+                <Map markers={[values.location].filter(Boolean)} />
+              </MapContainer>
 
-          <form onSubmit={handleSubmit} key="div">
-            <FormFieldContainer name="title" {...fieldProps}>
-              <Textbox
-                value={values.title}
-                label="Title"
-                name="title"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
+              <Form onSubmit={handleSubmit}>
+                <FormFieldContainer name="title" {...fieldProps}>
+                  <Textbox
+                    value={values.title}
+                    label="Title"
+                    name="title"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="start" {...fieldProps}>
-              <DatePicker
-                id="date"
-                value={values.start ? moment(values.start) : null}
-                onChange={value => {
-                  setFieldValue('start', value);
-                  setFieldValue('timeZoneId', undefined);
+                <FormFieldContainer name="start" {...fieldProps}>
+                  <DatePicker
+                    id="date"
+                    value={values.start ? moment(values.start) : null}
+                    onChange={value => {
+                      setFieldValue('start', value);
+                      setFieldValue('timeZoneId', undefined);
 
-                  if (value && values.location) {
-                    timezone(
-                      values.location.position.lat,
-                      values.location.position.lng,
-                      value.unix()
-                    ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
-                  }
-                }}
-                datePickerFrom={datePickerFrom}
-              />
-            </FormFieldContainer>
+                      if (value && values.location) {
+                        timezone(
+                          values.location.position.lat,
+                          values.location.position.lng,
+                          value.unix()
+                        ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
+                      }
+                    }}
+                    datePickerFrom={datePickerFrom}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="time" {...fieldProps}>
-              <TimePicker
-                onBlur={handleBlur}
-                value={values.time}
-                onChange={value => setFieldValue('time', value)}
-              />
-            </FormFieldContainer>
+                <FormFieldContainer name="time" {...fieldProps}>
+                  <TimePicker
+                    onBlur={handleBlur}
+                    value={values.time}
+                    onChange={value => setFieldValue('time', value)}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="location" {...fieldProps}>
-              <LocationSelect
-                onChange={value => {
-                  setFieldValue('location', value || undefined);
-                  setFieldValue('timeZoneId', undefined);
+                <FormFieldContainer name="location" {...fieldProps}>
+                  <LocationSelect
+                    onChange={value => {
+                      setFieldValue('location', value || undefined);
+                      setFieldValue('timeZoneId', undefined);
 
-                  if (value && values.start) {
-                    timezone(value.position.lat, value.position.lng, values.start.unix()).then(tz =>
-                      setFieldValue('timeZoneId', tz.timeZoneId)
-                    );
-                  }
-                }}
-                value={values.location}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
+                      if (value && values.start) {
+                        timezone(value.position.lat, value.position.lng, values.start.unix()).then(
+                          tz => setFieldValue('timeZoneId', tz.timeZoneId)
+                        );
+                      }
+                    }}
+                    value={values.location}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="labels" {...fieldProps}>
-              <LabelSelect
-                name="labels"
-                value={values.labels}
-                placeholder="Labels"
-                onBlur={handleBlur}
-                onChange={labelOptions => setFieldValue('labels', labelOptions)}
-              />
-            </FormFieldContainer>
+                <FormFieldContainer name="labels" {...fieldProps}>
+                  <LabelSelect
+                    name="labels"
+                    value={values.labels}
+                    placeholder="Labels"
+                    onBlur={handleBlur}
+                    onChange={labelOptions => setFieldValue('labels', labelOptions)}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="duration" {...fieldProps}>
-              <Textbox
-                value={values.duration}
-                label="Duration"
-                name="duration"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
+                <FormFieldContainer name="duration" {...fieldProps}>
+                  <Textbox
+                    value={values.duration}
+                    label="Duration"
+                    name="duration"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
 
-            <FormFieldContainer name="notes" {...fieldProps}>
-              <Textbox
-                value={values.notes}
-                label="Notes"
-                name="notes"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
+                <FormFieldContainer name="notes" {...fieldProps}>
+                  <Textbox
+                    value={values.notes}
+                    label="Notes"
+                    name="notes"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormFieldContainer>
 
-            <ButtonGroup>
-              <Button appearance="positive" type="submit">
-                Save
-              </Button>
-            </ButtonGroup>
-          </form>,
-        ]}
-      </Formik>
+                <ButtonGroup>
+                  <Button appearance="positive" type="submit">
+                    Save
+                  </Button>
+                </ButtonGroup>
+              </Form>
+            </React.Fragment>
+          )}
+        </Formik>
+      </Root>
     );
   }
 }
