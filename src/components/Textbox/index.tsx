@@ -5,10 +5,10 @@ interface Props {
   label: string;
   name: string;
   autoFocus?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   // tslint:disable-next-line no-any
   onBlur: (e: any) => void;
-  innerRef?: (ref: null | HTMLElement) => void;
+  innerRef?: (ref: null | HTMLInputElement) => void;
   value: string | number;
   placeholder?: string;
   type?: string;

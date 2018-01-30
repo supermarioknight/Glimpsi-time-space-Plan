@@ -104,7 +104,7 @@ export default class CardEditing extends Component<Props> {
           labels,
           notes,
           time: start,
-          timeZoneId: start && start.zoneName(),
+          timeZoneId: start && start.tz(),
         }}
       >
         {({
@@ -128,29 +128,23 @@ export default class CardEditing extends Component<Props> {
               />
             </FormFieldContainer>
 
-            <FormFieldContainer name="location" {...fieldProps}>
-              <LocationSelect
-                onChange={value => {
-                  setFieldValue('location', value || undefined);
-
-                  if (value) {
-                    timezone(value.position.lat, value.position.lng, values.start.unix()).then(tz =>
-                      setFieldValue('timeZoneId', tz.timeZoneId)
-                    );
-                  } else {
-                    setFieldValue('timeZoneId', '');
-                  }
-                }}
-                value={values.location}
-                onBlur={handleBlur}
-              />
-            </FormFieldContainer>
-
             <FormFieldContainer name="start" {...fieldProps}>
               <DatePicker
                 id="date"
                 value={values.start ? moment(values.start) : null}
-                onChange={value => setFieldValue('start', value)}
+                onChange={value => {
+                  setFieldValue('start', value);
+
+                  if (value && values.location) {
+                    timezone(
+                      values.location.position.lat,
+                      values.location.position.lng,
+                      value.unix()
+                    ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
+                  } else {
+                    setFieldValue('timeZoneId', undefined);
+                  }
+                }}
                 datePickerFrom={datePickerFrom}
               />
             </FormFieldContainer>
@@ -160,6 +154,26 @@ export default class CardEditing extends Component<Props> {
                 onBlur={handleBlur}
                 value={values.time}
                 onChange={value => setFieldValue('time', value)}
+              />
+            </FormFieldContainer>
+
+            <FormFieldContainer name="location" {...fieldProps}>
+              <LocationSelect
+                onChange={value => {
+                  setFieldValue('location', value || undefined);
+
+                  if (value) {
+                    timezone(
+                      value.position.lat,
+                      value.position.lng,
+                      values.start ? values.start.unix() : moment().unix()
+                    ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
+                  } else {
+                    setFieldValue('timeZoneId', undefined);
+                  }
+                }}
+                value={values.location}
+                onBlur={handleBlur}
               />
             </FormFieldContainer>
 

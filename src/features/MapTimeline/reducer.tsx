@@ -71,9 +71,9 @@ export default (store: Store = defaultState, action: Actions) => {
       const cards = store.cards.filter(card => card.id !== action.payload.id);
 
       return {
-        cards,
         ...store,
         ...extractStartEnd(cards),
+        cards,
       };
     }
 

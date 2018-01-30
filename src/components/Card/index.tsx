@@ -23,7 +23,7 @@ const Card: React.StatelessComponent<Props> = ({
   <Root {...props}>
     <DateTime>
       Starts at {props.start.format('hh:mma')}
-      {duration ? <Minutes>Goes for {`${duration}min`}</Minutes> : null}
+      {duration ? <Minutes>{`${duration}min`}</Minutes> : null}
     </DateTime>
 
     <LabelGroup>{labels && labels.map(label => <Label key={label}>{label}</Label>)}</LabelGroup>

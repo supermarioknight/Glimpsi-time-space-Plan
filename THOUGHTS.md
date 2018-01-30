@@ -17,3 +17,8 @@ names
 * glimpsi.com
 * glimpc.com
 * arrangr.com
+
+## Features
+
+* Load current date when loaded on a fresh day
+* Share your trip

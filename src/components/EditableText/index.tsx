@@ -33,7 +33,7 @@ const Clickable = styled.span`
   cursor: pointer;
 `;
 
-function selectText(ref: HTMLFormElement | null) {
+function selectText(ref: HTMLInputElement | null) {
   if (ref) {
     ref.select();
     ref.focus();
