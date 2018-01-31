@@ -4,6 +4,7 @@ import colors from '../../assets/styles/colors';
 import * as zIndex from '../../assets/styles/zIndex';
 import * as mixins from '../../assets/styles/mixins';
 import * as grid from '../../assets/styles/grid';
+import bp from '../../assets/styles/breakpoints';
 
 export const FixedBestModal = styled(BestModal)`
   position: fixed;
@@ -20,9 +21,17 @@ export const FixedBestModal = styled(BestModal)`
 
 export const Card = styled.div`
   ${mixins.borderRadius};
-  width: ${grid.unitless * 100}px;
+  width: 100vw;
+  max-height: 100vh;
   background-color: ${colors.cardBackground};
   padding: ${grid.px};
   position: relative;
   z-index: 1;
+  overflow: auto;
+
+  ${bp.tablet.css`
+    width: 80vw;
+    max-width: ${grid.unitless * 80}px;
+    max-height: 80vh;
+  `};
 `;

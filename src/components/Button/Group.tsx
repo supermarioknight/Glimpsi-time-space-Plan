@@ -3,7 +3,6 @@ import { Root as Button } from './styles';
 import * as grid from '../../assets/styles/grid';
 
 const ButtonGroup = styled.div`
-  margin: ${grid.px} 0;
   text-align: right;
 
   > ${Button} {

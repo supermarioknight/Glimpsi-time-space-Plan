@@ -21,15 +21,15 @@ const Card: React.StatelessComponent<Props> = ({
   ...props
 }) => (
   <Root {...props}>
-    <DateTime title="All times are in the locations timezone.">
-      {props.start.format('hh:mma')}
+    <DateTime>
+      {duration ? props.start.format('hh:mma') : props.start.format('hh:mma (z)')}
       {duration ? (
         <React.Fragment>
           {` until `}
           {props.start
             .clone()
             .add(duration, 'minutes')
-            .format('hh:mma')}
+            .format('hh:mma (z)')}
         </React.Fragment>
       ) : (
         undefined

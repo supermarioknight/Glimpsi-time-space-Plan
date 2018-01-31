@@ -1,7 +1,6 @@
 import React from 'react';
 import { GoogleMap, OverlayView, withScriptjs, withGoogleMap } from 'react-google-maps';
 import { flow, noop } from 'lodash-es';
-
 import { Marker } from './styles';
 
 export interface MarkerObj {

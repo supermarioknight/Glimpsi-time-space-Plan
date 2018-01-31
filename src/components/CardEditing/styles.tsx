@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 import * as grid from '../../assets/styles/grid';
 
-export const MapContainer = styled.div`
-  height: ${grid.unitless * 40}px;
-  width: ${grid.unitless * 50}px;
-  margin-right: ${grid.px};
-`;
+export const Root = styled.div``;
 
-export const Root = styled.div`
-  display: flex;
-  align-items: center;
+export const MapContainer = styled.div`
+  height: ${grid.unitless * 20}px;
+  width: 100%;
+  margin-bottom: ${grid.px};
+  flex-shrink: 0;
 `;
 
 export const Form = styled.form`

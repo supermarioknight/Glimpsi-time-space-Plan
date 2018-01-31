@@ -545,6 +545,7 @@ export const Root = styled.span`
     cursor: pointer;
     font-size: 14px;
     text-align: center;
+    vertical-align: middle;
   }
   .CalendarDay:active {
     outline: 0;
