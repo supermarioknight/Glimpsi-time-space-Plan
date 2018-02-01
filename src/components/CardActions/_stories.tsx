@@ -4,13 +4,12 @@ import { action } from '@storybook/addon-actions';
 import styled from 'styled-components';
 import { image } from 'faker';
 import CardActions from './';
-import colors from '../../assets/styles/colors';
 
 const Box = styled.div`
   height: 150px;
   width: 150px;
   background-image: url(${image.animals()});
-  background-color: ${colors.primary};
+  background-color: black;
   background-size: cover;
 `;
 

@@ -293,30 +293,30 @@ export const Root = styled.span`
   }
   .DayPickerKeyboardShortcuts_show__bottomRight {
     border-top: 26px solid transparent;
-    border-right: 33px solid ${colors.primary};
+    border-right: 33px solid ${colors.datePickerBorder};
     bottom: 0;
     right: 0;
   }
   .DayPickerKeyboardShortcuts_show__bottomRight:hover {
-    border-right: 33px solid ${colors.primary};
+    border-right: 33px solid ${colors.datePickerBorder};
   }
   .DayPickerKeyboardShortcuts_show__topRight {
     border-bottom: 26px solid transparent;
-    border-right: 33px solid ${colors.primary};
+    border-right: 33px solid ${colors.datePickerBorder};
     top: 0;
     right: 0;
   }
   .DayPickerKeyboardShortcuts_show__topRight:hover {
-    border-right: 33px solid ${colors.primary};
+    border-right: 33px solid ${colors.datePickerBorder};
   }
   .DayPickerKeyboardShortcuts_show__topLeft {
     border-bottom: 26px solid transparent;
-    border-left: 33px solid ${colors.primary};
+    border-left: 33px solid ${colors.datePickerBorder};
     top: 0;
     left: 0;
   }
   .DayPickerKeyboardShortcuts_show__topLeft:hover {
-    border-left: 33px solid ${colors.primary};
+    border-left: 33px solid ${colors.datePickerBorder};
   }
   .DayPickerKeyboardShortcuts_showSpan {
     color: #fff;
@@ -604,13 +604,13 @@ export const Root = styled.span`
     color: #fff;
   }
   .CalendarDay__last_in_range {
-    border-right: ${colors.primary};
+    border-right: ${colors.datePickerBorder};
   }
   .CalendarDay__selected,
   .CalendarDay__selected:active,
   .CalendarDay__selected:hover {
-    background: ${colors.primary};
-    border: 1px solid ${colors.primary};
+    background: ${colors.datePickerBorder};
+    border: 1px solid ${colors.datePickerBorder};
     color: #fff;
   }
   .CalendarDay__hovered_span,

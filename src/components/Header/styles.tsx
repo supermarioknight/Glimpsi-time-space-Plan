@@ -10,7 +10,7 @@ export const Root = styled.header`
   align-items: center;
   height: ${grid.unitless * 7}px;
   padding: 0 ${grid.unitless * 2}px;
-  background-color: ${colors.primary};
+  background-color: ${colors.header};
   color: ${colors.textLight};
   flex-shrink: 0;
 

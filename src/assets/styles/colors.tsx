@@ -16,12 +16,17 @@ const raw = {
   yellow: '#f1c40f',
 };
 
+const primary = raw.black;
+
 const _colors = {
-  primary: raw.blue,
   background: raw.whitesmoke,
   positive: raw.green,
   warning: raw.orange,
   negative: raw.red,
+
+  header: primary,
+
+  datePickerBorder: primary,
 
   cardFocused: rgba(raw.black, 0.25),
   cardBackground: raw.white,
@@ -29,7 +34,7 @@ const _colors = {
   textLight: raw.white,
   textDark: raw.black,
 
-  marker: raw.blue,
+  marker: primary,
   markerBorder: raw.bluealt,
 
   modalOverlay: rgba(raw.black, 0.88),
@@ -44,10 +49,10 @@ const _colors = {
   labelBooked: raw.green,
 
   slider: raw.white,
-  sliderProgress: raw.blue,
+  sliderProgress: primary,
   sliderTooltip: raw.black,
 
-  focusRing: raw.bluealt,
+  focusRing: raw.blue,
 
   buttonPositive: raw.green,
   buttonPositiveText: raw.white,
