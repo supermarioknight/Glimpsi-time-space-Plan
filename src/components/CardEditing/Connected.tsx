@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import CardNew from './';
+import NewCardModal from './Modal';
 import { saveCard, cancelNewCard } from '../../state/timeline/actions';
 import { Store } from '../../state/rootReducer';
 
@@ -16,4 +16,4 @@ const selector = createSelector(
 export default connect(selector, {
   onSave: saveCard,
   onCancel: cancelNewCard,
-})(CardNew);
+})(NewCardModal);

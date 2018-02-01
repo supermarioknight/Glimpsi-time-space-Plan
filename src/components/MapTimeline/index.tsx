@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Moment } from 'moment-timezone';
 import { Props as TimelineProps, CardDay } from '../../components/Timeline';
-import NewCard from '../CardNew/Connected';
+import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
-import Modal from '../Modal';
 import { isWithinFilters } from '../../lib/date';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
@@ -99,14 +98,7 @@ export default class MapTimeline extends React.Component<Props, State> {
 
         <Timeline {...props} {...this.state} focusDate={focusDate} />
 
-        {adding && (
-          <Modal
-            onRequestClose={cancelNewCard}
-            appRoot={document.getElementById('root') as HTMLElement}
-          >
-            <NewCard />
-          </Modal>
-        )}
+        {adding && <NewCard />}
       </Root>
     );
   }
