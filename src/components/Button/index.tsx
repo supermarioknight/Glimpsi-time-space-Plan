@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Root, Theme } from './styles';
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   appearance?: Theme;
 }
 

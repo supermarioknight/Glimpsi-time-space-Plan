@@ -43,6 +43,25 @@ const buildVars = (appearance: Theme): any => {
   }
 };
 
+interface BusyProps {
+  busy: boolean;
+}
+
+export const BusyChildren = styled.span`
+  opacity: ${(props: BusyProps) => (props.busy ? 0 : 1)};
+`;
+
+export const BusySpinner = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Root = styled.button.attrs({
   style: (props: Props) => buildVars(props.appearance),
 })`
@@ -55,6 +74,7 @@ export const Root = styled.button.attrs({
   color: ${colors.buttonText};
   border: none;
   transition: 0.2s background-color;
+  position: relative;
 
   :hover {
     background-color: ${colors.buttonHover};
@@ -62,5 +82,9 @@ export const Root = styled.button.attrs({
 
   :active {
     background-color: ${colors.buttonClick};
+  }
+
+  &[disabled] {
+    background-color: ${colors.buttonHover};
   }
 `;

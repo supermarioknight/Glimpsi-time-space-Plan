@@ -9,7 +9,7 @@ import { Card } from '../../features/types';
 import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import LabelSelect from '../LabelSelect';
-import Button from '../Button';
+import Button from '../Button/Busy';
 import Map from '../Map';
 import { setTime } from '../../lib/date';
 import { timezone } from '../../lib/maps';
@@ -45,6 +45,10 @@ export interface Props {
   datePickerFrom?: Moment;
 }
 
+interface State {
+  loadingTimeZoneId: boolean;
+}
+
 const schema = yup.object().shape({
   duration: yup.number(),
   title: yup.string().required(),
@@ -56,7 +60,7 @@ const schema = yup.object().shape({
   timeZoneId: yup.string().required(),
 });
 
-export default class CardEditing extends Component<Props> {
+export default class CardEditing extends Component<Props, State> {
   static defaultProps: Props = {
     title: '',
     location: undefined,
@@ -65,6 +69,10 @@ export default class CardEditing extends Component<Props> {
     labels: [],
     onSave: noop,
     onCancel: noop,
+  };
+
+  state = {
+    loadingTimeZoneId: false,
   };
 
   finish = (values: FormValues) => {
@@ -136,11 +144,20 @@ export default class CardEditing extends Component<Props> {
                       setFieldValue('timeZoneId', undefined);
 
                       if (value && values.location) {
+                        this.setState({
+                          loadingTimeZoneId: true,
+                        });
+
                         timezone(
                           values.location.position.lat,
                           values.location.position.lng,
                           value.unix()
-                        ).then(tz => setFieldValue('timeZoneId', tz.timeZoneId));
+                        ).then(tz => {
+                          setFieldValue('timeZoneId', tz.timeZoneId);
+                          this.setState({
+                            loadingTimeZoneId: false,
+                          });
+                        });
                       }
                     }}
                     datePickerFrom={datePickerFrom}
@@ -162,8 +179,17 @@ export default class CardEditing extends Component<Props> {
                       setFieldValue('timeZoneId', undefined);
 
                       if (value && values.start) {
+                        this.setState({
+                          loadingTimeZoneId: true,
+                        });
+
                         timezone(value.position.lat, value.position.lng, values.start.unix()).then(
-                          tz => setFieldValue('timeZoneId', tz.timeZoneId)
+                          tz => {
+                            setFieldValue('timeZoneId', tz.timeZoneId);
+                            this.setState({
+                              loadingTimeZoneId: false,
+                            });
+                          }
                         );
                       }
                     }}
@@ -203,7 +229,7 @@ export default class CardEditing extends Component<Props> {
                 </FormFieldContainer>
 
                 <ButtonGroup>
-                  <Button appearance="positive" type="submit">
+                  <Button busy={this.state.loadingTimeZoneId} appearance="positive" type="submit">
                     Save
                   </Button>
                 </ButtonGroup>
