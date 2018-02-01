@@ -1,5 +1,5 @@
 import { Moment } from 'moment-timezone';
-import { Card } from '../types';
+import { Card } from './reducer';
 
 const SAVE_CARD = 'SAVE_CARD';
 const NEW_CARD = 'NEW_CARD';

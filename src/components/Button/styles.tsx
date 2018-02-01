@@ -3,6 +3,7 @@ import * as mixins from '../../assets/styles/mixins';
 import colors, { keys } from '../../assets/styles/colors';
 import * as grid from '../../assets/styles/grid';
 import * as fonts from '../../assets/styles/fonts';
+import * as transitions from '../../assets/styles/transitions';
 
 export type Theme = 'default' | 'positive' | 'negative' | 'transparent';
 
@@ -49,9 +50,11 @@ interface BusyProps {
 
 export const BusyChildren = styled.span`
   opacity: ${(props: BusyProps) => (props.busy ? 0 : 1)};
+  transition: 0.2s opacity ease-in-out;
 `;
 
 export const BusySpinner = styled.span`
+  ${transitions.fade(20)};
   position: absolute;
   top: 0;
   left: 0;
@@ -86,5 +89,6 @@ export const Root = styled.button.attrs({
 
   &[disabled] {
     background-color: ${colors.buttonHover};
+    cursor: default;
   }
 `;

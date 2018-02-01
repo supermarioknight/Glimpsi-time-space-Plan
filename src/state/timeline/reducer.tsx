@@ -1,7 +1,26 @@
 import moment, { Moment } from 'moment-timezone';
 import uuid from 'uuid/v1';
 import { Actions } from './actions';
-import { CardWithId, Card } from '../types';
+
+export interface Card {
+  id?: string;
+  duration: number;
+  title: string;
+  start: Moment;
+  notes: string;
+  labels: string[];
+  location: {
+    formattedAddress: string;
+    position: {
+      lat: number;
+      lng: number;
+    };
+  };
+}
+
+export interface CardWithId extends Card {
+  id: string;
+}
 
 const extractStartEnd = (cards: Card[]) => {
   return cards.reduce(
@@ -23,7 +42,7 @@ const extractStartEnd = (cards: Card[]) => {
   );
 };
 
-const defaultState: Store = {
+const defaultState: State = {
   adding: null,
   updating: null,
   filters: [],
@@ -33,7 +52,7 @@ const defaultState: Store = {
   labels: [],
 };
 
-export interface Store {
+export interface State {
   adding: { start?: Moment; datePickerFrom?: Moment } | null;
   cards: CardWithId[];
   start: Moment;
@@ -43,38 +62,38 @@ export interface Store {
   updating: CardWithId | null;
 }
 
-export default (store: Store = defaultState, action: Actions) => {
+export default (state: State = defaultState, action: Actions) => {
   switch (action.type) {
     case 'NEW_CARD':
       return {
-        ...store,
+        ...state,
         adding: {
           ...action.payload,
-          datePickerFrom: action.payload.start ? undefined : store.end,
+          datePickerFrom: action.payload.start ? undefined : state.end,
         },
       };
 
     case 'CANCEL_NEW_CARD':
       return {
-        ...store,
+        ...state,
         adding: null,
         updating: null,
       };
 
     case 'UPDATE_CARD':
       return {
-        ...store,
+        ...state,
         adding: true,
         updating: {
-          ...store.cards.filter(card => card.id === action.payload)[0],
+          ...state.cards.filter(card => card.id === action.payload)[0],
         },
       };
 
     case 'REMOVE_CARD': {
-      const cards = store.cards.filter(card => card.id !== action.payload.id);
+      const cards = state.cards.filter(card => card.id !== action.payload.id);
 
       return {
-        ...store,
+        ...state,
         ...extractStartEnd(cards),
         cards,
       };
@@ -82,20 +101,20 @@ export default (store: Store = defaultState, action: Actions) => {
 
     case 'FILTER_LABELS':
       return {
-        ...store,
+        ...state,
         labels: action.payload,
       };
 
     case 'FILTER_TIMELINE':
       // TODO: Check if filters have updated. Only return new state if they have!
       return {
-        ...store,
+        ...state,
         filters: action.payload,
       };
 
     case 'UPDATE_TIMELINE':
       const newState = {
-        ...store,
+        ...state,
         ...action.payload,
       };
 
@@ -109,18 +128,18 @@ export default (store: Store = defaultState, action: Actions) => {
       let cards;
 
       if (typeof card.id === 'undefined') {
-        cards = store.cards.concat([
+        cards = state.cards.concat([
           {
             ...card,
             id: uuid(),
           },
         ]);
       } else {
-        cards = store.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
+        cards = state.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
       }
 
       return {
-        ...store,
+        ...state,
         cards,
         adding: null,
         updating: null,
@@ -129,6 +148,6 @@ export default (store: Store = defaultState, action: Actions) => {
     }
 
     default:
-      return store;
+      return state;
   }
 };

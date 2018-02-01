@@ -5,7 +5,7 @@ import yup from 'yup';
 import moment, { Moment } from 'moment-timezone';
 import Textbox from '../Textbox';
 import LocationSelect from '../LocationSelect';
-import { Card } from '../../features/types';
+import { Card } from '../../state/timeline/reducer';
 import DatePicker from '../DatePicker';
 import TimePicker from '../Timepicker';
 import LabelSelect from '../LabelSelect';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Map from './';
-import exampleCards from '../../features/MapTimeline/exampleCards';
+import exampleCards from '../../state/timeline/exampleCards';
 
 const markers = exampleCards.map(example => ({
   position: example.location.position,

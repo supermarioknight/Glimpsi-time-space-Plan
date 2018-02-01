@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
+import { reduxStoriesOf } from '../../lib/storybook';
 import { action } from '@storybook/addon-actions';
 import moment from 'moment-timezone';
-import exampleCards from '../../features/MapTimeline/exampleCards';
+import exampleCards from '../../state/timeline/exampleCards';
 import MapTimeline from './';
 
 const props = {
@@ -18,7 +18,7 @@ const props = {
   ],
 };
 
-storiesOf('MapTimeline', module)
+reduxStoriesOf('MapTimeline', module)
   .add('default', () => (
     <MapTimeline
       {...props}

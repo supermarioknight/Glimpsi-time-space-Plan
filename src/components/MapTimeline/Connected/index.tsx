@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import MapTimeline from '../../components/MapTimeline';
-import { CardDay } from '../../components/Timeline';
+import MapTimeline from '../.';
+import { CardDay } from '../../Timeline';
 import moment, { Moment } from 'moment-timezone';
 import {
   saveCard,
@@ -10,8 +10,9 @@ import {
   cancelNewCard,
   filterTimeline,
   updateCard,
-} from './actions';
-import { Store, CardWithId } from '../types';
+} from '../../../state/timeline/actions';
+import { CardWithId } from '../../../state/timeline/reducer';
+import { Store } from '../../../state/rootReducer';
 
 const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
   const sortedCards = cards

@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-type TransitionState = 'entering' | 'entered' | 'exited' | 'exiting';
+export type TransitionState = 'entering' | 'entered' | 'exited' | 'exiting';
 
 const fadeMap = {
   entering: 0,
@@ -13,7 +13,7 @@ export interface TransitionProps {
   state: TransitionState;
 }
 
-export const fade = css`
+export const fade = (ms: number = 500) => css`
   opacity: ${(props: TransitionProps) => fadeMap[props.state] || 0};
-  transition: 500ms opacity ease-in-out;
+  transition: ${ms}ms opacity ease-in-out;
 `;

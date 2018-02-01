@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import CardNew from './';
-import { saveCard, cancelNewCard } from '../../features/MapTimeline/actions';
-import { Store } from '../../features/types';
+import { saveCard, cancelNewCard } from '../../state/timeline/actions';
+import { Store } from '../../state/rootReducer';
 
 const selector = createSelector(
   (store: Store) => store.timeline.updating,

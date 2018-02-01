@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Moment } from 'moment-timezone';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
-import { CardWithId } from '../../features/types';
+import { CardWithId } from '../../state/timeline/reducer';
 import { isWithinFilters } from '../../lib/date';
 import { Root, Day } from './styles';
 import DayActions from '../DayActions';

@@ -3,7 +3,7 @@ import CardEditing, { OnSave } from '../CardEditing';
 import Card, { Props as CardProps } from '../Card';
 import CardActions from '../CardActions';
 import Hoverable from '../Hoverable';
-import { Card as CardType } from '../../features/types';
+import { Card as CardType } from '../../state/timeline/reducer';
 import editable, { InjectedProps } from '../../decorators/editable';
 
 interface Props extends InjectedProps, CardProps {

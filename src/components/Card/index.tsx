@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card as CardProps } from '../../features/types';
+import { Card as CardProps } from '../../state/timeline/reducer';
 import { Root, DateTime, Title, Location, Notes, NoWrap } from './styles';
 import Label, { LabelGroup } from '../Label';
 import { Marker } from '../Map/styles';

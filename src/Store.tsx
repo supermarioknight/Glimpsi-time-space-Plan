@@ -4,8 +4,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import * as json from './lib/json';
 import { LS_KEY, localStorageMiddleware } from './lib/redux';
-import rootReducer from './features/rootReducer';
-import rootEpic from './features/rootEpic';
+import rootReducer from './state/rootReducer';
+import rootEpic from './state/rootEpic';
 
 // tslint:disable-next-line no-any
 const actualWindow = (window.parent || window) as any;

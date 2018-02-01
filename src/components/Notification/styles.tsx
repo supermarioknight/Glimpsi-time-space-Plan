@@ -29,7 +29,7 @@ export const Root = styled.div.attrs({
   }),
 })`
   ${mixins.borderRadius};
-  ${transitions.fade};
+  ${transitions.fade()};
   z-index: ${zIndex.notification};
   position: fixed;
   bottom: ${grid.px};

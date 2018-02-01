@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Root } from './styles';
-import ConfirmButton from '../ConfirmButton';
+import ConfirmButton from '../Button/Confirm';
 import Button from '../Button';
 
 interface Props {

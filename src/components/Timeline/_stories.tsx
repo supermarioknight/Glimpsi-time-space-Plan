@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import moment from 'moment-timezone';
-import cards from '../../features/MapTimeline/exampleCards';
+import cards from '../../state/timeline/exampleCards';
 import Timeline from './';
 
 const groups = [
