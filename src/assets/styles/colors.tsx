@@ -16,7 +16,7 @@ const raw = {
   yellow: '#f1c40f',
 };
 
-const primary = raw.black;
+const primary = raw.bluealt;
 
 const _colors = {
   background: raw.whitesmoke,
@@ -50,6 +50,9 @@ const _colors = {
 
   slider: raw.white,
   sliderProgress: primary,
+  sliderHandle: raw.whitesmoke,
+  sliderHandleHover: raw.white,
+  sliderHandleBorderHover: lighten(0.2)(primary),
   sliderTooltip: raw.black,
 
   focusRing: raw.blue,

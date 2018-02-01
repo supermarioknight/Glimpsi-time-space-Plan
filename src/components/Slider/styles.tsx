@@ -70,6 +70,12 @@ export const Handle = styled.button`
     > ${handleTooltipMarkup} {
     opacity: 1;
   }
+
+  &:hover,
+  &:active {
+    border-color: ${colors.sliderHandleBorderHover};
+    background-color: ${colors.sliderHandleHover};
+  }
 `;
 
 export const DateLabel = styled.span`
