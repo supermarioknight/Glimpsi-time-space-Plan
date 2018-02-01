@@ -2,7 +2,7 @@ import { injectGlobal } from 'styled-components';
 import { kebabCase, mapValues } from 'lodash-es';
 import { rgba, lighten, darken } from 'polished';
 
-const APP_PREFIX = 'g';
+const APP_PREFIX = 'glmpc';
 
 const raw = {
   white: '#fff',
@@ -35,7 +35,7 @@ const _colors = {
   textDark: raw.black,
 
   marker: primary,
-  markerBorder: raw.bluealt,
+  markerBorder: primary,
 
   modalOverlay: rgba(raw.black, 0.88),
   modalBackground: raw.white,

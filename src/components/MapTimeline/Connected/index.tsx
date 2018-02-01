@@ -54,11 +54,13 @@ const selector = createSelector(
   (store: Store) => store.timeline.end,
   (store: Store) => store.timeline.filters,
   (store: Store) => store.timeline.labels,
-  (cards, adding, start, end, filters, labels) => ({
+  (store: Store) => store.timeline.lastSavedCardId,
+  (cards, adding, start, end, filters, labels, lastSavedCardId) => ({
     adding,
     start,
     end,
     filters,
+    lastSavedCardId,
     days: cardsToDays(cards, labels),
   })
 );

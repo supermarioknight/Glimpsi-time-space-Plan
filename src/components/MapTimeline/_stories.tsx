@@ -29,12 +29,14 @@ reduxStoriesOf('MapTimeline', module)
       onFilterChange={action('onFilterChange()')}
       focusDate={action('focusDate()')}
       editCard={action('editCard()')}
+      lastSavedCardId={undefined}
     />
   ))
   .add('adding card', () => (
     <MapTimeline
       {...props}
       adding={{}}
+      lastSavedCardId={undefined}
       newCard={action('newCard()')}
       cancelNewCard={action('cancelNewCard()')}
       saveCard={action('saveCard()')}

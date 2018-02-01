@@ -8,7 +8,7 @@ const Container = styled.div`
   max-width: 400px;
 `;
 
-storiesOf('Card/Card', module)
+storiesOf('Card', module)
   .addDecorator(story => <Container>{story()}</Container>)
   .add('minimum content', () => (
     <Card

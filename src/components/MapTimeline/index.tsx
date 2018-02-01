@@ -5,6 +5,7 @@ import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
+import Notification from '../Notification';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
 interface Props extends TimelineProps {
@@ -17,6 +18,7 @@ interface Props extends TimelineProps {
   end: Moment;
   // tslint:disable-next-line no-any
   onFilterChange: (dates: Moment[]) => any;
+  lastSavedCardId: string | undefined;
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -74,7 +76,16 @@ export default class MapTimeline extends React.Component<Props, State> {
   };
 
   render() {
-    const { cancelNewCard, adding, onFilterChange, focusDate, start, end, ...props } = this.props;
+    const {
+      cancelNewCard,
+      adding,
+      onFilterChange,
+      focusDate,
+      start,
+      end,
+      lastSavedCardId,
+      ...props
+    } = this.props;
 
     return (
       <Root>
@@ -99,6 +110,12 @@ export default class MapTimeline extends React.Component<Props, State> {
         <Timeline {...props} {...this.state} focusDate={focusDate} />
 
         {adding && <NewCard />}
+
+        {lastSavedCardId && (
+          <Notification autoHide key={lastSavedCardId} appearance="info">
+            Successfully saved
+          </Notification>
+        )}
       </Root>
     );
   }

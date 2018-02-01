@@ -60,6 +60,7 @@ export interface State {
   filters: Moment[];
   labels: string[];
   updating: CardWithId | null;
+  lastSavedCardId?: string;
 }
 
 export default (state: State = defaultState, action: Actions) => {
@@ -143,6 +144,7 @@ export default (state: State = defaultState, action: Actions) => {
         cards,
         adding: null,
         updating: null,
+        lastSavedCardId: card.id,
         ...extractStartEnd(cards),
       };
     }
