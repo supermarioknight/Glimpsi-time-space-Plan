@@ -5,6 +5,7 @@ import * as zIndex from '../../assets/styles/zIndex';
 import * as mixins from '../../assets/styles/mixins';
 import * as grid from '../../assets/styles/grid';
 import bp from '../../assets/styles/breakpoints';
+import * as transitions from '../../assets/styles/transitions';
 
 export const FixedBestModal = styled(BestModal)`
   position: fixed;
@@ -20,6 +21,7 @@ export const FixedBestModal = styled(BestModal)`
 `;
 
 export const Card = styled.div`
+  ${transitions.fadeUp()};
   ${mixins.borderRadius};
   width: 100vw;
   max-height: 100vh;

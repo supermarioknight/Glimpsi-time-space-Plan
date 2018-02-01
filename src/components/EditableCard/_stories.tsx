@@ -16,7 +16,7 @@ storiesOf('Card/Editable', module).add('with values', () => (
         lng: 1,
       },
     }}
-    start={moment()}
+    start={moment.tz('America/Los_Angeles')}
     duration={30}
     notes=""
     onSave={action('onSave()')}

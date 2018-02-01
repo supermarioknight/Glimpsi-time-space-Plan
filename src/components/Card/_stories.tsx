@@ -22,7 +22,7 @@ storiesOf('Card/Card', module)
         },
       }}
       notes=""
-      start={moment()}
+      start={moment.tz('America/Los_Angeles')}
       duration={60}
     />
   ))
@@ -39,7 +39,7 @@ storiesOf('Card/Card', module)
         },
       }}
       notes="The sickers on the back of the ticket are for the bento boxes. The day starts at 9am but probably get there at 2am. See: https://buysumotickets.com/faq.html#day-of-the-event"
-      start={moment()}
+      start={moment.tz('America/Los_Angeles')}
       duration={30}
     />
   ))

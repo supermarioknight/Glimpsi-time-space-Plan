@@ -5,5 +5,5 @@ import moment from 'moment-timezone';
 import DayActions from './';
 
 storiesOf('DayActions', module).add('start date', () => (
-  <DayActions newCard={action('newCard()')} start={moment()} />
+  <DayActions newCard={action('newCard()')} start={moment.tz('America/Los_Angeles')} />
 ));
