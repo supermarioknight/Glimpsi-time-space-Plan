@@ -22,7 +22,7 @@ const AsyncGoogleMaps = asyncComponent<InternalProps>({
 
 export default class Map extends React.Component<Props, State> {
   state = {
-    error: true,
+    error: false,
   };
 
   componentDidCatch() {

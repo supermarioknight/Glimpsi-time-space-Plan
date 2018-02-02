@@ -28,12 +28,6 @@ export default class NetworkNotifier extends React.Component<NetworkProps, State
   render() {
     return (
       <div>
-        {!this.props.online && (
-          <Notification appearance="warning">
-            You have no internet! Don't worry, any changes you make will be saved.
-          </Notification>
-        )}
-
         {!this.props.online &&
           this.props.offlineAt && (
             <Notification appearance="warning">
