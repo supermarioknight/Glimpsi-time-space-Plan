@@ -7,7 +7,7 @@ import { Marker } from '../Map/styles';
 export interface Props extends CardProps {
   children?: React.ReactNode;
   markerId?: number;
-  focused?: boolean;
+  elevated?: boolean;
 }
 
 const Card: React.StatelessComponent<Props> = ({

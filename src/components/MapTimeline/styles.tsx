@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Sliderr from '../Slider';
-import Timelinee from '../../components/Timeline';
+import ConncetedTimeline from '../../components/Timeline/Connected';
 import bp from '../../assets/styles/breakpoints';
 import * as grid from '../../assets/styles/grid';
 
@@ -32,7 +32,7 @@ export const Slider = styled(Sliderr)`
   grid-area: slider;
 `;
 
-export const Timeline = styled(Timelinee)`
+export const Timeline = styled(ConncetedTimeline)`
   grid-area: cards;
   width: 100%;
   overflow: auto;

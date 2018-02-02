@@ -6,7 +6,7 @@ import * as grid from '../../assets/styles/grid';
 import * as fonts from '../../assets/styles/fonts';
 
 interface RootProps {
-  focused?: boolean;
+  elevated?: boolean;
 }
 
 export const Root = styled.div`
@@ -23,7 +23,7 @@ export const Root = styled.div`
   position: relative;
   margin: 0;
   box-shadow: ${(props: RootProps) =>
-    props.focused ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
+    props.elevated ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
 
   ${bp.tablet.css`
     margin: ${grid.px} 0;

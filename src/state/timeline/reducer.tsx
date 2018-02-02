@@ -50,6 +50,9 @@ const defaultState: State = {
   end: moment(),
   cards: [],
   labels: [],
+  focusedCardNumber: undefined,
+  lastSavedCardId: undefined,
+  lastRemovedCard: undefined,
 };
 
 export interface State {
@@ -60,8 +63,9 @@ export interface State {
   filters: Moment[];
   labels: string[];
   updating: CardWithId | null;
-  lastSavedCardId?: string;
-  lastRemovedCard?: Card;
+  focusedCardNumber: number | undefined;
+  lastSavedCardId: string | undefined;
+  lastRemovedCard: Card | undefined;
 }
 
 export default (state: State = defaultState, action: Actions) => {
@@ -80,6 +84,25 @@ export default (state: State = defaultState, action: Actions) => {
         ...state,
         adding: null,
         updating: null,
+      };
+
+    case 'FOCUS_CARD':
+      return {
+        ...state,
+        focusedCardNumber: action.payload,
+      };
+
+    case 'FOCUS_TODAY':
+      return {
+        ...state,
+        focusedCardNumber: 1,
+        filters: [moment().set('hours', 0), moment().set('hours', 23)],
+      };
+
+    case 'RESET_FOCUS_CARD':
+      return {
+        ...state,
+        focusedCardNumber: undefined,
       };
 
     case 'UPDATE_CARD':
@@ -169,6 +192,16 @@ export default (state: State = defaultState, action: Actions) => {
         ...extractStartEnd(cards),
       };
     }
+
+    case '@@INIT':
+      if (state.focusedCardNumber !== 1) {
+        return {
+          ...state,
+          focusedCardNumber: 1,
+        };
+      }
+
+      return state;
 
     default:
       return state;

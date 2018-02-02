@@ -52,5 +52,7 @@ storiesOf('Timeline', module).add('default', () => (
     days={groups}
     filters={[moment(), moment().add(1, 'day')]}
     editCard={action('editCard()')}
+    highlightedCard={undefined}
+    focusedCard={undefined}
   />
 ));

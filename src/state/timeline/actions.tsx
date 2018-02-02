@@ -1,4 +1,5 @@
-import moment, { Moment } from 'moment-timezone';
+import { Moment } from 'moment-timezone';
+import { InitAction } from '../../lib/redux';
 import { Card } from './reducer';
 
 const SAVE_CARD = 'SAVE_CARD';
@@ -11,6 +12,9 @@ const FILTER_TIMELINE = 'FILTER_TIMELINE';
 const FILTER_LABELS = 'FILTER_LABELS';
 const CANCEL_UPDATE_CARD = 'CANCEL_UPDATE_CARD';
 const UNDO_DELETE = 'UNDO_DELETE';
+const FOCUS_CARD = 'FOCUS_CARD';
+const RESET_FOCUS_CARD = 'RESET_FOCUS_CARD';
+const FOCUS_TODAY = 'FOCUS_TODAY';
 
 export type Actions =
   | NewCard
@@ -22,7 +26,29 @@ export type Actions =
   | FilterLabels
   | UpdateCard
   | CancelUpdateCard
-  | UndoDelete;
+  | UndoDelete
+  | FocusCard
+  | ResetFocusCard
+  | FocusToday
+  | InitAction;
+
+export interface ResetFocusCard {
+  type: typeof RESET_FOCUS_CARD;
+}
+
+export const resetFocusCard = (): ResetFocusCard => ({
+  type: RESET_FOCUS_CARD,
+});
+
+export interface FocusCard {
+  type: typeof FOCUS_CARD;
+  payload: number | undefined;
+}
+
+export const focusCard = (cardNumber?: number): FocusCard => ({
+  type: FOCUS_CARD,
+  payload: cardNumber,
+});
 
 export interface UndoDelete {
   type: typeof UNDO_DELETE;
@@ -32,9 +58,12 @@ export const undoDelete = (): UndoDelete => ({
   type: UNDO_DELETE,
 });
 
-export const focusToday = (): FilterTimeline => ({
-  type: FILTER_TIMELINE,
-  payload: [moment().set('hours', 0), moment().set('hours', 23)],
+interface FocusToday {
+  type: typeof FOCUS_TODAY;
+}
+
+export const focusToday = (): FocusToday => ({
+  type: FOCUS_TODAY,
 });
 
 export interface FilterTimeline {

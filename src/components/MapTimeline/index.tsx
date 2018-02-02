@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Moment } from 'moment-timezone';
-import { Props as TimelineProps, CardDay } from '../../components/Timeline';
+import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
+import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
@@ -10,7 +11,7 @@ import Button from '../Button';
 import Notification from '../Notification';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
-interface Props extends TimelineProps {
+interface Props {
   adding: { start?: Moment } | null;
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
@@ -24,6 +25,18 @@ interface Props extends TimelineProps {
   // tslint:disable-next-line no-any
   undoDelete: () => any;
   lastRemovedCard: Card | undefined;
+  className?: string;
+  days: CardDay[];
+  saveCard: OnSave;
+  // tslint:disable-next-line no-any
+  removeCard: (id: string) => any;
+  // tslint:disable-next-line no-any
+  editCard: (id: string) => any;
+  filters: Moment[];
+  // tslint:disable-next-line no-any
+  focusDate: (date: Moment) => any;
+  // tslint:disable-next-line no-any
+  resetFocusCard: () => any;
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -36,47 +49,23 @@ const extractMarkers = (days: CardDay[], filters: Moment[]) => {
   }, []);
 };
 
-// const extractLatestDate = (days: CardDay[]) => {
-//   const lastDay = days[days.length - 1];
-//   if (!lastDay) {
-//     return undefined;
-//   }
-
-//   const lastCard = lastDay.cards[lastDay.cards.length - 1];
-//   return lastCard && lastDay.date;
-// };
-
 interface State {
-  focusedCard: number | undefined;
-  cardScrolledIntoView: number | undefined;
+  // focusedCard: number | undefined;
+  highlightedCard: number | undefined;
 }
 
 export default class MapTimeline extends React.Component<Props, State> {
   state: State = {
-    focusedCard: undefined,
-    // SCROLL INTO VIEW JUMP
-    // Set this to 1 initially so on page load it jumps to
-    // the card in question.
-    cardScrolledIntoView: 1,
+    highlightedCard: undefined,
   };
 
   componentDidMount() {
-    // SCROLL INTO VIEW JUMP
-    // Reset to undefined so it only jumps to the card in
-    // question _once_, and then from there requires user
-    // interaction.
-    this.setCardScrolledIntoView(undefined);
+    this.props.resetFocusCard();
   }
 
-  setFocus = (cardIndex?: number) => {
+  setHighlight = (cardIndex?: number) => {
     this.setState({
-      focusedCard: cardIndex,
-    });
-  };
-
-  setCardScrolledIntoView = (cardIndex?: number) => {
-    this.setState({
-      cardScrolledIntoView: cardIndex,
+      highlightedCard: cardIndex,
     });
   };
 
@@ -108,9 +97,8 @@ export default class MapTimeline extends React.Component<Props, State> {
           <Map
             markers={extractMarkers(props.days, props.filters)}
             autofit
-            onMarkerClick={this.setCardScrolledIntoView}
-            onMarkerOver={this.setFocus}
-            onMarkerOut={this.setFocus}
+            onMarkerOver={this.setHighlight}
+            onMarkerOut={this.setHighlight}
           />
         </MapContainer>
 

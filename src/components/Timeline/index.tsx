@@ -27,8 +27,8 @@ export interface Props {
   focusDate: (date: Moment) => any;
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
-  focusedCard?: number | undefined;
-  cardScrolledIntoView?: number | undefined;
+  focusedCard: number | undefined;
+  highlightedCard: number | undefined;
 }
 
 const Timeline: React.StatelessComponent<Props> = ({
@@ -40,7 +40,7 @@ const Timeline: React.StatelessComponent<Props> = ({
   focusedCard,
   focusDate,
   editCard,
-  cardScrolledIntoView,
+  highlightedCard,
   className,
 }) => {
   let markerId = 0;
@@ -68,16 +68,13 @@ const Timeline: React.StatelessComponent<Props> = ({
               }
 
               return (
-                <ScrollIntoView
-                  key={card.id}
-                  enabled={withinFilters && markerId === cardScrolledIntoView}
-                >
+                <ScrollIntoView key={card.id} enabled={withinFilters && markerId === focusedCard}>
                   <EditableCard
                     onSave={saveCard}
                     onDelete={removeCard}
                     onEditing={editCard}
                     markerId={withinFilters ? markerId : undefined}
-                    focused={withinFilters && markerId === focusedCard}
+                    elevated={withinFilters && markerId === highlightedCard}
                     {...card}
                   />
                 </ScrollIntoView>

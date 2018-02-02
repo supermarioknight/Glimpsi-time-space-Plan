@@ -9,9 +9,11 @@ const block = (cb: () => void) => (e: React.MouseEvent<HTMLElement>) => {
 };
 
 interface Props {
-  newCard: () => void;
-  onLabelFilter: (labels: string[]) => void;
   labels: string[];
+  // tslint:disable-next-line no-any
+  newCard: () => any;
+  // tslint:disable-next-line no-any
+  onLabelFilter: (labels: string[]) => any;
   // tslint:disable-next-line no-any
   focusToday: () => any;
 }
