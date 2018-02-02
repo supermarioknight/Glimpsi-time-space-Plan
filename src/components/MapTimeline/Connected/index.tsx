@@ -11,6 +11,7 @@ import {
   filterTimeline,
   updateCard,
   undoDelete,
+  focusCard,
   resetFocusCard,
 } from '../../../state/timeline/actions';
 import { CardWithId } from '../../../state/timeline/reducer';
@@ -76,6 +77,7 @@ export default connect(selector, {
   cancelNewCard,
   undoDelete,
   resetFocusCard,
+  focusCard,
   editCard: updateCard,
   onFilterChange: filterTimeline,
   focusDate: (date: Moment) =>

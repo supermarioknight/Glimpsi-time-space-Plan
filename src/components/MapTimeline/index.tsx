@@ -37,6 +37,8 @@ interface Props {
   focusDate: (date: Moment) => any;
   // tslint:disable-next-line no-any
   resetFocusCard: () => any;
+  // tslint:disable-next-line no-any
+  focusCard: (id: number) => any;
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -97,6 +99,7 @@ export default class MapTimeline extends React.Component<Props, State> {
           <Map
             markers={extractMarkers(props.days, props.filters)}
             autofit
+            onMarkerClick={this.props.focusCard}
             onMarkerOver={this.setHighlight}
             onMarkerOut={this.setHighlight}
           />

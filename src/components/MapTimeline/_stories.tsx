@@ -32,6 +32,7 @@ reduxStoriesOf('MapTimeline', module)
       lastRemovedCard={undefined}
       editCard={action('editCard()')}
       resetFocusCard={action('resetFocusCard()')}
+      focusCard={action('focusCard()')}
       lastSavedCardId={undefined}
     />
   ))
@@ -45,6 +46,7 @@ reduxStoriesOf('MapTimeline', module)
       saveCard={action('saveCard()')}
       removeCard={action('removeCard()')}
       undoDelete={action('undoDelete()')}
+      focusCard={action('focusCard()')}
       resetFocusCard={action('resetFocusCard()')}
       lastRemovedCard={undefined}
       focusDate={action('focusDate()')}
