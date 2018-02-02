@@ -9,6 +9,7 @@ export const localStorageMiddleware: Middleware = store => next => action => {
   const state = store.getState() as any;
   // ghetto hack to remove this lmao
   delete state.timeline.lastSavedCardId;
+  delete state.timeline.lastRemovedCard;
   localStorage.setItem(LS_KEY, json.stringify(state));
   return result;
 };

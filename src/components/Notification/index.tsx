@@ -3,9 +3,10 @@ import Transition from 'react-transition-group/Transition';
 import { Root } from './styles';
 
 interface Props {
-  children: string;
+  children: React.ReactNode;
   autoHide?: boolean;
   appearance: 'warning' | 'info' | 'default';
+  timeout?: number;
 }
 
 interface State {
@@ -14,9 +15,11 @@ interface State {
 
 type TransitionState = 'entering' | 'entered' | 'exited' | 'exiting';
 
-const clearTimeout = 2500;
-
 export default class Notification extends React.Component<Props, State> {
+  static defaultProps = {
+    timeout: 3000,
+  };
+
   timeoutId: number;
 
   state = {
@@ -29,7 +32,7 @@ export default class Notification extends React.Component<Props, State> {
         this.setState({
           finished: true,
         });
-      }, clearTimeout);
+      }, this.props.timeout);
     }
   }
 

@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css, SimpleInterpolation } from 'styled-components';
 import 'focus-visible';
 import colors from '../../assets/styles/colors';
 
@@ -36,3 +36,5 @@ export const focusRing = {
     }
   `,
 };
+
+export const applyIf = (apply: boolean, mixin: SimpleInterpolation) => (apply ? mixin : '');

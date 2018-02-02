@@ -1,4 +1,4 @@
-import { Moment } from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { Card } from './reducer';
 
 const SAVE_CARD = 'SAVE_CARD';
@@ -10,6 +10,7 @@ const CANCEL_NEW_CARD = 'CANCEL_NEW_CARD';
 const FILTER_TIMELINE = 'FILTER_TIMELINE';
 const FILTER_LABELS = 'FILTER_LABELS';
 const CANCEL_UPDATE_CARD = 'CANCEL_UPDATE_CARD';
+const UNDO_DELETE = 'UNDO_DELETE';
 
 export type Actions =
   | NewCard
@@ -20,7 +21,21 @@ export type Actions =
   | FilterTimeline
   | FilterLabels
   | UpdateCard
-  | CancelUpdateCard;
+  | CancelUpdateCard
+  | UndoDelete;
+
+export interface UndoDelete {
+  type: typeof UNDO_DELETE;
+}
+
+export const undoDelete = (): UndoDelete => ({
+  type: UNDO_DELETE,
+});
+
+export const focusToday = (): FilterTimeline => ({
+  type: FILTER_TIMELINE,
+  payload: [moment().set('hours', 0), moment().set('hours', 23)],
+});
 
 export interface FilterTimeline {
   type: typeof FILTER_TIMELINE;

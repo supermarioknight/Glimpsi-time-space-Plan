@@ -3,8 +3,10 @@ import { Moment } from 'moment-timezone';
 import { Props as TimelineProps, CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
+import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
+import Button from '../Button';
 import Notification from '../Notification';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
@@ -19,6 +21,9 @@ interface Props extends TimelineProps {
   // tslint:disable-next-line no-any
   onFilterChange: (dates: Moment[]) => any;
   lastSavedCardId: string | undefined;
+  // tslint:disable-next-line no-any
+  undoDelete: () => any;
+  lastRemovedCard: Card | undefined;
 }
 
 const extractMarkers = (days: CardDay[], filters: Moment[]) => {
@@ -84,6 +89,8 @@ export default class MapTimeline extends React.Component<Props, State> {
       start,
       end,
       lastSavedCardId,
+      lastRemovedCard,
+      undoDelete,
       ...props
     } = this.props;
 
@@ -114,6 +121,12 @@ export default class MapTimeline extends React.Component<Props, State> {
         {lastSavedCardId && (
           <Notification autoHide key={lastSavedCardId} appearance="info">
             Successfully saved
+          </Notification>
+        )}
+
+        {lastRemovedCard && (
+          <Notification timeout={8000} autoHide key={lastRemovedCard.id} appearance="default">
+            Successfully deleted <Button onClick={undoDelete}>undo</Button>
           </Notification>
         )}
       </Root>

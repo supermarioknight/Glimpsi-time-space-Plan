@@ -9,6 +9,8 @@ interface Props {
   labels: string[];
   // tslint:disable-next-line no-any
   filterLabels: (labels: string[]) => any;
+  // tslint:disable-next-line no-any
+  focusToday: () => any;
 }
 
 const Header: React.StatelessComponent<Props> = ({ className, ...props }) => (
@@ -19,6 +21,7 @@ const Header: React.StatelessComponent<Props> = ({ className, ...props }) => (
       newCard={props.newCard}
       onLabelFilter={props.filterLabels}
       labels={props.labels}
+      focusToday={props.focusToday}
     />
   </Root>
 );

@@ -10,6 +10,7 @@ import {
   cancelNewCard,
   filterTimeline,
   updateCard,
+  undoDelete,
 } from '../../../state/timeline/actions';
 import { CardWithId } from '../../../state/timeline/reducer';
 import { Store } from '../../../state/rootReducer';
@@ -55,12 +56,14 @@ const selector = createSelector(
   (store: Store) => store.timeline.filters,
   (store: Store) => store.timeline.labels,
   (store: Store) => store.timeline.lastSavedCardId,
-  (cards, adding, start, end, filters, labels, lastSavedCardId) => ({
+  (store: Store) => store.timeline.lastRemovedCard,
+  (cards, adding, start, end, filters, labels, lastSavedCardId, lastRemovedCard) => ({
     adding,
     start,
     end,
     filters,
     lastSavedCardId,
+    lastRemovedCard,
     days: cardsToDays(cards, labels),
   })
 );
@@ -70,6 +73,7 @@ export default connect(selector, {
   newCard,
   removeCard,
   cancelNewCard,
+  undoDelete,
   editCard: updateCard,
   onFilterChange: filterTimeline,
   focusDate: (date: Moment) =>

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Store } from '../../state/rootReducer';
-import { newCard, filterLabels } from '../../state/timeline/actions';
+import { newCard, filterLabels, focusToday } from '../../state/timeline/actions';
 import Header from './';
 
 const selector = createSelector(
@@ -14,4 +14,5 @@ const selector = createSelector(
 export default connect(selector, {
   newCard,
   filterLabels,
+  focusToday,
 })(Header);

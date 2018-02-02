@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import bp from '../../assets/styles/breakpoints';
 import * as grid from '../../assets/styles/grid';
+import * as mixins from '../../assets/styles/mixins';
 
 export const Root = styled.div`
   display: flex;
@@ -21,7 +22,14 @@ interface DayContainerProps {
 export const Day = styled.div`
   display: flex;
   padding-top: ${grid.unitless * 2}px;
-  opacity: ${(props: DayContainerProps) => (props.fade ? '0.5' : '1')};
+  ${(props: DayContainerProps) =>
+    mixins.applyIf(
+      props.fade,
+      css`
+        opacity: 0.5;
+        filter: grayscale();
+      `
+    )};
 
   ${bp.tablet.css`
     display: block;

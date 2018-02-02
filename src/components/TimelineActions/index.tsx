@@ -12,9 +12,16 @@ interface Props {
   newCard: () => void;
   onLabelFilter: (labels: string[]) => void;
   labels: string[];
+  // tslint:disable-next-line no-any
+  focusToday: () => any;
 }
 
-const TimelineActions: React.StatelessComponent<Props> = ({ newCard, onLabelFilter, labels }) => (
+const TimelineActions: React.StatelessComponent<Props> = ({
+  newCard,
+  onLabelFilter,
+  focusToday,
+  labels,
+}) => (
   <Root>
     <LabelSelect
       placeholder="Filter cards"
@@ -22,6 +29,10 @@ const TimelineActions: React.StatelessComponent<Props> = ({ newCard, onLabelFilt
       onChange={onLabelFilter}
       value={labels}
     />
+
+    <Button appearance="transparent" onClick={focusToday}>
+      <Text>Focus today</Text>
+    </Button>
 
     <Button appearance="transparent" onClick={block(newCard)}>
       <Text>Add</Text>

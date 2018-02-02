@@ -61,6 +61,7 @@ export interface State {
   labels: string[];
   updating: CardWithId | null;
   lastSavedCardId?: string;
+  lastRemovedCard?: Card;
 }
 
 export default (state: State = defaultState, action: Actions) => {
@@ -91,11 +92,19 @@ export default (state: State = defaultState, action: Actions) => {
       };
 
     case 'REMOVE_CARD': {
-      const cards = state.cards.filter(card => card.id !== action.payload.id);
+      let lastRemovedCard: Card | undefined;
+      const cards = state.cards.filter(card => {
+        const matches = card.id === action.payload.id;
+        if (matches) {
+          lastRemovedCard = card;
+        }
+        return !matches;
+      });
 
       return {
         ...state,
         ...extractStartEnd(cards),
+        lastRemovedCard,
         cards,
       };
     }
@@ -123,6 +132,18 @@ export default (state: State = defaultState, action: Actions) => {
         ...newState,
         ...extractStartEnd(newState.cards),
       };
+
+    case 'UNDO_DELETE': {
+      if (state.lastRemovedCard) {
+        return {
+          ...state,
+          lastRemovedCard: undefined,
+          cards: [state.lastRemovedCard].concat(state.cards),
+        };
+      }
+
+      return state;
+    }
 
     case 'SAVE_CARD': {
       const { payload: card } = action;

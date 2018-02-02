@@ -28,6 +28,8 @@ reduxStoriesOf('MapTimeline', module)
       removeCard={action('removeCard()')}
       onFilterChange={action('onFilterChange()')}
       focusDate={action('focusDate()')}
+      undoDelete={action('undoDelete()')}
+      lastRemovedCard={undefined}
       editCard={action('editCard()')}
       lastSavedCardId={undefined}
     />
@@ -41,6 +43,8 @@ reduxStoriesOf('MapTimeline', module)
       cancelNewCard={action('cancelNewCard()')}
       saveCard={action('saveCard()')}
       removeCard={action('removeCard()')}
+      undoDelete={action('undoDelete()')}
+      lastRemovedCard={undefined}
       focusDate={action('focusDate()')}
       onFilterChange={action('onFilterChange()')}
       editCard={action('editCard()')}

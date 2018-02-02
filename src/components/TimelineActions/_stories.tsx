@@ -8,5 +8,6 @@ storiesOf('TimelineActions', module).add('start date', () => (
     onLabelFilter={action('onLabelFilter')}
     labels={[]}
     newCard={action('newCard()')}
+    focusToday={action('focusToday()')}
   />
 ));

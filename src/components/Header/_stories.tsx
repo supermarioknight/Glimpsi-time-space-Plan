@@ -4,5 +4,10 @@ import { storiesOf } from '@storybook/react';
 import Header from './';
 
 storiesOf('Header', module).add('responsive', () => (
-  <Header labels={['fun']} newCard={action('newCard()')} filterLabels={action('filterLabels()')} />
+  <Header
+    labels={['fun']}
+    newCard={action('newCard()')}
+    focusToday={action('focusToday()')}
+    filterLabels={action('filterLabels()')}
+  />
 ));

@@ -15,7 +15,7 @@ export const Root = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: ${grid.px};
-  height: ${grid.unitless * 19}px;
+  height: ${grid.unitless * 15}px;
   min-width: ${grid.unitless * 38}px;
   background-size: cover;
   background-position: center center;
