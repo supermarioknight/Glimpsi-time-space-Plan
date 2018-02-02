@@ -30,6 +30,7 @@ export const Day = styled.div`
         filter: grayscale();
       `
     )};
+  transition: opacity 0.2s;
 
   ${bp.tablet.css`
     display: block;

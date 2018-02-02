@@ -33,11 +33,7 @@ export default class Map extends React.Component<Props, State> {
 
   render() {
     if (this.state.error) {
-      return (
-        <ErrorOverlay>
-          Google maps couldn't be loaded. Check your internet and try again!
-        </ErrorOverlay>
-      );
+      return <ErrorOverlay>Google maps couldn't be loaded.</ErrorOverlay>;
     }
 
     return (
