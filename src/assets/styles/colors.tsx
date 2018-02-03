@@ -47,6 +47,7 @@ const _colors = {
   labelTravel: raw.yellow,
   labelWarning: raw.orange,
   labelBooked: raw.green,
+  labelFood: raw.bluealt,
 
   slider: raw.white,
   sliderProgress: primary,

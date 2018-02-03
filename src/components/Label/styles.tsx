@@ -14,6 +14,7 @@ const colorMap = {
   fun: colors.labelFun,
   'need to book': colors.labelWarning,
   booked: colors.labelBooked,
+  food: colors.labelFood,
 };
 
 export const Label = styled.div`
