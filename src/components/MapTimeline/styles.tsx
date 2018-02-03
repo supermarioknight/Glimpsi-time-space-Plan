@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Sliderr from '../Slider';
+import DateSlider from '../DateSlider';
 import ConncetedTimeline from '../../components/Timeline/Connected';
 import bp from '../../assets/styles/breakpoints';
 import * as grid from '../../assets/styles/grid';
@@ -28,7 +28,7 @@ export const MapContainer = styled.div`
   grid-area: map;
 `;
 
-export const Slider = styled(Sliderr)`
+export const Slider = styled(DateSlider)`
   grid-area: slider;
 `;
 

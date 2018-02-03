@@ -10,7 +10,7 @@ const fadeMap = {
 };
 
 const upMap = {
-  entering: '100%',
+  entering: '25%',
   entered: '0%',
   exiting: '0%',
   exited: '0%',
@@ -28,5 +28,5 @@ export const fade = (ms: number = 500) => css`
 export const fadeUp = (ms: number = 200) => css`
   opacity: ${(props: TransitionProps) => fadeMap[props.state] || fadeMap.entering};
   transform: translate3d(0, ${(props: TransitionProps) => upMap[props.state] || upMap.entering}, 0);
-  transition: ${ms}ms opacity ease-out, ${ms * 4}ms transform ease-out;
+  transition: ${ms}ms opacity ease-out, ${ms * 2}ms transform ease-out;
 `;

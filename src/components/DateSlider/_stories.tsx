@@ -2,10 +2,10 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import moment from 'moment-timezone';
-import Slider from './';
+import DateSlider from './';
 
-storiesOf('Slider', module).add('default', () => (
-  <Slider
+storiesOf('DateSlider', module).add('default', () => (
+  <DateSlider
     start={moment()}
     end={moment().add(10, 'days')}
     onChange={action('onChange()')}
