@@ -1,6 +1,7 @@
 import moment, { Moment } from 'moment-timezone';
 import uuid from 'uuid/v1';
 import { Actions } from './actions';
+import { Actions as TripsActions } from '../trips/actions';
 
 export interface Location {
   formattedAddress: string;
@@ -44,17 +45,17 @@ const extractStartEnd = (cards: Card[]) => {
   );
 };
 
-// const emptyTrip = () => ({
-//   adding: null,
-//   updating: null,
-//   filters: [],
-//   start: moment(),
-//   end: moment(),
-//   cards: [],
-//   labels: [],
-//   lastSavedCardId: undefined,
-//   lastRemovedCard: undefined,
-// });
+export const emptyTrip = () => ({
+  adding: null,
+  updating: null,
+  filters: [],
+  start: moment(),
+  end: moment(),
+  cards: [],
+  labels: [],
+  lastSavedCardId: undefined,
+  lastRemovedCard: undefined,
+});
 
 const defaultState: State = {
   focusedCardNumber: undefined,
@@ -80,8 +81,23 @@ export interface State {
   };
 }
 
-export default (state: State = defaultState, action: Actions) => {
+type CombinedActions = Actions | TripsActions;
+
+export default (state: State = defaultState, action: CombinedActions) => {
   switch (action.type) {
+    case 'SAVE_TRIP':
+      if (state.trips[action.payload.key]) {
+        return state;
+      }
+
+      return {
+        ...state,
+        trips: {
+          ...state.trips,
+          [action.payload.key]: emptyTrip(),
+        },
+      };
+
     case 'NEW_CARD':
       return {
         ...state,

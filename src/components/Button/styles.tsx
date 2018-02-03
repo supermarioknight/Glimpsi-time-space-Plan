@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import * as mixins from '../../assets/styles/mixins';
 import colors, { keys } from '../../assets/styles/colors';
 import * as grid from '../../assets/styles/grid';
@@ -65,12 +66,11 @@ export const BusySpinner = styled.span`
   justify-content: center;
 `;
 
-export const Root = styled.button.attrs({
-  style: (props: Props) => buildVars(props.appearance),
-})`
+const baseCss = css`
   ${mixins.focusRing.keyboardOnly};
   ${mixins.borderRadius};
   ${fonts.weight.thickish};
+  ${fonts.size.small};
   cursor: pointer;
   padding: ${grid.px} ${grid.unitless * 2}px;
   background-color: ${colors.button};
@@ -91,4 +91,19 @@ export const Root = styled.button.attrs({
     background-color: ${colors.buttonHover};
     cursor: default;
   }
+`;
+
+export const Root = styled.button.attrs({
+  style: (props: Props) => buildVars(props.appearance),
+})`
+  ${baseCss};
+`;
+
+export const LinkButton = styled(Link).attrs({
+  style: (props: Props) => buildVars(props.appearance),
+})`
+  ${baseCss};
+  display: inline-block;
+  text-decoration: none;
+  margin: 0;
 `;

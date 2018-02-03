@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { routerStoriesOf } from '../../lib/storybook';
 import Button from './';
+import LinkButton from './Link';
 import BusyButton from './Busy';
 import ConfirmButton from './Confirm';
 import Toggler from '../Toggler';
@@ -15,6 +17,28 @@ storiesOf('Button', module)
     <Button appearance="default" disabled>
       hello, world
     </Button>
+  ));
+
+routerStoriesOf('Button/Link', module)
+  .add('default', () => (
+    <LinkButton to="/" appearance="default">
+      hello, world
+    </LinkButton>
+  ))
+  .add('positive', () => (
+    <LinkButton to="/" appearance="positive">
+      hello, world
+    </LinkButton>
+  ))
+  .add('negative', () => (
+    <LinkButton to="/" appearance="negative">
+      hello, world
+    </LinkButton>
+  ))
+  .add('transparent', () => (
+    <LinkButton to="/" appearance="transparent">
+      hello, world
+    </LinkButton>
   ));
 
 storiesOf('Button/Busy', module).add('default', () => (
