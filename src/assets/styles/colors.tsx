@@ -88,6 +88,9 @@ const _colors = {
   notification: raw.black,
   notificationWarning: raw.orange,
   notificationGood: raw.green,
+
+  tripBoxBackground: rgba(raw.black, 0.5),
+  tripBoxBackgroundHover: rgba(raw.black, 0.75),
 };
 
 const colors = mapValues(_colors, (_, key) => `var(--${APP_PREFIX}-${kebabCase(key)})`);

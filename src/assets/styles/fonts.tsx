@@ -16,6 +16,10 @@ export const size = {
   xlarge: css`
     font-size: 24px;
   `,
+
+  xxlarge: css`
+    font-size: 40px;
+  `,
 };
 
 export const weight = {
