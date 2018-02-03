@@ -15,6 +15,7 @@ export type OnChange = (geocode: Geocode) => void;
 interface Props {
   onChange: OnChange;
   value?: Geocode;
+  // tslint:disable-next-line no-any
   onBlur?: (e: any) => void;
 }
 

@@ -44,6 +44,7 @@ interface Option {
 interface Props {
   onChange: (value: Moment | null) => void;
   value: Moment | undefined;
+  // tslint:disable-next-line no-any
   onBlur?: (e: any) => void;
 }
 
