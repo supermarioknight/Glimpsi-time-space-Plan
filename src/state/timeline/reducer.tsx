@@ -2,6 +2,14 @@ import moment, { Moment } from 'moment-timezone';
 import uuid from 'uuid/v1';
 import { Actions } from './actions';
 
+export interface Location {
+  formattedAddress: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
+}
+
 export interface Card {
   id?: string;
   duration: number;
@@ -9,13 +17,7 @@ export interface Card {
   start: Moment;
   notes: string;
   labels: string[];
-  location: {
-    formattedAddress: string;
-    position: {
-      lat: number;
-      lng: number;
-    };
-  };
+  location: Location;
 }
 
 export interface CardWithId extends Card {
