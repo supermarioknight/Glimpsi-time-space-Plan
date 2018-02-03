@@ -3,10 +3,11 @@ import { createSelector } from 'reselect';
 import NewCardModal from './Modal';
 import { saveCard, cancelNewCard } from '../../state/timeline/actions';
 import { Store } from '../../state/rootReducer';
+import { currentTrip } from '../../state/timeline/selectors';
 
 const selector = createSelector(
-  (store: Store) => store.timeline.updating,
-  (store: Store) => store.timeline.adding,
+  (store: Store) => currentTrip(store).updating,
+  (store: Store) => currentTrip(store).adding,
   (updatingCard, adding) => ({
     ...adding,
     ...updatingCard,

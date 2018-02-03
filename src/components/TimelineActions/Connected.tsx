@@ -3,9 +3,10 @@ import { createSelector } from 'reselect';
 import { Store } from '../../state/rootReducer';
 import { newCard, filterLabels, focusToday } from '../../state/timeline/actions';
 import TimelineActions from './';
+import { currentTrip } from '../../state/timeline/selectors';
 
 const selector = createSelector(
-  (store: Store) => store.timeline.labels,
+  (store: Store) => currentTrip(store).labels,
   labels => ({
     labels,
   })

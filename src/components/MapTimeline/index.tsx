@@ -110,13 +110,18 @@ export default class MapTimeline extends React.Component<Props, State> {
         {adding && <NewCard />}
 
         {lastSavedCardId && (
-          <Notification autoHide key={lastSavedCardId} appearance="info">
+          <Notification autoHide key={`last-saved-${lastSavedCardId}`} appearance="info">
             Successfully saved
           </Notification>
         )}
 
         {lastRemovedCard && (
-          <Notification timeout={8000} autoHide key={lastRemovedCard.id} appearance="default">
+          <Notification
+            timeout={8000}
+            autoHide
+            key={`last-removed${lastRemovedCard.id}`}
+            appearance="default"
+          >
             Successfully deleted <Button onClick={undoDelete}>undo</Button>
           </Notification>
         )}

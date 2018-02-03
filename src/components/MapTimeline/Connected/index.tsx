@@ -15,6 +15,7 @@ import {
   resetFocusCard,
 } from '../../../state/timeline/actions';
 import { CardWithId } from '../../../state/timeline/reducer';
+import { currentTrip } from '../../../state/timeline/selectors';
 import { Store } from '../../../state/rootReducer';
 
 const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
@@ -51,14 +52,14 @@ const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
 };
 
 const selector = createSelector(
-  (store: Store) => store.timeline.cards,
-  (store: Store) => store.timeline.adding,
-  (store: Store) => store.timeline.start,
-  (store: Store) => store.timeline.end,
-  (store: Store) => store.timeline.filters,
-  (store: Store) => store.timeline.labels,
-  (store: Store) => store.timeline.lastSavedCardId,
-  (store: Store) => store.timeline.lastRemovedCard,
+  (store: Store) => currentTrip(store).cards,
+  (store: Store) => currentTrip(store).adding,
+  (store: Store) => currentTrip(store).start,
+  (store: Store) => currentTrip(store).end,
+  (store: Store) => currentTrip(store).filters,
+  (store: Store) => currentTrip(store).labels,
+  (store: Store) => currentTrip(store).lastSavedCardId,
+  (store: Store) => currentTrip(store).lastRemovedCard,
   (cards, adding, start, end, filters, labels, lastSavedCardId, lastRemovedCard) => ({
     adding,
     start,

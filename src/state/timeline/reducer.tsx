@@ -42,30 +42,40 @@ const extractStartEnd = (cards: Card[]) => {
   );
 };
 
+// const emptyTrip = () => ({
+//   adding: null,
+//   updating: null,
+//   filters: [],
+//   start: moment(),
+//   end: moment(),
+//   cards: [],
+//   labels: [],
+//   lastSavedCardId: undefined,
+//   lastRemovedCard: undefined,
+// });
+
 const defaultState: State = {
-  adding: null,
-  updating: null,
-  filters: [],
-  start: moment(),
-  end: moment(),
-  cards: [],
-  labels: [],
   focusedCardNumber: undefined,
-  lastSavedCardId: undefined,
-  lastRemovedCard: undefined,
+  currentTrip: '',
+  trips: {},
 };
 
 export interface State {
-  adding: { start?: Moment; datePickerFrom?: Moment } | null;
-  cards: CardWithId[];
-  start: Moment;
-  end: Moment;
-  filters: Moment[];
-  labels: string[];
-  updating: CardWithId | null;
+  currentTrip: string;
   focusedCardNumber: number | undefined;
-  lastSavedCardId: string | undefined;
-  lastRemovedCard: Card | undefined;
+  trips: {
+    [key: string]: {
+      adding: { start?: Moment; datePickerFrom?: Moment } | null;
+      cards: CardWithId[];
+      start: Moment;
+      end: Moment;
+      filters: Moment[];
+      labels: string[];
+      updating: CardWithId | null;
+      lastSavedCardId: string | undefined;
+      lastRemovedCard: Card | undefined;
+    };
+  };
 }
 
 export default (state: State = defaultState, action: Actions) => {
@@ -73,17 +83,29 @@ export default (state: State = defaultState, action: Actions) => {
     case 'NEW_CARD':
       return {
         ...state,
-        adding: {
-          ...action.payload,
-          datePickerFrom: action.payload.start ? undefined : state.end,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            adding: {
+              ...action.payload,
+              datePickerFrom: action.payload.start ? undefined : state.trips[state.currentTrip].end,
+            },
+          },
         },
       };
 
     case 'CANCEL_NEW_CARD':
       return {
         ...state,
-        adding: null,
-        updating: null,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            adding: null,
+            updating: null,
+          },
+        },
       };
 
     case 'FOCUS_CARD':
@@ -96,7 +118,13 @@ export default (state: State = defaultState, action: Actions) => {
       return {
         ...state,
         focusedCardNumber: 1,
-        filters: [moment().set('hours', 0), moment().set('hours', 23)],
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            filters: [moment().set('hours', 0), moment().set('hours', 23)],
+          },
+        },
       };
 
     case 'RESET_FOCUS_CARD':
@@ -108,15 +136,20 @@ export default (state: State = defaultState, action: Actions) => {
     case 'UPDATE_CARD':
       return {
         ...state,
-        adding: true,
-        updating: {
-          ...state.cards.filter(card => card.id === action.payload)[0],
+        trips: {
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            adding: true,
+            updating: {
+              ...state.trips[state.currentTrip].cards.filter(card => card.id === action.payload)[0],
+            },
+          },
         },
       };
 
     case 'REMOVE_CARD': {
       let lastRemovedCard: Card | undefined;
-      const cards = state.cards.filter(card => {
+      const cards = state.trips[state.currentTrip].cards.filter(card => {
         const matches = card.id === action.payload.id;
         if (matches) {
           lastRemovedCard = card;
@@ -126,42 +159,80 @@ export default (state: State = defaultState, action: Actions) => {
 
       return {
         ...state,
-        ...extractStartEnd(cards),
-        lastRemovedCard,
-        cards,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            ...extractStartEnd(cards),
+            lastRemovedCard,
+            cards,
+          },
+        },
       };
     }
 
     case 'FILTER_LABELS':
       return {
         ...state,
-        labels: action.payload,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            labels: action.payload,
+          },
+        },
       };
 
     case 'FILTER_TIMELINE':
       // TODO: Check if filters have updated. Only return new state if they have!
       return {
         ...state,
-        filters: action.payload,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            filters: action.payload,
+          },
+        },
       };
 
     case 'UPDATE_TIMELINE':
       const newState = {
         ...state,
-        ...action.payload,
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            ...action.payload,
+          },
+        },
       };
 
       return {
         ...newState,
-        ...extractStartEnd(newState.cards),
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            ...extractStartEnd(newState.trips[state.currentTrip].cards),
+          },
+        },
       };
 
     case 'UNDO_DELETE': {
-      if (state.lastRemovedCard) {
+      if (state.trips[state.currentTrip].lastRemovedCard) {
         return {
           ...state,
-          lastRemovedCard: undefined,
-          cards: [state.lastRemovedCard].concat(state.cards),
+          trips: {
+            ...state.trips,
+            [state.currentTrip]: {
+              ...state.trips[state.currentTrip],
+              lastRemovedCard: undefined,
+              cards: [state.trips[state.currentTrip].lastRemovedCard].concat(
+                state.trips[state.currentTrip].cards
+              ),
+            },
+          },
         };
       }
 
@@ -173,23 +244,31 @@ export default (state: State = defaultState, action: Actions) => {
       let cards;
 
       if (typeof card.id === 'undefined') {
-        cards = state.cards.concat([
+        cards = state.trips[state.currentTrip].cards.concat([
           {
             ...card,
             id: uuid(),
           },
         ]);
       } else {
-        cards = state.cards.map(storeCard => (storeCard.id === card.id ? card : storeCard));
+        cards = state.trips[state.currentTrip].cards.map(
+          storeCard => (storeCard.id === card.id ? card : storeCard)
+        );
       }
 
       return {
         ...state,
-        cards,
-        adding: null,
-        updating: null,
-        lastSavedCardId: card.id,
-        ...extractStartEnd(cards),
+        trips: {
+          ...state.trips,
+          [state.currentTrip]: {
+            ...state.trips[state.currentTrip],
+            ...extractStartEnd(cards),
+            cards,
+            adding: null,
+            updating: null,
+            lastSavedCardId: card.id,
+          },
+        },
       };
     }
 
