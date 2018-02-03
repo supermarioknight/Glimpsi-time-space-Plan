@@ -17,6 +17,7 @@ interface Props {
   onChange: (label: StringOrUndefined[]) => void;
   name: string;
   placeholder?: string;
+  // tslint:disable-next-line no-any
   onBlur?: (e: any) => void;
 }
 
@@ -25,7 +26,7 @@ const LabelSelect: React.StatelessComponent<Props> = ({ value, onChange, ...prop
     {...props}
     multi
     options={options}
-    optionRenderer={option => <FullWidthLabel>{option.value}</FullWidthLabel>}
+    optionRenderer={(option: { label: string }) => <FullWidthLabel>{option.label}</FullWidthLabel>}
     value={value}
     onChange={(opts: Option<string>[]) =>
       onChange(opts && opts.map(option => option && option.value).filter(Boolean))
