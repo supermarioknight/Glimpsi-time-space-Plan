@@ -15,6 +15,7 @@ const UNDO_DELETE = 'UNDO_DELETE';
 const FOCUS_CARD = 'FOCUS_CARD';
 const RESET_FOCUS_CARD = 'RESET_FOCUS_CARD';
 const FOCUS_TODAY = 'FOCUS_TODAY';
+const SELECT_TRIP = 'SELECT_TRIP';
 
 export type Actions =
   | NewCard
@@ -30,7 +31,18 @@ export type Actions =
   | FocusCard
   | ResetFocusCard
   | FocusToday
-  | InitAction;
+  | InitAction
+  | SelectTrip;
+
+export interface SelectTrip {
+  type: typeof SELECT_TRIP;
+  payload: string | undefined;
+}
+
+export const selectTrip = (key?: string): SelectTrip => ({
+  type: SELECT_TRIP,
+  payload: key,
+});
 
 export interface ResetFocusCard {
   type: typeof RESET_FOCUS_CARD;

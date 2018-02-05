@@ -27,7 +27,7 @@ export default class NetworkNotifier extends React.Component<NetworkProps, State
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         {!this.props.online &&
           this.props.offlineAt && (
             <Notification appearance="warning">
@@ -41,7 +41,7 @@ export default class NetworkNotifier extends React.Component<NetworkProps, State
               ...And we're back online!
             </Notification>
           )}
-      </div>
+      </React.Fragment>
     );
   }
 }

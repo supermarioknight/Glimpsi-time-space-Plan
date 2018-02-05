@@ -3,7 +3,7 @@ import { Root, Title } from './styles';
 
 const TripBox: React.StatelessComponent<{}> = () => (
   <Root>
-    <Title>+</Title>
+    <Title aria-label="Start a trip">+</Title>
   </Root>
 );
 

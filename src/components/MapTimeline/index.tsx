@@ -3,6 +3,7 @@ import { Moment } from 'moment-timezone';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
+import TimelineHeader from '../Header/Timeline';
 import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
@@ -52,7 +53,6 @@ const extractMarkers = (days: CardDay[], filters: Moment[]) => {
 };
 
 interface State {
-  // focusedCard: number | undefined;
   highlightedCard: number | undefined;
 }
 
@@ -86,46 +86,50 @@ export default class MapTimeline extends React.Component<Props, State> {
     } = this.props;
 
     return (
-      <Root>
-        <Slider
-          onChange={onFilterChange}
-          type="days"
-          start={start}
-          end={end}
-          values={props.filters}
-        />
+      <React.Fragment>
+        <TimelineHeader />
 
-        <MapContainer>
-          <Map
-            markers={extractMarkers(props.days, props.filters)}
-            autofit
-            onMarkerClick={this.props.focusCard}
-            onMarkerOver={this.setHighlight}
-            onMarkerOut={this.setHighlight}
+        <Root>
+          <Slider
+            onChange={onFilterChange}
+            type="days"
+            start={start}
+            end={end}
+            values={props.filters}
           />
-        </MapContainer>
 
-        <Timeline {...props} {...this.state} focusDate={focusDate} />
+          <MapContainer>
+            <Map
+              markers={extractMarkers(props.days, props.filters)}
+              autofit
+              onMarkerClick={this.props.focusCard}
+              onMarkerOver={this.setHighlight}
+              onMarkerOut={this.setHighlight}
+            />
+          </MapContainer>
 
-        {adding && <NewCard />}
+          <Timeline {...props} {...this.state} focusDate={focusDate} />
 
-        {lastSavedCardId && (
-          <Notification autoHide key={`last-saved-${lastSavedCardId}`} appearance="info">
-            Successfully saved
-          </Notification>
-        )}
+          {adding && <NewCard />}
 
-        {lastRemovedCard && (
-          <Notification
-            timeout={8000}
-            autoHide
-            key={`last-removed${lastRemovedCard.id}`}
-            appearance="default"
-          >
-            Successfully deleted <Button onClick={undoDelete}>undo</Button>
-          </Notification>
-        )}
-      </Root>
+          {lastSavedCardId && (
+            <Notification autoHide key={`last-saved-${lastSavedCardId}`} appearance="info">
+              Successfully saved
+            </Notification>
+          )}
+
+          {lastRemovedCard && (
+            <Notification
+              timeout={8000}
+              autoHide
+              key={`last-removed${lastRemovedCard.id}`}
+              appearance="default"
+            >
+              Successfully deleted <Button onClick={undoDelete}>undo</Button>
+            </Notification>
+          )}
+        </Root>
+      </React.Fragment>
     );
   }
 }

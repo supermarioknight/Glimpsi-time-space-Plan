@@ -31,6 +31,7 @@
     "label-position": true,
     "array-type": false,
     "max-line-length": false,
+    "ter-indent": false,
     "member-ordering": [
       true,
       "public-before-private",

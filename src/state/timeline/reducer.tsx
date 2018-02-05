@@ -113,6 +113,12 @@ export default (state: State = defaultState, action: CombinedActions) => {
         },
       };
 
+    case 'SELECT_TRIP':
+      return {
+        ...state,
+        currentTrip: action.payload,
+      };
+
     case 'CANCEL_NEW_CARD':
       return {
         ...state,

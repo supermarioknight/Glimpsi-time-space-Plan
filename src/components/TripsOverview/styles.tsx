@@ -1,7 +1,6 @@
-import styled from 'styled-components';
+import Gutter from '../Gutter';
 
-export const Root = styled.div`
-  width: 100%;
+export const Root = Gutter.extend`
   height: 100%;
   display: flex;
   align-items: center;

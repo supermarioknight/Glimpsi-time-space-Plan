@@ -7,7 +7,6 @@ import colors from '../../assets/styles/colors';
 
 export const Root = styled.div`
   ${mixins.focusRing.keyboardOnly};
-  width: ${grid.unitless * 30}px;
   height: ${grid.unitless * 20}px;
   position: relative;
   cursor: pointer;
