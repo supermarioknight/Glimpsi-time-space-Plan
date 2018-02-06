@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import * as json from './lib/json';
-import { LS_KEY, localStorageMiddleware } from './lib/redux';
+import { LS_KEY } from './lib/redux';
 import rootReducer from './state/rootReducer';
 import rootEpic from './state/rootEpic';
 
@@ -17,7 +17,7 @@ const preload = localStorage.getItem(LS_KEY);
 const store = createStore(
   rootReducer,
   preload ? json.parse(preload) : {},
-  composeEnhancers(applyMiddleware(epicMiddleware, localStorageMiddleware))
+  composeEnhancers(applyMiddleware(epicMiddleware))
 );
 
 interface Props {

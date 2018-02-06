@@ -1,6 +1,10 @@
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/delay';
-import resetFocusEpic from './timeline/epics/resetFocus';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/ignoreElements';
 
-export default combineEpics(resetFocusEpic);
+import resetFocusEpic from './timeline/epics/resetFocus';
+import localStorageEpic from './epics/localStorage';
+
+export default combineEpics(resetFocusEpic, localStorageEpic);
