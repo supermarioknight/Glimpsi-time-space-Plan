@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import Textbox from '../Textbox';
 import Button from '../Button';
+import history from '../../routerHistory';
 import ButtonGroup from '../Button/Group';
 import LocationSelect from '../LocationSelect';
 import FormFieldContainer from '../FormFieldContainer';
@@ -22,10 +23,13 @@ const normalizeKey = (key: string) => {
 
 // tslint:disable-next-line no-any
 const bind = (cb: (trip: Trip) => any) => (values: TripWithoutKey) => {
+  const key = normalizeKey(values.name);
   cb({
     ...values,
-    key: normalizeKey(values.name),
+    key,
   });
+
+  history.push(`/${key}`);
 };
 
 const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (

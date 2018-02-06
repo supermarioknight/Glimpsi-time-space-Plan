@@ -6,6 +6,7 @@ import TripsOverview from '../TripsOverview/Async';
 import Store from '../../Store';
 import NetworkNotifier from '../../components/NetworkNotifier/Connected';
 import TripStart from '../TripStart/Async';
+import timelineSelector from './timelineSelector';
 
 export default () => (
   <Store>
@@ -13,7 +14,7 @@ export default () => (
       <Switch>
         <Route path="/" component={TripsOverview} exact />
         <Route path="/start" component={TripStart} />
-        <Route path="/:tripKey" component={MapTimeline} />
+        <Route path="/:tripKey" component={timelineSelector('tripKey')(MapTimeline)} />
       </Switch>
 
       <NetworkNotifier />
