@@ -1,7 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import NotificationComponent from '../Notification';
-// import TransitionGroup from 'react-transition-group/TransitionGroup';
+import Transition from 'react-transition-group/Transition';
+import { TransitionState } from '../../assets/styles/transitions';
+import { FadeInNotification, Root } from './styles';
 import uuid from 'uuid/v1';
 
 export interface NotifyOptions {
@@ -63,15 +64,21 @@ export default class NotificationProvider extends React.Component<Props, State> 
       <React.Fragment>
         {this.props.children}
 
-        {this.state.notifications.map(notification => (
-          <NotificationComponent
-            key={notification.id}
-            requestClose={() => this.close(notification.id)}
-            appearance={notification.options.type}
-          >
-            {notification.message}
-          </NotificationComponent>
-        ))}
+        <Root component="div" appear>
+          {this.state.notifications.reverse().map(notification => (
+            <Transition in timeout={200} key={notification.id}>
+              {(state: TransitionState) => (
+                <FadeInNotification
+                  state={state}
+                  requestClose={() => this.close(notification.id)}
+                  appearance={notification.options.type}
+                >
+                  {notification.message}
+                </FadeInNotification>
+              )}
+            </Transition>
+          ))}
+        </Root>
       </React.Fragment>
     );
   }
