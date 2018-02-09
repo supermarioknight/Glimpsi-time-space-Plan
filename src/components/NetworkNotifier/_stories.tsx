@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
+import { notificationStoriesOf } from '../../lib/storybook';
 import Toggler from '../Toggler';
 import NetworkNotifier from './';
 
-storiesOf('NetworkNotifier', module).add('default', () => (
+notificationStoriesOf('NetworkNotifier', module).add('default', () => (
   <Toggler>
     {({ shown, toggle }) => (
       <div>

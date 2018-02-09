@@ -5,6 +5,7 @@ import { Middleware } from 'redux';
 import createStore from '../../state/createStore';
 import { Store } from '../../state/rootReducer';
 import { emptyTrip } from '../../state/timeline/reducer';
+import NotificationProvider from '../../components/NotificationProvider';
 import { MemoryRouter } from 'react-router-dom';
 import _ from 'lodash-es';
 import { action as storybookAction } from '@storybook/addon-actions';
@@ -38,3 +39,8 @@ export const reduxStoriesOf = (name: string, module: NodeModule, initialState?: 
 
 export const routerStoriesOf = (name: string, module: NodeModule) =>
   storiesOf(name, module).addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>);
+
+export const notificationStoriesOf = (name: string, module: NodeModule) =>
+  storiesOf(name, module).addDecorator(story => (
+    <NotificationProvider>{story()}</NotificationProvider>
+  ));

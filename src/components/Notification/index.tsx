@@ -1,56 +1,18 @@
 import * as React from 'react';
-import Transition from 'react-transition-group/Transition';
-import { Root } from './styles';
+import { Root, CancelButton } from './styles';
 
 interface Props {
   children: React.ReactNode;
-  autoHide?: boolean;
   appearance: 'warning' | 'info' | 'default';
-  timeout?: number;
+  requestClose: () => void;
 }
 
-interface State {
-  finished: boolean;
-}
+const Notification: React.StatelessComponent<Props> = ({ children, requestClose, ...props }) => (
+  <Root role="alert" {...props}>
+    {children}
 
-type TransitionState = 'entering' | 'entered' | 'exited' | 'exiting';
+    <CancelButton onClick={requestClose}>close</CancelButton>
+  </Root>
+);
 
-export default class Notification extends React.Component<Props, State> {
-  static defaultProps = {
-    timeout: 3000,
-  };
-
-  timeoutId: number;
-
-  state = {
-    finished: false,
-  };
-
-  componentDidMount() {
-    if (this.props.autoHide) {
-      this.timeoutId = window.setTimeout(() => {
-        this.setState({
-          finished: true,
-        });
-      }, this.props.timeout);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.props.autoHide && this.timeoutId) {
-      window.clearTimeout(this.timeoutId);
-    }
-  }
-
-  render() {
-    return (
-      <Transition in={!this.state.finished} timeout={200} appear>
-        {(state: TransitionState) => (
-          <Root role="alert" state={state} {...this.props}>
-            {this.props.children}
-          </Root>
-        )}
-      </Transition>
-    );
-  }
-}
+export default Notification;

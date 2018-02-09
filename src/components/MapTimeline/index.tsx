@@ -8,8 +8,6 @@ import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
-import Button from '../Button';
-import Notification from '../Notification';
 import { Root, MapContainer, Slider, Timeline } from './styles';
 
 interface Props {
@@ -111,23 +109,6 @@ export default class MapTimeline extends React.Component<Props, State> {
           <Timeline {...props} {...this.state} focusDate={focusDate} />
 
           {adding && <NewCard />}
-
-          {lastSavedCardId && (
-            <Notification autoHide key={`last-saved-${lastSavedCardId}`} appearance="info">
-              Successfully saved
-            </Notification>
-          )}
-
-          {lastRemovedCard && (
-            <Notification
-              timeout={8000}
-              autoHide
-              key={`last-removed${lastRemovedCard.id}`}
-              appearance="default"
-            >
-              Successfully deleted <Button onClick={undoDelete}>undo</Button>
-            </Notification>
-          )}
         </Root>
       </React.Fragment>
     );
