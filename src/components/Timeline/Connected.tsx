@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Timeline from './';
 import { createSelector } from 'reselect';
 import { Store } from '../../state/rootReducer';
+import { undoDelete } from '../../state/timeline/actions';
 
 const selector = createSelector(
   (state: Store) => state.timeline.focusedCardNumber,
@@ -10,4 +11,6 @@ const selector = createSelector(
   })
 );
 
-export default connect(selector)(Timeline);
+export default connect(selector, {
+  undoDelete,
+})(Timeline);

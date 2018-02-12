@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { reduxStoriesOf } from '../../lib/storybook';
-import TimelineHeader from './Timeline';
-import BasicHeader from './Basic';
+import Header from './';
 
 reduxStoriesOf('Header', module)
-  .add('timeline', () => <TimelineHeader />)
-  .add('basic', () => <BasicHeader />);
+  .add('default', () => <Header appearance="default" />)
+  .add('transparent', () => <Header appearance="transparent" />);

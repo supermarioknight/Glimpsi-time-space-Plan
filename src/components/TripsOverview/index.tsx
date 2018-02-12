@@ -4,7 +4,7 @@ import { Trip } from '../../state/trips/reducer';
 import TripBox from '../TripBox';
 import TripBoxGroup from '../TripBox/Group';
 import StartTripBox from '../TripBox/Start';
-import BasicHeader from '../Header/Basic';
+import Header from '../Header';
 import { Root } from './styles';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 const TripsOverview: React.StatelessComponent<Props> = ({ trips }) => (
   <React.Fragment>
-    <BasicHeader />
+    <Header appearance="transparent" />
 
     <Root>
       <TripBoxGroup>

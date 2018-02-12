@@ -7,7 +7,7 @@ import ButtonGroup from '../Button/Group';
 import LocationSelect from '../LocationSelect';
 import FormFieldContainer from '../FormFieldContainer';
 import { Trip } from '../../state/trips/reducer';
-import BasicHeader from '../Header/Basic';
+import Header from '../Header';
 
 // tslint:disable-next-line no-any
 type OnStart = (trip: Trip) => any;
@@ -34,7 +34,7 @@ const bind = (cb: (trip: Trip) => any) => (values: TripWithoutKey) => {
 
 const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (
   <React.Fragment>
-    <BasicHeader />
+    <Header appearance="transparent" />
 
     <Formik
       onSubmit={bind(onStart)}

@@ -161,6 +161,7 @@ export default (state: State = defaultState, action: CombinedActions) => {
       return {
         ...state,
         trips: {
+          ...state.trips,
           [state.currentTrip]: {
             ...state.trips[state.currentTrip],
             adding: true,

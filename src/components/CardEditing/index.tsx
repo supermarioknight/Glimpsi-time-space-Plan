@@ -14,6 +14,7 @@ import Map from '../Map';
 import { setTime } from '../../lib/date';
 import { timezone } from '../../lib/maps';
 import ButtonGroup from '../Button/Group';
+import withNotifier, { InjectedProps } from '../../decorators/withNotifier';
 import { MapContainer, Form, Root } from './styles';
 import FormFieldContainer from '../FormFieldContainer';
 
@@ -60,184 +61,190 @@ const schema = yup.object().shape({
   timeZoneId: yup.string().required(),
 });
 
-export default class CardEditing extends Component<Props, State> {
-  static defaultProps: Props = {
-    title: '',
-    location: undefined,
-    start: undefined,
-    duration: undefined,
-    labels: [],
-    onSave: noop,
-    onCancel: noop,
-  };
+export default withNotifier(
+  class CardEditing extends Component<Props & InjectedProps, State> {
+    static defaultProps: Props = {
+      title: '',
+      location: undefined,
+      start: undefined,
+      duration: undefined,
+      labels: [],
+      onSave: noop,
+      onCancel: noop,
+    };
 
-  state = {
-    loadingTimeZoneId: false,
-  };
+    state = {
+      loadingTimeZoneId: false,
+    };
 
-  finish = (values: FormValues) => {
-    const { start, time, timeZoneId, ...props } = values;
+    finish = (values: FormValues) => {
+      const { start, time, timeZoneId, ...props } = values;
 
-    const startWithTz = moment.tz(setTime(start, time), timeZoneId);
+      const startWithTz = moment.tz(setTime(start, time), timeZoneId);
 
-    this.props.onSave({
-      ...props,
-      start: startWithTz,
-      id: this.props.id,
-    });
-  };
+      this.props.onSave({
+        ...props,
+        start: startWithTz,
+        id: this.props.id,
+      });
 
-  cancel = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    this.props.onCancel();
-  };
+      this.props.notify('Successfully saved.', { type: 'info', autoCloseMs: 2000 });
+    };
 
-  render() {
-    const { title, location, start, duration, datePickerFrom, labels, notes } = this.props;
+    cancel = (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      this.props.onCancel();
+    };
 
-    return (
-      <Root>
-        <Formik
-          onSubmit={this.finish}
-          validationSchema={schema}
-          initialValues={{
-            title,
-            location,
-            start,
-            duration,
-            labels,
-            notes,
-            time: start,
-            timeZoneId: start && start.tz(),
-          }}
-        >
-          {({
-            values,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            setFieldValue,
-            ...fieldProps
-          }: FormikProps<FormValues>) => (
-            <React.Fragment>
-              <MapContainer>
-                <Map markers={[values.location].filter(Boolean)} />
-              </MapContainer>
+    render() {
+      const { title, location, start, duration, datePickerFrom, labels, notes } = this.props;
 
-              <Form onSubmit={handleSubmit}>
-                <FormFieldContainer name="title" {...fieldProps}>
-                  <Textbox
-                    value={values.title}
-                    label="Title"
-                    name="title"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
+      return (
+        <Root>
+          <Formik
+            onSubmit={this.finish}
+            validationSchema={schema}
+            initialValues={{
+              title,
+              location,
+              start,
+              duration,
+              labels,
+              notes,
+              time: start,
+              timeZoneId: start && start.tz(),
+            }}
+          >
+            {({
+              values,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+              ...fieldProps
+            }: FormikProps<FormValues>) => (
+              <React.Fragment>
+                <MapContainer>
+                  <Map markers={[values.location].filter(Boolean)} />
+                </MapContainer>
 
-                <FormFieldContainer name="start" {...fieldProps}>
-                  <DatePicker
-                    id="date"
-                    value={values.start ? moment(values.start) : null}
-                    onChange={value => {
-                      setFieldValue('start', value);
-                      setFieldValue('timeZoneId', undefined);
+                <Form onSubmit={handleSubmit}>
+                  <FormFieldContainer name="title" {...fieldProps}>
+                    <Textbox
+                      value={values.title}
+                      label="Title"
+                      name="title"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </FormFieldContainer>
 
-                      if (value && values.location) {
-                        this.setState({
-                          loadingTimeZoneId: true,
-                        });
+                  <FormFieldContainer name="start" {...fieldProps}>
+                    <DatePicker
+                      id="date"
+                      value={values.start ? moment(values.start) : null}
+                      onChange={value => {
+                        setFieldValue('start', value);
+                        setFieldValue('timeZoneId', undefined);
 
-                        timezone(
-                          values.location.position.lat,
-                          values.location.position.lng,
-                          value.unix()
-                        ).then(tz => {
-                          setFieldValue('timeZoneId', tz.timeZoneId);
+                        if (value && values.location) {
                           this.setState({
-                            loadingTimeZoneId: false,
+                            loadingTimeZoneId: true,
                           });
-                        });
-                      }
-                    }}
-                    datePickerFrom={datePickerFrom}
-                  />
-                </FormFieldContainer>
 
-                <FormFieldContainer name="time" {...fieldProps}>
-                  <TimePicker
-                    onBlur={handleBlur}
-                    value={values.time}
-                    onChange={value => setFieldValue('time', value)}
-                  />
-                </FormFieldContainer>
-
-                <FormFieldContainer name="location" {...fieldProps}>
-                  <LocationSelect
-                    onChange={value => {
-                      setFieldValue('location', value || undefined);
-                      setFieldValue('timeZoneId', undefined);
-
-                      if (value && values.start) {
-                        this.setState({
-                          loadingTimeZoneId: true,
-                        });
-
-                        timezone(value.position.lat, value.position.lng, values.start.unix()).then(
-                          tz => {
+                          timezone(
+                            values.location.position.lat,
+                            values.location.position.lng,
+                            value.unix()
+                          ).then(tz => {
                             setFieldValue('timeZoneId', tz.timeZoneId);
                             this.setState({
                               loadingTimeZoneId: false,
                             });
-                          }
-                        );
-                      }
-                    }}
-                    value={values.location}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
+                          });
+                        }
+                      }}
+                      datePickerFrom={datePickerFrom}
+                    />
+                  </FormFieldContainer>
 
-                <FormFieldContainer name="labels" {...fieldProps}>
-                  <LabelSelect
-                    name="labels"
-                    value={values.labels}
-                    placeholder="Labels"
-                    onBlur={handleBlur}
-                    onChange={labelOptions => setFieldValue('labels', labelOptions)}
-                  />
-                </FormFieldContainer>
+                  <FormFieldContainer name="time" {...fieldProps}>
+                    <TimePicker
+                      onBlur={handleBlur}
+                      value={values.time}
+                      onChange={value => setFieldValue('time', value)}
+                    />
+                  </FormFieldContainer>
 
-                <FormFieldContainer name="duration" {...fieldProps}>
-                  <Textbox
-                    value={values.duration}
-                    label="Duration"
-                    name="duration"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
+                  <FormFieldContainer name="location" {...fieldProps}>
+                    <LocationSelect
+                      onChange={value => {
+                        setFieldValue('location', value || undefined);
+                        setFieldValue('timeZoneId', undefined);
 
-                <FormFieldContainer name="notes" {...fieldProps}>
-                  <Textbox
-                    value={values.notes}
-                    label="Notes"
-                    name="notes"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </FormFieldContainer>
+                        if (value && values.start) {
+                          this.setState({
+                            loadingTimeZoneId: true,
+                          });
 
-                <ButtonGroup>
-                  <Button busy={this.state.loadingTimeZoneId} appearance="positive" type="submit">
-                    Save
-                  </Button>
-                </ButtonGroup>
-              </Form>
-            </React.Fragment>
-          )}
-        </Formik>
-      </Root>
-    );
+                          timezone(
+                            value.position.lat,
+                            value.position.lng,
+                            values.start.unix()
+                          ).then(tz => {
+                            setFieldValue('timeZoneId', tz.timeZoneId);
+                            this.setState({
+                              loadingTimeZoneId: false,
+                            });
+                          });
+                        }
+                      }}
+                      value={values.location}
+                      onBlur={handleBlur}
+                    />
+                  </FormFieldContainer>
+
+                  <FormFieldContainer name="labels" {...fieldProps}>
+                    <LabelSelect
+                      name="labels"
+                      value={values.labels}
+                      placeholder="Labels"
+                      onBlur={handleBlur}
+                      onChange={labelOptions => setFieldValue('labels', labelOptions)}
+                    />
+                  </FormFieldContainer>
+
+                  <FormFieldContainer name="duration" {...fieldProps}>
+                    <Textbox
+                      value={values.duration}
+                      label="Duration"
+                      name="duration"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </FormFieldContainer>
+
+                  <FormFieldContainer name="notes" {...fieldProps}>
+                    <Textbox
+                      value={values.notes}
+                      label="Notes"
+                      name="notes"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </FormFieldContainer>
+
+                  <ButtonGroup>
+                    <Button busy={this.state.loadingTimeZoneId} appearance="positive" type="submit">
+                      Save
+                    </Button>
+                  </ButtonGroup>
+                </Form>
+              </React.Fragment>
+            )}
+          </Formik>
+        </Root>
+      );
+    }
   }
-}
+);

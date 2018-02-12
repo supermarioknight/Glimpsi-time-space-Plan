@@ -9,12 +9,11 @@ interface State {
 export default withNotifier(
   class NetworkNotifier extends React.Component<NetworkProps & InjectedProps, State> {
     componentDidMount() {
-      if (!this.props.online || this.props.offlineAt) {
+      if (this.props.offlineAt) {
         this.props.notify(
           `You have no internet! Don't worry, any changes you make will be saved.`,
           {
             type: 'warning',
-            autoCloseMs: 5000,
           }
         );
       }
@@ -35,7 +34,6 @@ export default withNotifier(
           `You've lost your internet! Don't worry, any changes you make will be saved.`,
           {
             type: 'warning',
-            autoCloseMs: 5000,
           }
         );
       }

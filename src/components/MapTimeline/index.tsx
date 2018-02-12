@@ -3,7 +3,8 @@ import { Moment } from 'moment-timezone';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Connected';
 import Map from '../Map';
-import TimelineHeader from '../Header/Timeline';
+import Header from '../Header';
+import TimelineActions from '../TimelineActions/Connected';
 import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
@@ -85,7 +86,9 @@ export default class MapTimeline extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <TimelineHeader />
+        <Header appearance="default">
+          <TimelineActions />
+        </Header>
 
         <Root>
           <Slider

@@ -8,6 +8,7 @@ import { Root, Day } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
 import Button from '../Button';
+import withNotifier, { InjectedProps } from '../../decorators/withNotifier';
 
 export interface CardDay {
   cards: CardWithId[];
@@ -29,9 +30,11 @@ export interface Props {
   newCard: (options?: { start?: Moment }) => any;
   focusedCard: number | undefined;
   highlightedCard: number | undefined;
+  // tslint:disable-next-line no-any
+  undoDelete: () => any;
 }
 
-const Timeline: React.StatelessComponent<Props> = ({
+const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
   days,
   saveCard,
   removeCard,
@@ -42,6 +45,8 @@ const Timeline: React.StatelessComponent<Props> = ({
   editCard,
   highlightedCard,
   className,
+  notify,
+  undoDelete,
 }) => {
   let markerId = 0;
 
@@ -71,7 +76,15 @@ const Timeline: React.StatelessComponent<Props> = ({
                 <ScrollIntoView key={card.id} enabled={withinFilters && markerId === focusedCard}>
                   <EditableCard
                     onSave={saveCard}
-                    onDelete={removeCard}
+                    onDelete={(id: string) => {
+                      removeCard(id);
+                      notify(
+                        <React.Fragment>
+                          Deleted. <Button onClick={undoDelete}>undo</Button>
+                        </React.Fragment>,
+                        { type: 'default' }
+                      );
+                    }}
                     onEditing={editCard}
                     markerId={withinFilters ? markerId : undefined}
                     elevated={withinFilters && markerId === highlightedCard}
@@ -89,4 +102,4 @@ const Timeline: React.StatelessComponent<Props> = ({
   );
 };
 
-export default Timeline;
+export default withNotifier(Timeline);
