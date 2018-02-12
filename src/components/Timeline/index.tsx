@@ -78,9 +78,18 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
                     onSave={saveCard}
                     onDelete={(id: string) => {
                       removeCard(id);
-                      notify(
+
+                      const clearDeleteNotification = notify(
                         <React.Fragment>
-                          Deleted. <Button onClick={undoDelete}>undo</Button>
+                          Deleted.
+                          <Button
+                            onClick={() => {
+                              undoDelete();
+                              clearDeleteNotification();
+                            }}
+                          >
+                            undo
+                          </Button>
                         </React.Fragment>,
                         { type: 'default' }
                       );

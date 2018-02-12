@@ -34,7 +34,11 @@ export const reduxStoriesOf = (name: string, module: NodeModule, initialState?: 
       )
     );
 
-    return <Provider store={store}>{story()}</Provider>;
+    return (
+      <MemoryRouter>
+        <Provider store={store}>{story()}</Provider>
+      </MemoryRouter>
+    );
   });
 
 export const routerStoriesOf = (name: string, module: NodeModule) =>

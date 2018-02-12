@@ -11,7 +11,7 @@ export interface NotifyOptions {
   autoCloseMs?: number;
 }
 
-export type Notify = (message: React.ReactNode, options: NotifyOptions) => void;
+export type Notify = (message: React.ReactNode, options: NotifyOptions) => () => void;
 
 interface Props {
   children: React.ReactNode;
@@ -52,6 +52,8 @@ export default class NotificationProvider extends React.Component<Props, State> 
     if (options.autoCloseMs) {
       window.setTimeout(() => this.close(id), options.autoCloseMs);
     }
+
+    return () => this.close(id);
   };
 
   close = (id: string) => {
