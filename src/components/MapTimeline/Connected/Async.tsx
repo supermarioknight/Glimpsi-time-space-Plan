@@ -1,7 +1,5 @@
-import { asyncComponent } from 'react-async-component';
+import withAsyncFadeIn from '../../../decorators/asyncFade';
 
-const AsyncMapTimeline = asyncComponent({
-  resolve: () => import('./').then(x => x.default),
-});
+const AsyncMapTimeline = withAsyncFadeIn(() => import('./').then(x => x.default));
 
 export default AsyncMapTimeline;

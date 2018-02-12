@@ -6,13 +6,15 @@ import TripBoxGroup from '../TripBox/Group';
 import StartTripBox from '../TripBox/Start';
 import Header from '../Header';
 import { CenteredGutter } from '../Gutter';
+import AppLayout from '../AppLayout';
 
 interface Props {
   trips: Trip[];
+  className?: string;
 }
 
-const TripsOverview: React.StatelessComponent<Props> = ({ trips }) => (
-  <React.Fragment>
+const TripsOverview: React.StatelessComponent<Props> = ({ trips, className }) => (
+  <AppLayout className={className}>
     <Header appearance="transparent" />
 
     <CenteredGutter>
@@ -28,7 +30,7 @@ const TripsOverview: React.StatelessComponent<Props> = ({ trips }) => (
         </Link>
       </TripBoxGroup>
     </CenteredGutter>
-  </React.Fragment>
+  </AppLayout>
 );
 
 export default TripsOverview;

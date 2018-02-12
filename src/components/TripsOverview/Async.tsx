@@ -1,7 +1,5 @@
-import { asyncComponent } from 'react-async-component';
+import withAsyncFadeIn from '../../decorators/asyncFade';
 
-const AsyncTripsOverview = asyncComponent({
-  resolve: () => import('./Connected').then(x => x.default),
-});
+const AsyncTripOverview = withAsyncFadeIn(() => import('./Connected').then(x => x.default));
 
-export default AsyncTripsOverview;
+export default AsyncTripOverview;

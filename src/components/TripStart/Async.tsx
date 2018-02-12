@@ -1,7 +1,5 @@
-import { asyncComponent } from 'react-async-component';
+import withAsyncFadeIn from '../../decorators/asyncFade';
 
-const AsyncTripStart = asyncComponent({
-  resolve: () => import('./Connected').then(x => x.default),
-});
+const AsyncTripStart = withAsyncFadeIn(() => import('./Connected').then(x => x.default));
 
 export default AsyncTripStart;

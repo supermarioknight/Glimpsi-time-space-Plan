@@ -9,6 +9,8 @@ import FormFieldContainer from '../FormFieldContainer';
 import { Trip } from '../../state/trips/reducer';
 import Header from '../Header';
 import { CenteredGutter } from '../Gutter';
+import AppLayout from '../AppLayout';
+import { Form } from './styles';
 
 // tslint:disable-next-line no-any
 type OnStart = (trip: Trip) => any;
@@ -16,6 +18,7 @@ type TripWithoutKey = Trip & { key: never };
 
 interface Props {
   onStart: OnStart;
+  className?: string;
 }
 
 const normalizeKey = (key: string) => {
@@ -33,8 +36,8 @@ const bind = (cb: (trip: Trip) => any) => (values: TripWithoutKey) => {
   history.push(`/${key}`);
 };
 
-const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (
-  <React.Fragment>
+const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
+  <AppLayout className={className}>
     <Header appearance="transparent" />
 
     <CenteredGutter>
@@ -53,7 +56,7 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (
           setFieldValue,
           ...fieldProps
         }: FormikProps<TripWithoutKey>) => (
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <FormFieldContainer name="name" {...fieldProps}>
               <Textbox
                 value={values.name}
@@ -77,11 +80,11 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (
                 Start
               </Button>
             </ButtonGroup>
-          </form>
+          </Form>
         )}
       </Formik>
     </CenteredGutter>
-  </React.Fragment>
+  </AppLayout>
 );
 
 export default TripStart;

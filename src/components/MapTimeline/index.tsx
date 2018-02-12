@@ -10,6 +10,10 @@ import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
 import { Root, MapContainer, Slider, Timeline } from './styles';
+import AppLayout from '../AppLayout';
+import withRenderNextFrame from '../../decorators/renderNextFrame';
+
+const TimelineRNF = withRenderNextFrame(Timeline);
 
 interface Props {
   adding: { start?: Moment } | null;
@@ -81,11 +85,12 @@ export default class MapTimeline extends React.Component<Props, State> {
       lastSavedCardId,
       lastRemovedCard,
       undoDelete,
+      className,
       ...props
     } = this.props;
 
     return (
-      <React.Fragment>
+      <AppLayout className={className}>
         <Header appearance="default">
           <TimelineActions />
         </Header>
@@ -109,11 +114,11 @@ export default class MapTimeline extends React.Component<Props, State> {
             />
           </MapContainer>
 
-          <Timeline {...props} {...this.state} focusDate={focusDate} />
+          <TimelineRNF {...props} {...this.state} focusDate={focusDate} />
 
           {adding && <NewCard />}
         </Root>
-      </React.Fragment>
+      </AppLayout>
     );
   }
 }
