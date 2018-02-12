@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NetworkProps } from 'react-fns';
-import withNotifier, { InjectedProps } from '../../decorators/withNotifier';
+import withNotifier, { InjectedProps } from '../../decorators/notifier';
 
 interface State {
   wasOffline: boolean;

@@ -6,7 +6,7 @@ import TimelineActions from './';
 import { currentTrip } from '../../state/timeline/selectors';
 
 const selector = createSelector(
-  (store: Store) => currentTrip(store).labels,
+  (store: Store) => (currentTrip(store) || {}).labels,
   labels => ({
     labels,
   })

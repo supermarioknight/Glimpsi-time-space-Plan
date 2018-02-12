@@ -14,7 +14,7 @@ import Map from '../Map';
 import { setTime } from '../../lib/date';
 import { timezone } from '../../lib/maps';
 import ButtonGroup from '../Button/Group';
-import withNotifier, { InjectedProps } from '../../decorators/withNotifier';
+import withNotifier, { InjectedProps } from '../../decorators/notifier';
 import { MapContainer, Form, Root } from './styles';
 import FormFieldContainer from '../FormFieldContainer';
 

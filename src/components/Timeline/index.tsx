@@ -8,7 +8,7 @@ import { Root, Day } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
 import Button from '../Button';
-import withNotifier, { InjectedProps } from '../../decorators/withNotifier';
+import withNotifier, { InjectedProps } from '../../decorators/notifier';
 
 export interface CardDay {
   cards: CardWithId[];

@@ -9,6 +9,13 @@ const fadeMap = {
   exited: 0,
 };
 
+const fadeInMap = {
+  entering: 0,
+  entered: 1,
+  exiting: 1,
+  exited: 1,
+};
+
 const upMap = {
   entering: '25%',
   entered: '0%',
@@ -22,6 +29,11 @@ export interface TransitionProps {
 
 export const fade = (ms: number = 500) => css`
   opacity: ${(props: TransitionProps) => fadeMap[props.state] || fadeMap.entering};
+  transition: ${ms}ms opacity ease-in-out;
+`;
+
+export const fadeIn = (ms: number = 500) => css`
+  opacity: ${(props: TransitionProps) => fadeInMap[props.state] || fadeInMap.entering};
   transition: ${ms}ms opacity ease-in-out;
 `;
 

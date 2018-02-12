@@ -4,9 +4,7 @@ import { Trip } from '../../state/trips/reducer';
 import TripBox from '../TripBox';
 import TripBoxGroup from '../TripBox/Group';
 import StartTripBox from '../TripBox/Start';
-import Header from '../Header';
 import { CenteredGutter } from '../Gutter';
-import AppLayout from '../AppLayout';
 
 interface Props {
   trips: Trip[];
@@ -14,23 +12,19 @@ interface Props {
 }
 
 const TripsOverview: React.StatelessComponent<Props> = ({ trips, className }) => (
-  <AppLayout className={className}>
-    <Header appearance="transparent" />
-
-    <CenteredGutter>
-      <TripBoxGroup>
-        {trips.map(trip => (
-          <Link to={`/${trip.key}`} key={trip.key}>
-            <TripBox {...trip} />
-          </Link>
-        ))}
-
-        <Link to="/start">
-          <StartTripBox />
+  <CenteredGutter className={className}>
+    <TripBoxGroup>
+      {trips.map(trip => (
+        <Link to={`/${trip.key}`} key={trip.key}>
+          <TripBox {...trip} />
         </Link>
-      </TripBoxGroup>
-    </CenteredGutter>
-  </AppLayout>
+      ))}
+
+      <Link to="/start">
+        <StartTripBox />
+      </Link>
+    </TripBoxGroup>
+  </CenteredGutter>
 );
 
 export default TripsOverview;

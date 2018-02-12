@@ -2,7 +2,7 @@ import React from 'react';
 import { WithGoogleMapProps, WithScriptjsProps } from 'react-google-maps';
 import { Props as MapProps } from './GoogleMaps';
 import { ErrorOverlay } from './styles';
-import { asyncComponent } from 'react-async-component';
+import withAsyncFade from '../../decorators/asyncFade';
 
 const API_KEY = 'AIzaSyCHgmYZpgPN8qzGt1WJqHIilYDB7icfiQ4';
 
@@ -16,9 +16,9 @@ interface State {
 
 interface InternalProps extends Props, WithGoogleMapProps, WithScriptjsProps {}
 
-const AsyncGoogleMaps = asyncComponent<InternalProps>({
-  resolve: () => import('./GoogleMaps').then(x => x.default),
-});
+const AsyncGoogleMaps = withAsyncFade<InternalProps>(() =>
+  import('./GoogleMaps').then(x => x.default)
+);
 
 export default class Map extends React.Component<Props, State> {
   state = {

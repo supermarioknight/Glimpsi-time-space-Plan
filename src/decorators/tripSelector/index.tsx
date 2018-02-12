@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Omit } from 'react-redux';
+import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { selectTrip } from '../../state/timeline/actions';
 
@@ -9,10 +9,8 @@ interface InjectedProps extends RouteComponentProps<any> {
   selectTrip: (key?: string) => any;
 }
 
-type HocProps<T extends InjectedProps> = Omit<T, keyof InjectedProps>;
-
-function timelineSelector<TProps extends InjectedProps>(key: string) {
-  return (WrappedComponent: React.ComponentType<HocProps<TProps>>) =>
+function timelineSelector<TProps extends {}>(key: string) {
+  return (WrappedComponent: React.ComponentType<TProps>) =>
     connect(null, { selectTrip })(
       withRouter(
         class extends React.Component<InjectedProps> {
@@ -31,11 +29,12 @@ function timelineSelector<TProps extends InjectedProps>(key: string) {
           }
 
           render() {
-            return <WrappedComponent {...this.props as any} />;
+            return <WrappedComponent {...this.props} />;
           }
         }
       )
-    );
+      // tslint:disable-next-line no-any how do u type dis
+    ) as any;
 }
 
 export default timelineSelector;

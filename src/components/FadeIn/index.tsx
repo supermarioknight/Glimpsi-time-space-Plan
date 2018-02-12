@@ -5,19 +5,21 @@ import * as transitions from '../../assets/styles/transitions';
 
 interface Props {
   children: React.ReactNode;
+  className?: string;
 }
 
 const time = 200;
 
 const TransitionRoot = styled.div`
-  ${transitions.fade(time)};
-  height: 100%;
+  ${transitions.fadeIn(time)};
 `;
 
-const FadeIn: React.StatelessComponent<Props> = ({ children }) => (
+const FadeIn: React.StatelessComponent<Props> = ({ children, className }) => (
   <Transition in appear timeout={time}>
     {(state: transitions.TransitionState) => (
-      <TransitionRoot state={state}>{children}</TransitionRoot>
+      <TransitionRoot state={state} className={className}>
+        {children}
+      </TransitionRoot>
     )}
   </Transition>
 );

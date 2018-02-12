@@ -16,6 +16,7 @@ interface Props {
   onLabelFilter: (labels: string[]) => any;
   // tslint:disable-next-line no-any
   focusToday: () => any;
+  className?: string;
 }
 
 const TimelineActions: React.StatelessComponent<Props> = ({
@@ -23,8 +24,9 @@ const TimelineActions: React.StatelessComponent<Props> = ({
   onLabelFilter,
   focusToday,
   labels,
+  className,
 }) => (
-  <Root>
+  <Root className={className}>
     <LabelSelect
       placeholder="Filter cards"
       name="label-filter"

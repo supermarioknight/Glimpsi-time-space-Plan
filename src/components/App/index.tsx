@@ -1,12 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
+import Transition from 'react-transition-group/Transition';
 import MapTimeline from '../MapTimeline/Connected/Async';
 import TripsOverview from '../TripsOverview/Async';
 import NetworkNotifier from '../../components/NetworkNotifier/Connected';
 import TripStart from '../TripStart/Async';
 import tripSelector from '../../decorators/tripSelector';
-import Transition from 'react-transition-group/Transition';
+import DefaultLayout from '../Layout/Default';
+import MapTimelineLayout from '../Layout/MapTimeline';
+import { Root } from './styles';
 import * as transitions from '../../assets/styles/transitions';
 
 const MapTimelineWithKey = tripSelector('tripKey')(MapTimeline);
@@ -19,16 +22,20 @@ const TripStartFade = styled(TripStart)`
   ${transitions.fade(100)};
 `;
 
-const MapTimelineFade = styled(tripSelector('tripKey')(MapTimelineWithKey))`
+const MapTimelineFade = styled(MapTimelineWithKey)`
   ${transitions.fade(100)};
-` as any;
+`;
 
 export default () => (
-  <React.Fragment>
+  <Root>
     <Route path="/" exact>
       {({ match }) => (
-        <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit appear>
-          {(state: transitions.TransitionState) => <TripsOverviewFade state={state} />}
+        <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
+          {(state: transitions.TransitionState) => (
+            <DefaultLayout>
+              <TripsOverviewFade state={state} />
+            </DefaultLayout>
+          )}
         </Transition>
       )}
     </Route>
@@ -40,9 +47,12 @@ export default () => (
           timeout={100}
           mountOnEnter
           unmountOnExit
-          appear
         >
-          {(state: transitions.TransitionState) => <TripStartFade state={state} />}
+          {(state: transitions.TransitionState) => (
+            <DefaultLayout>
+              <TripStartFade state={state} />
+            </DefaultLayout>
+          )}
         </Transition>
       )}
     </Route>
@@ -54,12 +64,16 @@ export default () => (
           timeout={100}
           mountOnEnter
           unmountOnExit
-          appear
         >
-          {(state: transitions.TransitionState) => <MapTimelineFade state={state} />}
+          {(state: transitions.TransitionState) => (
+            <MapTimelineLayout>
+              <MapTimelineFade state={state} />
+            </MapTimelineLayout>
+          )}
         </Transition>
       )}
     </Route>
+
     <NetworkNotifier />
-  </React.Fragment>
+  </Root>
 );

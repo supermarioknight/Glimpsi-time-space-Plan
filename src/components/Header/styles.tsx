@@ -53,4 +53,5 @@ export const PageHeading = styled.h1`
 export const HeadingLink = styled(Link)`
   text-decoration: none;
   color: inherit;
+  margin-right: auto;
 `;

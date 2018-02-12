@@ -3,14 +3,11 @@ import { Moment } from 'moment-timezone';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Async';
 import Map from '../Map';
-import Header from '../Header';
-import TimelineActions from '../TimelineActions/Connected';
 import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
 import { Root, MapContainer, Slider, Timeline } from './styles';
-import AppLayout from '../AppLayout';
 import withRenderNextFrame from '../../decorators/renderNextFrame';
 
 const TimelineRNF = withRenderNextFrame(Timeline);
@@ -90,35 +87,29 @@ export default class MapTimeline extends React.Component<Props, State> {
     } = this.props;
 
     return (
-      <AppLayout className={className}>
-        <Header appearance="default">
-          <TimelineActions />
-        </Header>
+      <Root className={className}>
+        <Slider
+          onChange={onFilterChange}
+          type="days"
+          start={start}
+          end={end}
+          values={props.filters}
+        />
 
-        <Root>
-          <Slider
-            onChange={onFilterChange}
-            type="days"
-            start={start}
-            end={end}
-            values={props.filters}
+        <MapContainer>
+          <Map
+            markers={extractMarkers(props.days, props.filters)}
+            autofit
+            onMarkerClick={this.props.focusCard}
+            onMarkerOver={this.setHighlight}
+            onMarkerOut={this.setHighlight}
           />
+        </MapContainer>
 
-          <MapContainer>
-            <Map
-              markers={extractMarkers(props.days, props.filters)}
-              autofit
-              onMarkerClick={this.props.focusCard}
-              onMarkerOver={this.setHighlight}
-              onMarkerOut={this.setHighlight}
-            />
-          </MapContainer>
+        <TimelineRNF {...props} {...this.state} focusDate={focusDate} />
 
-          <TimelineRNF {...props} {...this.state} focusDate={focusDate} />
-
-          {adding && <NewCard />}
-        </Root>
-      </AppLayout>
+        {adding && <NewCard />}
+      </Root>
     );
   }
 }
