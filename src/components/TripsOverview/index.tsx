@@ -5,7 +5,7 @@ import TripBox from '../TripBox';
 import TripBoxGroup from '../TripBox/Group';
 import StartTripBox from '../TripBox/Start';
 import Header from '../Header';
-import { Root } from './styles';
+import { CenteredGutter } from '../Gutter';
 
 interface Props {
   trips: Trip[];
@@ -15,7 +15,7 @@ const TripsOverview: React.StatelessComponent<Props> = ({ trips }) => (
   <React.Fragment>
     <Header appearance="transparent" />
 
-    <Root>
+    <CenteredGutter>
       <TripBoxGroup>
         {trips.map(trip => (
           <Link to={`/${trip.key}`} key={trip.key}>
@@ -27,7 +27,7 @@ const TripsOverview: React.StatelessComponent<Props> = ({ trips }) => (
           <StartTripBox />
         </Link>
       </TripBoxGroup>
-    </Root>
+    </CenteredGutter>
   </React.Fragment>
 );
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Moment } from 'moment-timezone';
 import { CardDay } from '../../components/Timeline';
-import NewCard from '../CardEditing/Connected';
+import NewCard from '../CardEditing/Async';
 import Map from '../Map';
 import Header from '../Header';
 import TimelineActions from '../TimelineActions/Connected';
@@ -61,7 +61,7 @@ export default class MapTimeline extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.resetFocusCard();
+    this.props.focusCard(1);
   }
 
   setHighlight = (cardIndex?: number) => {

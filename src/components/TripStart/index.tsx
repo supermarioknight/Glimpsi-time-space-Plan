@@ -8,6 +8,7 @@ import LocationSelect from '../LocationSelect';
 import FormFieldContainer from '../FormFieldContainer';
 import { Trip } from '../../state/trips/reducer';
 import Header from '../Header';
+import { CenteredGutter } from '../Gutter';
 
 // tslint:disable-next-line no-any
 type OnStart = (trip: Trip) => any;
@@ -36,48 +37,50 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart }) => (
   <React.Fragment>
     <Header appearance="transparent" />
 
-    <Formik
-      onSubmit={bind(onStart)}
-      initialValues={{
-        name: '',
-        destination: undefined,
-      }}
-    >
-      {({
-        values,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        setFieldValue,
-        ...fieldProps
-      }: FormikProps<TripWithoutKey>) => (
-        <form onSubmit={handleSubmit}>
-          <FormFieldContainer name="name" {...fieldProps}>
-            <Textbox
-              value={values.name}
-              label="Name"
-              name="name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </FormFieldContainer>
+    <CenteredGutter>
+      <Formik
+        onSubmit={bind(onStart)}
+        initialValues={{
+          name: '',
+          destination: undefined,
+        }}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+          ...fieldProps
+        }: FormikProps<TripWithoutKey>) => (
+          <form onSubmit={handleSubmit}>
+            <FormFieldContainer name="name" {...fieldProps}>
+              <Textbox
+                value={values.name}
+                label="Name"
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
 
-          <FormFieldContainer name="destination" {...fieldProps}>
-            <LocationSelect
-              onChange={value => setFieldValue('destination', value || undefined)}
-              value={values.destination}
-              onBlur={handleBlur}
-            />
-          </FormFieldContainer>
+            <FormFieldContainer name="destination" {...fieldProps}>
+              <LocationSelect
+                onChange={value => setFieldValue('destination', value || undefined)}
+                value={values.destination}
+                onBlur={handleBlur}
+              />
+            </FormFieldContainer>
 
-          <ButtonGroup>
-            <Button appearance="positive" type="submit">
-              Start
-            </Button>
-          </ButtonGroup>
-        </form>
-      )}
-    </Formik>
+            <ButtonGroup>
+              <Button appearance="positive" type="submit">
+                Start
+              </Button>
+            </ButtonGroup>
+          </form>
+        )}
+      </Formik>
+    </CenteredGutter>
   </React.Fragment>
 );
 

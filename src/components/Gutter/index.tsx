@@ -7,7 +7,7 @@ const gutter = (size: number) => css`
   margin-right: ${size}px;
 `;
 
-const Gutter = styled.div`
+export const Gutter = styled.div`
   ${gutter(grid.unitless)};
 
   ${bp.tablet.css`
@@ -23,4 +23,9 @@ const Gutter = styled.div`
   `};
 `;
 
-export default Gutter;
+export const CenteredGutter = Gutter.extend`
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
