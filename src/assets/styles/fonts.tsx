@@ -24,7 +24,7 @@ export const size = {
 
 export const weight = {
   thin: css`
-    font-weight: 200;
+    font-weight: 250;
   `,
 
   normal: css`

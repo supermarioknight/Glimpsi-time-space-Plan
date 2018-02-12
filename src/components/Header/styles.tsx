@@ -16,6 +16,8 @@ export const Root = styled.header`
   height: ${grid.unitless * 7}px;
   padding: 0 ${grid.unitless * 2}px;
   flex-shrink: 0;
+  border-top: 3px solid ${colors.header};
+  border-bottom: 3px solid transparent;
 
   ${(props: Props) =>
     props.appearance === 'transparent'
@@ -25,7 +27,7 @@ export const Root = styled.header`
           left: 0;
           right: 0;
           background-color: transparent;
-          color: ${colors.textDark};
+          color: ${colors.header};
         `
       : css`
           background-color: ${colors.header};

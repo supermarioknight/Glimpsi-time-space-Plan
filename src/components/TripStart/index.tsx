@@ -71,7 +71,7 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
           <FormFieldContainer name="name" {...fieldProps}>
             <Textbox
               value={values.name}
-              label="What would you call it?"
+              label="What's this trips name?"
               name="name"
               onChange={handleChange}
               onBlur={handleBlur}
