@@ -86,7 +86,7 @@ type CombinedActions = Actions | TripsActions;
 export default (state: State = defaultState, action: CombinedActions) => {
   switch (action.type) {
     case 'SAVE_TRIP':
-      if (state.trips[action.payload.key]) {
+      if (state.trips[action.payload.id]) {
         return state;
       }
 
@@ -94,7 +94,7 @@ export default (state: State = defaultState, action: CombinedActions) => {
         ...state,
         trips: {
           ...state.trips,
-          [action.payload.key]: emptyTrip(),
+          [action.payload.id]: emptyTrip(),
         },
       };
 

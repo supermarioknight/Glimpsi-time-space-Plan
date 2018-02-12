@@ -17,6 +17,7 @@ interface Props {
   value?: Geocode;
   // tslint:disable-next-line no-any
   onBlur?: (e: any) => void;
+  placeholder?: string;
 }
 
 interface ReactSelectOnChange {
@@ -53,7 +54,7 @@ const handle = (callback: OnChange) => (option: ReactSelectOnChange) => {
   });
 };
 
-export default (props: Props) => (
+const LocationSelect: React.StatelessComponent<Props> = props => (
   <AsyncSelect
     onChange={handle(props.onChange)}
     value={
@@ -68,6 +69,12 @@ export default (props: Props) => (
     valueKey="position"
     loadOptions={loadGeocodeOptions}
     autoload={false}
-    placeholder="Find your location"
+    placeholder={props.placeholder}
   />
 );
+
+LocationSelect.defaultProps = {
+  placeholder: 'Find your location',
+};
+
+export default LocationSelect;

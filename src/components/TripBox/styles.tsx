@@ -4,7 +4,7 @@ import * as zIndex from '../../assets/styles/zIndex';
 import * as fonts from '../../assets/styles/fonts';
 import * as mixins from '../../assets/styles/mixins';
 import colors from '../../assets/styles/colors';
-import ConfirmButton from '../Button';
+import ConfirmButton from '../Button/Confirm';
 
 export const Button = styled(ConfirmButton)`
   position: absolute;

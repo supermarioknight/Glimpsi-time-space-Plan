@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { Trip as Props } from '../../state/trips/reducer';
+import { Trip as TripProps } from '../../state/trips/reducer';
 import Map from '../Map';
 import { Root, Title, Button } from './styles';
 
-const TripBox: React.StatelessComponent<Props> = ({ destination, name }) => (
+interface Props extends TripProps {
+  requestDelete: () => void;
+}
+
+const TripBox: React.StatelessComponent<Props> = ({ destination, name, requestDelete }) => (
   <Root>
     <Title>{name}</Title>
     <Map markers={[destination]} />
-    <Button onClick={e => e.stopPropagation()}>Delete</Button>
+    <Button onClick={requestDelete}>Delete</Button>
   </Root>
 );
 

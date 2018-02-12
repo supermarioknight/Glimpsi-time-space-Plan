@@ -21,6 +21,8 @@ export default class ConfirmButton extends React.Component<Props, State> {
   };
 
   onClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
     if (this.state.confirming) {
       this.props.onClick(event);
     } else {

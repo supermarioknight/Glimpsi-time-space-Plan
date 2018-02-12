@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
+import yup from 'yup';
 import Textbox from '../Textbox';
 import Button from '../Button';
 import history from '../../routerHistory';
@@ -12,7 +13,7 @@ import { Form } from './styles';
 
 // tslint:disable-next-line no-any
 type OnStart = (trip: Trip) => any;
-type TripWithoutKey = Trip & { key: never };
+type TripWithoutId = Trip & { id: never };
 
 interface Props {
   onStart: OnStart;
@@ -24,20 +25,26 @@ const normalizeKey = (key: string) => {
 };
 
 // tslint:disable-next-line no-any
-const bind = (cb: (trip: Trip) => any) => (values: TripWithoutKey) => {
-  const key = normalizeKey(values.name);
+const bind = (cb: (trip: Trip) => any) => (values: TripWithoutId) => {
+  const id = normalizeKey(values.name);
   cb({
     ...values,
-    key,
+    id,
   });
 
-  history.push(`/${key}`);
+  history.push(`/${id}`);
 };
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  destination: yup.object().required(),
+});
 
 const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
   <CenteredGutter className={className}>
     <Formik
       onSubmit={bind(onStart)}
+      validationSchema={schema}
       initialValues={{
         name: '',
         destination: undefined,
@@ -50,29 +57,30 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
         handleSubmit,
         setFieldValue,
         ...fieldProps
-      }: FormikProps<TripWithoutKey>) => (
+      }: FormikProps<TripWithoutId>) => (
         <Form onSubmit={handleSubmit}>
+          <FormFieldContainer name="destination" {...fieldProps}>
+            <LocationSelect
+              onChange={value => setFieldValue('destination', value || undefined)}
+              value={values.destination}
+              onBlur={handleBlur}
+              placeholder="Where are you going?"
+            />
+          </FormFieldContainer>
+
           <FormFieldContainer name="name" {...fieldProps}>
             <Textbox
               value={values.name}
-              label="Name"
+              label="What would you call it?"
               name="name"
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </FormFieldContainer>
 
-          <FormFieldContainer name="destination" {...fieldProps}>
-            <LocationSelect
-              onChange={value => setFieldValue('destination', value || undefined)}
-              value={values.destination}
-              onBlur={handleBlur}
-            />
-          </FormFieldContainer>
-
           <ButtonGroup>
             <Button appearance="positive" type="submit">
-              Start
+              Let's Go!
             </Button>
           </ButtonGroup>
         </Form>
