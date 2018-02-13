@@ -9,7 +9,7 @@ const withFadeIn = <TProps extends {}>(
   WrappedComponent: React.ComponentType<TProps>
 ): React.StatelessComponent<TProps> => {
   const TransitionRoot = styled(WrappedComponent)`
-    ${transitions.fade(time)};
+    ${transitions.absoluteFade(time)};
   `;
 
   return (props: TProps) => (

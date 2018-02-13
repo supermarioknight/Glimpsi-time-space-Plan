@@ -23,6 +23,13 @@ const upMap = {
   exited: '0%',
 };
 
+const positionMap = {
+  entering: 'absolute',
+  entered: 'static',
+  exiting: 'absolute',
+  exited: 'static',
+};
+
 export interface TransitionProps {
   state: TransitionState;
 }
@@ -30,6 +37,15 @@ export interface TransitionProps {
 export const fade = (ms: number = 500) => css`
   opacity: ${(props: TransitionProps) => fadeMap[props.state] || fadeMap.entering};
   transition: ${ms}ms opacity ease-in-out;
+`;
+
+export const absoluteFade = (ms: number = 500) => css`
+  position: ${(props: TransitionProps) => positionMap[props.state] || positionMap.entering};
+  opacity: ${(props: TransitionProps) => fadeMap[props.state] || fadeMap.entering};
+  transition: ${ms}ms opacity ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const fadeIn = (ms: number = 500) => css`
