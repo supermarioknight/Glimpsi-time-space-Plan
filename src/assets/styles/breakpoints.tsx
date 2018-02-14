@@ -1,7 +1,7 @@
 import { css, ThemedCssFunction, SimpleInterpolation } from 'styled-components';
 import { mapValues } from 'lodash-es';
 
-const sizes = {
+export const sizes = {
   desktopHd: 1440,
   desktop: 1024,
   tablet: 768,

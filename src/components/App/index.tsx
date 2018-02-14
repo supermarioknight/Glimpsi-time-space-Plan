@@ -58,7 +58,7 @@ export default () => (
     </Route>
 
     <Route path="/:tripKey">
-      {({ match }) => (
+      {({ match, location }) => (
         <Transition
           in={!!match && match.path.startsWith('/:tripKey') && !match.url.startsWith('/start')}
           timeout={100}
@@ -67,7 +67,7 @@ export default () => (
         >
           {(state: transitions.TransitionState) => (
             <MapTimelineLayout>
-              <MapTimelineFade state={state} />
+              <MapTimelineFade state={state} location={location} />
             </MapTimelineLayout>
           )}
         </Transition>

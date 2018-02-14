@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../assets/styles/colors';
-import bp from '../../assets/styles/breakpoints';
 import * as mixins from '../../assets/styles/mixins';
 import * as grid from '../../assets/styles/grid';
 import * as fonts from '../../assets/styles/fonts';
@@ -21,13 +20,9 @@ export const Root = styled.div`
   background-position: center center;
   background-color: ${colors.cardBackground};
   position: relative;
-  margin: 0;
+  margin: ${grid.px} 0;
   box-shadow: ${(props: RootProps) =>
     props.elevated ? `0px 2px 10px ${colors.cardFocused}` : 'none'};
-
-  ${bp.tablet.css`
-    margin: ${grid.px} 0;
-  `};
 `;
 
 export const Title = styled.h2`

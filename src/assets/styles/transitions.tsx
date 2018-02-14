@@ -25,9 +25,9 @@ const upMap = {
 
 const positionMap = {
   entering: 'absolute',
-  entered: 'static',
+  entered: 'asd',
   exiting: 'absolute',
-  exited: 'static',
+  exited: 'asd',
 };
 
 export interface TransitionProps {

@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { Moment } from 'moment-timezone';
+import { Route, Redirect, Link } from 'react-router-dom';
+import MediaQuery from 'react-responsive';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Async';
 import Map from '../Map';
+import { sizes } from '../../assets/styles/breakpoints';
 import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
-import { Root, MapContainer, Slider, Timeline } from './styles';
+import { Root, MapContainer, Slider, Timeline, MobilePage, Blanket } from './styles';
 import withRenderNextFrame from '../../decorators/renderNextFrame';
 
 const TimelineRNF = withRenderNextFrame(Timeline);
@@ -86,27 +89,93 @@ export default class MapTimeline extends React.Component<Props, State> {
       ...props
     } = this.props;
 
+    const slider = (
+      <Slider
+        onChange={onFilterChange}
+        type="days"
+        start={start}
+        end={end}
+        values={props.filters}
+      />
+    );
+
+    const map = (
+      <MapContainer>
+        <Map
+          markers={extractMarkers(props.days, props.filters)}
+          autofit
+          onMarkerClick={this.props.focusCard}
+          onMarkerOver={this.setHighlight}
+          onMarkerOut={this.setHighlight}
+        />
+      </MapContainer>
+    );
+
+    const timeline = <TimelineRNF {...props} {...this.state} focusDate={focusDate} />;
+
     return (
       <Root className={className}>
-        <Slider
-          onChange={onFilterChange}
-          type="days"
-          start={start}
-          end={end}
-          values={props.filters}
-        />
+        <Route path="/:tripKey">
+          {({ match: { params } }) => (
+            <MediaQuery minWidth={sizes.tablet} component={React.Fragment}>
+              {matches =>
+                matches ? (
+                  <React.Fragment>
+                    {slider}
+                    {map}
+                    {timeline}
 
-        <MapContainer>
-          <Map
-            markers={extractMarkers(props.days, props.filters)}
-            autofit
-            onMarkerClick={this.props.focusCard}
-            onMarkerOver={this.setHighlight}
-            onMarkerOut={this.setHighlight}
-          />
-        </MapContainer>
+                    <Route
+                      path="/:tripKey/:anything"
+                      render={() => <Redirect to={`/${params.tripKey}`} />}
+                    />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <Route
+                      path="/:tripKey"
+                      exact
+                      render={() => <Redirect to={`/${params.tripKey}/map`} />}
+                    />
 
-        <TimelineRNF {...props} {...this.state} focusDate={focusDate} />
+                    <Route path="/:tripKey/map">
+                      {({ match }) => (
+                        <React.Fragment>
+                          <MobilePage active={!!match} position="left">
+                            {slider}
+                            {map}
+                          </MobilePage>
+
+                          {!match && (
+                            <Link to={`/${params.tripKey}/map`}>
+                              <Blanket position="absolute" />
+                            </Link>
+                          )}
+                        </React.Fragment>
+                      )}
+                    </Route>
+
+                    <Route path="/:tripKey/timeline">
+                      {({ match }) => (
+                        <React.Fragment>
+                          <MobilePage active={!!match} position="right">
+                            {timeline}
+                          </MobilePage>
+
+                          {!match && (
+                            <Link to={`/${params.tripKey}/timeline`}>
+                              <Blanket position="absolute" />
+                            </Link>
+                          )}
+                        </React.Fragment>
+                      )}
+                    </Route>
+                  </React.Fragment>
+                )
+              }
+            </MediaQuery>
+          )}
+        </Route>
 
         {adding && <NewCard />}
       </Root>
