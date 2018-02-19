@@ -25,7 +25,7 @@ export default withNotifier(
               There is a new version of glimpsi ready for you!
               <Button onClick={() => window.location.reload()}>refresh</Button>
             </React.Fragment>,
-            { type: 'default' }
+            { type: 'default', hideCloseButton: true }
           ),
 
         // tslint:disable-next-line no-empty

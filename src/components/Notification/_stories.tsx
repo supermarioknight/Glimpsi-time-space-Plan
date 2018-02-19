@@ -18,4 +18,9 @@ storiesOf('Notification', module)
     <Notification requestClose={action('requestClose')} appearance="info">
       All good!
     </Notification>
+  ))
+  .add('no close button', () => (
+    <Notification hideCloseButton requestClose={action('requestClose')} appearance="info">
+      All good!
+    </Notification>
   ));

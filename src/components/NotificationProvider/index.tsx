@@ -9,6 +9,7 @@ import uuid from 'uuid/v1';
 export interface NotifyOptions {
   type: 'info' | 'warning' | 'default';
   autoCloseMs?: number;
+  hideCloseButton?: boolean;
 }
 
 export type Notify = (message: React.ReactNode, options: NotifyOptions) => () => void;

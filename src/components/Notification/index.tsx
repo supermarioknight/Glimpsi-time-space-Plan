@@ -5,13 +5,18 @@ interface Props {
   children: React.ReactNode;
   appearance: 'warning' | 'info' | 'default';
   requestClose: () => void;
+  hideCloseButton?: boolean;
 }
 
-const Notification: React.StatelessComponent<Props> = ({ children, requestClose, ...props }) => (
+const Notification: React.StatelessComponent<Props> = ({
+  children,
+  requestClose,
+  hideCloseButton,
+  ...props
+}) => (
   <Root role="alert" {...props}>
     {children}
-
-    <CancelButton onClick={requestClose}>close</CancelButton>
+    {hideCloseButton ? undefined : <CancelButton onClick={requestClose}>close</CancelButton>}
   </Root>
 );
 
