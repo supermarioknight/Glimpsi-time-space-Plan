@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 import Transition from 'react-transition-group/Transition';
 import MapTimeline from '../MapTimeline/Connected/Async';
 import TripsOverview from '../TripsOverview/Async';
@@ -29,6 +30,11 @@ const MapTimelineFade = styled(MapTimelineWithKey)`
 
 export default () => (
   <Root>
+    <NetworkNotifier />
+    <ServiceWorker />
+
+    <Helmet titleTemplate="%s | glimpsi" />
+
     <Route path="/" exact>
       {({ match }) => (
         <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
@@ -74,8 +80,5 @@ export default () => (
         </Transition>
       )}
     </Route>
-
-    <NetworkNotifier />
-    <ServiceWorker />
   </Root>
 );

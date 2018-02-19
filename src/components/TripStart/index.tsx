@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import yup from 'yup';
 import Textbox from '../Textbox';
+import Helmet from 'react-helmet';
 import Button from '../Button';
 import history from '../../routerHistory';
 import ButtonGroup from '../Button/Group';
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const normalizeKey = (key: string) => {
-  return key.toLowerCase().replace(/s/g, '+');
+  return key.toLowerCase().replace(/\s/g, '+');
 };
 
 // tslint:disable-next-line no-any
@@ -42,6 +43,10 @@ const schema = yup.object().shape({
 
 const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
   <CenteredGutter className={className}>
+    <Helmet>
+      <title>Start a Trip</title>
+    </Helmet>
+
     <Formik
       onSubmit={bind(onStart)}
       validationSchema={schema}

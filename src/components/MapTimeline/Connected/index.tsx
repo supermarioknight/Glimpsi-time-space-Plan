@@ -15,7 +15,8 @@ import {
   resetFocusCard,
 } from '../../../state/timeline/actions';
 import { CardWithId } from '../../../state/timeline/reducer';
-import { currentTrip } from '../../../state/timeline/selectors';
+import { currentTimelineTrip } from '../../../state/timeline/selectors';
+import { currentTrip } from '../../../state/trips/selectors';
 import { Store } from '../../../state/rootReducer';
 
 const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
@@ -52,15 +53,16 @@ const cardsToDays = (cards: CardWithId[], labels: string[]): CardDay[] => {
 };
 
 const selector = createSelector(
-  (store: Store) => currentTrip(store).cards,
-  (store: Store) => currentTrip(store).adding,
-  (store: Store) => currentTrip(store).start,
-  (store: Store) => currentTrip(store).end,
-  (store: Store) => currentTrip(store).filters,
-  (store: Store) => currentTrip(store).labels,
-  (store: Store) => currentTrip(store).lastSavedCardId,
-  (store: Store) => currentTrip(store).lastRemovedCard,
-  (cards, adding, start, end, filters, labels, lastSavedCardId, lastRemovedCard) => ({
+  (store: Store) => currentTimelineTrip(store).cards,
+  (store: Store) => currentTimelineTrip(store).adding,
+  (store: Store) => currentTimelineTrip(store).start,
+  (store: Store) => currentTimelineTrip(store).end,
+  (store: Store) => currentTimelineTrip(store).filters,
+  (store: Store) => currentTimelineTrip(store).labels,
+  (store: Store) => currentTimelineTrip(store).lastSavedCardId,
+  (store: Store) => currentTimelineTrip(store).lastRemovedCard,
+  (store: Store) => currentTrip(store).name,
+  (cards, adding, start, end, filters, labels, lastSavedCardId, lastRemovedCard, tripName) => ({
     adding,
     start,
     end,
@@ -68,6 +70,7 @@ const selector = createSelector(
     lastSavedCardId,
     lastRemovedCard,
     days: cardsToDays(cards, labels),
+    tripName,
   })
 );
 

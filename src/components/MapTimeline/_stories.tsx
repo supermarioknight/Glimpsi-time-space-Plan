@@ -6,6 +6,7 @@ import exampleCards from '../../state/timeline/exampleCards';
 import MapTimeline from './';
 
 const props = {
+  tripName: 'Cool Trip',
   start: moment(),
   end: moment().add(10, 'days'),
   filters: [moment().add(1, 'days'), moment().add(9, 'days')],

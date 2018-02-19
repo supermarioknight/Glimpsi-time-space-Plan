@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import { Trip } from '../../state/trips/reducer';
 import TripBox from '../TripBox';
 import TripBoxGroup from '../TripBox/Group';
@@ -15,6 +16,10 @@ interface Props {
 
 const TripsOverview: React.StatelessComponent<Props> = ({ trips, className, deleteTrip }) => (
   <CenteredGutter className={className}>
+    <Helmet>
+      <title>My Trips</title>
+    </Helmet>
+
     <TripBoxGroup>
       {trips.map(trip => (
         <Link to={`/${trip.id}`} key={trip.id}>

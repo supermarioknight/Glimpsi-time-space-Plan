@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Moment } from 'moment-timezone';
 import { Route, Redirect, Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
+import Helmet from 'react-helmet';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Async';
 import Map from '../Map';
@@ -16,6 +17,7 @@ import withRenderNextFrame from '../../decorators/renderNextFrame';
 const TimelineRNF = withRenderNextFrame(Timeline);
 
 interface Props {
+  tripName: string;
   adding: { start?: Moment } | null;
   // tslint:disable-next-line no-any
   newCard: (options?: { start?: Moment }) => any;
@@ -86,6 +88,7 @@ export default class MapTimeline extends React.Component<Props, State> {
       lastRemovedCard,
       undoDelete,
       className,
+      tripName,
       ...props
     } = this.props;
 
@@ -115,6 +118,10 @@ export default class MapTimeline extends React.Component<Props, State> {
 
     return (
       <Root className={className}>
+        <Helmet>
+          <title>{tripName}</title>
+        </Helmet>
+
         <Route path="/:tripKey">
           {({ match: { params } }) => (
             <MediaQuery minWidth={sizes.tablet} component={React.Fragment}>
