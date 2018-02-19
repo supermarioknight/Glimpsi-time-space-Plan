@@ -77,6 +77,7 @@ export default class NotificationProvider extends React.Component<Props, State> 
                     state={state}
                     requestClose={() => this.close(notification.id)}
                     appearance={notification.options.type}
+                    {...notification.options}
                   >
                     {notification.message}
                   </FadeInNotification>
