@@ -9,6 +9,7 @@ import TripStart from '../TripStart/Async';
 import tripSelector from '../../decorators/tripSelector';
 import DefaultLayout from '../Layout/Default';
 import MapTimelineLayout from '../Layout/MapTimeline';
+import ServiceWorker from '../ServiceWorker';
 import { Root } from './styles';
 import * as transitions from '../../assets/styles/transitions';
 
@@ -75,5 +76,6 @@ export default () => (
     </Route>
 
     <NetworkNotifier />
+    <ServiceWorker />
   </Root>
 );

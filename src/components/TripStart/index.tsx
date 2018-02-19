@@ -21,7 +21,7 @@ interface Props {
 }
 
 const normalizeKey = (key: string) => {
-  return key.toLowerCase();
+  return key.toLowerCase().replace(/s/g, '+');
 };
 
 // tslint:disable-next-line no-any
