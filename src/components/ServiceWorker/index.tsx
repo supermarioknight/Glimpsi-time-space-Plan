@@ -16,7 +16,7 @@ export default withNotifier(
         onContentCached: () =>
           this.props.notify('glimpsi is ready for offline usage.', {
             type: 'info',
-            autoCloseMs: 2000,
+            autoCloseMs: 4000,
           }),
 
         onNewContentAvailable: () =>
@@ -25,7 +25,7 @@ export default withNotifier(
               There is a new version of glimpsi ready for you!
               <Button onClick={() => window.location.reload()}>refresh</Button>
             </React.Fragment>,
-            { type: 'info' }
+            { type: 'default' }
           ),
 
         // tslint:disable-next-line no-empty
