@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Moment } from 'moment-timezone';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../state/timeline/reducer';
@@ -111,4 +112,6 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
   );
 };
 
-export default withNotifier(Timeline);
+export default withAnalyticsEvents<Props>({
+  undoDelete: createAnaylticsEvent => createAnaylticsEvent({ action: 'undo deleting card' }).fire(),
+})(withNotifier(Timeline));

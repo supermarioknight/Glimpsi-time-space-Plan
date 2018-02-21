@@ -6,6 +6,7 @@ import {
   withGoogleMap,
   GoogleMapProps,
 } from 'react-google-maps';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { flow, noop } from 'lodash-es';
 import renderNextFrame from '../../decorators/renderNextFrame';
 import { Marker } from './styles';
@@ -154,4 +155,14 @@ class Map extends React.Component<Props> {
   }
 }
 
-export default flow([withGoogleMap, withScriptjs, renderNextFrame])(Map);
+export default flow([
+  withGoogleMap,
+  withScriptjs,
+  renderNextFrame,
+  withAnalyticsEvents({
+    onMarkerClick: createAnaylticsEvent =>
+      createAnaylticsEvent({ action: 'click map marker' }).fire(),
+    onMarkerOver: createAnaylticsEvent =>
+      createAnaylticsEvent({ action: 'hover map marker' }).fire(),
+  }),
+])(Map);

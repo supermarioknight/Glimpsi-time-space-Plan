@@ -2,11 +2,14 @@ import 'reset-css/reset.css';
 import * as React from 'react';
 import { Router, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import history from './routerHistory';
 import App from './components/App';
 import NotificationProvider from './components/NotificationProvider';
 import Store from './Store';
 import './styles';
+
+ReactGA.initialize('UA-114397348-1');
 
 ReactDOM.render(
   <Store>

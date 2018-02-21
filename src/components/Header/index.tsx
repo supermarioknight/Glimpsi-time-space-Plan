@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { LinkProps } from 'react-router-dom';
 import { Root, PageHeading, HeadingLink } from './styles';
 
 interface Props {
@@ -7,11 +9,15 @@ interface Props {
   children?: React.ReactNode;
 }
 
+const TrackedLink = withAnalyticsEvents<LinkProps>({
+  onClick: createAnalyticEvent => createAnalyticEvent({ action: 'click home glimpsi link' }).fire(),
+})(HeadingLink);
+
 const Header: React.StatelessComponent<Props> = ({ className, appearance, children }) => (
   <Root appearance={appearance} className={className}>
-    <HeadingLink to="/">
+    <TrackedLink to="/">
       <PageHeading>glimpsi</PageHeading>
-    </HeadingLink>
+    </TrackedLink>
 
     {children}
   </Root>

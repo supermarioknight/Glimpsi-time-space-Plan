@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import LabelSelect from '../LabelSelect';
 import Button from '../Button';
 import { Root, Text } from './styles';
@@ -44,4 +45,9 @@ const TimelineActions: React.StatelessComponent<Props> = ({
   </Root>
 );
 
-export default TimelineActions;
+export default withAnalyticsEvents<Props>({
+  newCard: createAnalyticEvent => createAnalyticEvent({ action: 'open add new card' }).fire(),
+  onLabelFilter: createAnalyticEvent =>
+    createAnalyticEvent({ action: 'change filter labels' }).fire(),
+  focusToday: createAnalyticEvent => createAnalyticEvent({ action: 'focus on today' }).fire(),
+})(TimelineActions);

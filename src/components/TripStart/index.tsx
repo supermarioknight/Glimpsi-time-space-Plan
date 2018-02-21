@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import yup from 'yup';
-import Textbox from '../Textbox';
 import Helmet from 'react-helmet';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import Textbox from '../Textbox';
+import { withScreen } from '../../decorators/analytics/view';
 import Button from '../Button';
 import history from '../../routerHistory';
 import ButtonGroup from '../Button/Group';
@@ -94,4 +96,8 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
   </CenteredGutter>
 );
 
-export default TripStart;
+export default withScreen<Props>('StartTrip')(
+  withAnalyticsEvents<Props>({
+    onStart: createAnalyticEvent => createAnalyticEvent({ action: 'create new trip' }).fire(),
+  })(TripStart)
+);

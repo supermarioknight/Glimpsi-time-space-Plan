@@ -39,8 +39,8 @@ const extractStartEnd = (cards: Card[]) => {
       return obj;
     },
     {
-      start: cards[0].start,
-      end: cards[0].start,
+      start: cards[0] && cards[0].start,
+      end: cards[0] && cards[0].start,
     }
   );
 };

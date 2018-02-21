@@ -9,10 +9,10 @@ interface InjectedProps extends RouteComponentProps<any> {
   selectTrip: (key?: string) => any;
 }
 
-function timelineSelector<TProps extends {}>(key: string) {
+function timelineSelector<TProps>(key: string) {
   return (WrappedComponent: React.ComponentType<TProps>) =>
-    connect(null, { selectTrip })(
-      withRouter(
+    connect<TProps>(null, { selectTrip })(
+      withRouter<InjectedProps>(
         class extends React.Component<InjectedProps> {
           componentWillMount() {
             this.props.selectTrip(this.props.match.params[key]);

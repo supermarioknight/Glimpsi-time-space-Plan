@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { Root } from './styles';
 import ConfirmButton from '../Button/Confirm';
 import Button from '../Button';
@@ -15,4 +16,6 @@ const CardActions = ({ onEdit, onDelete }: Props) => (
   </Root>
 );
 
-export default CardActions;
+export default withAnalyticsEvents<Props>({
+  onDelete: createAnalyticsEvent => createAnalyticsEvent({ action: 'delete card' }).fire(),
+})(CardActions);

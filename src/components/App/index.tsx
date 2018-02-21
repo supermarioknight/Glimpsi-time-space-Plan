@@ -1,84 +1,75 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import Transition from 'react-transition-group/Transition';
-import MapTimeline from '../MapTimeline/Connected/Async';
-import TripsOverview from '../TripsOverview/Async';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import NetworkNotifier from '../../components/NetworkNotifier/Connected';
-import TripStart from '../TripStart/Async';
 import tripSelector from '../../decorators/tripSelector';
 import DefaultLayout from '../Layout/Default';
 import MapTimelineLayout from '../Layout/MapTimeline';
 import ServiceWorker from '../ServiceWorker';
-import { Root } from './styles';
+import { Root, MapTimeline, TripsOverview, TripStart } from './styles';
 import * as transitions from '../../assets/styles/transitions';
 
 const MapTimelineWithKey = tripSelector('tripKey')(MapTimeline);
 
-const TripsOverviewFade = styled(TripsOverview)`
-  ${transitions.fade(100)};
-`;
-
-const TripStartFade = styled(TripStart)`
-  ${transitions.fade(100)};
-`;
-
-const MapTimelineFade = styled(MapTimelineWithKey)`
-  ${transitions.fade(100)};
-`;
-
 export default () => (
-  <Root>
-    <NetworkNotifier />
-    <ServiceWorker />
+  <AnalyticsListener
+    onEvent={({ context, payload }) => {
+      console.log(context, payload);
+    }}
+  >
+    <Root>
+      <NetworkNotifier />
+      <ServiceWorker />
 
-    <Helmet titleTemplate="%s | glimpsi" />
+      <Helmet titleTemplate="%s | glimpsi" />
 
-    <Route path="/" exact>
-      {({ match }) => (
-        <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
-          {(state: transitions.TransitionState) => (
-            <DefaultLayout>
-              <TripsOverviewFade state={state} />
-            </DefaultLayout>
-          )}
-        </Transition>
-      )}
-    </Route>
+      <Route path="/" exact>
+        {({ match }) => (
+          <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
+            {(state: transitions.TransitionState) => (
+              <DefaultLayout>
+                <TripsOverview state={state} />
+              </DefaultLayout>
+            )}
+          </Transition>
+        )}
+      </Route>
 
-    <Route path="/start">
-      {({ match }) => (
-        <Transition
-          in={!!match && match.url.startsWith('/start')}
-          timeout={100}
-          mountOnEnter
-          unmountOnExit
-        >
-          {(state: transitions.TransitionState) => (
-            <DefaultLayout>
-              <TripStartFade state={state} />
-            </DefaultLayout>
-          )}
-        </Transition>
-      )}
-    </Route>
+      <Route path="/start">
+        {({ match }) => (
+          <Transition
+            in={!!match && match.url.startsWith('/start')}
+            timeout={100}
+            mountOnEnter
+            unmountOnExit
+          >
+            {(state: transitions.TransitionState) => (
+              <DefaultLayout>
+                <TripStart state={state} />
+              </DefaultLayout>
+            )}
+          </Transition>
+        )}
+      </Route>
 
-    <Route path="/:tripKey">
-      {({ match, location }) => (
-        <Transition
-          in={!!match && match.path.startsWith('/:tripKey') && !match.url.startsWith('/start')}
-          timeout={100}
-          mountOnEnter
-          unmountOnExit
-        >
-          {(state: transitions.TransitionState) => (
-            <MapTimelineLayout>
-              <MapTimelineFade state={state} location={location} />
-            </MapTimelineLayout>
-          )}
-        </Transition>
-      )}
-    </Route>
-  </Root>
+      <Route path="/:tripKey">
+        {({ match, location }) => (
+          <Transition
+            in={!!match && match.path.startsWith('/:tripKey') && !match.url.startsWith('/start')}
+            timeout={100}
+            mountOnEnter
+            unmountOnExit
+          >
+            {(state: transitions.TransitionState) => (
+              <MapTimelineLayout>
+                <MapTimelineWithKey state={state} location={location} />
+              </MapTimelineLayout>
+            )}
+          </Transition>
+        )}
+      </Route>
+    </Root>
+  </AnalyticsListener>
 );

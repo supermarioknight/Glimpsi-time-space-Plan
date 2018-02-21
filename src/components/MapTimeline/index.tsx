@@ -3,6 +3,7 @@ import { Moment } from 'moment-timezone';
 import { Route, Redirect, Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import Helmet from 'react-helmet';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { CardDay } from '../../components/Timeline';
 import NewCard from '../CardEditing/Async';
 import Map from '../Map';
@@ -13,10 +14,11 @@ import { MarkerObj } from '../Map/GoogleMaps';
 import { isWithinFilters } from '../../lib/date';
 import { Root, MapContainer, Slider, Timeline, MobilePage, Blanket } from './styles';
 import withRenderNextFrame from '../../decorators/renderNextFrame';
+import { withScreen } from '../../decorators/analytics/view';
 
 const TimelineRNF = withRenderNextFrame(Timeline);
 
-interface Props {
+export interface Props {
   tripName: string;
   adding: { start?: Moment } | null;
   // tslint:disable-next-line no-any
@@ -61,7 +63,7 @@ interface State {
   highlightedCard: number | undefined;
 }
 
-export default class MapTimeline extends React.Component<Props, State> {
+class MapTimeline extends React.Component<Props, State> {
   state: State = {
     highlightedCard: undefined,
   };
@@ -189,3 +191,13 @@ export default class MapTimeline extends React.Component<Props, State> {
     );
   }
 }
+
+export default withScreen<Props>('MapTimeline')(
+  withAnalyticsEvents<Props>({
+    focusDate: createAnaylticsEvent => createAnaylticsEvent({ action: 'focus date' }).fire(),
+    newCard: createAnaylticsEvent =>
+      createAnaylticsEvent({ action: 'new card for specific date' }).fire(),
+    onFilterChange: createAnaylticsEvent =>
+      createAnaylticsEvent({ action: 'filter timeline' }).fire(),
+  })(MapTimeline)
+);
