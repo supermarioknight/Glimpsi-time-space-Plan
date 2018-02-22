@@ -13,7 +13,7 @@ const withFadeIn = <TProps extends {}>(
   `;
 
   return (props: TProps) => (
-    <Transition in appear timeout={time}>
+    <Transition in timeout={time}>
       {(state: transitions.TransitionState) => <TransitionRoot state={state} {...props} />}
     </Transition>
   );
