@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Helmet from 'react-helmet';
+import ReactGA from 'react-ga';
+import { findLast, last } from 'lodash-es';
 import Transition from 'react-transition-group/Transition';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import NetworkNotifier from '../../components/NetworkNotifier/Connected';
@@ -16,60 +18,93 @@ const MapTimelineWithKey = tripSelector('tripKey')(MapTimeline);
 export default () => (
   <AnalyticsListener
     onEvent={({ context, payload }) => {
-      console.log(context, payload);
+      const hasContext = findLast(context, data => !!data.view);
+
+      ReactGA.event({
+        ...payload,
+        action: `${payload.action}`,
+        category: `${payload.category}`,
+        label: hasContext ? `${hasContext.view}` : undefined,
+      });
+
+      if (process.env.NODE_ENV !== 'production') {
+        // tslint:disable-next-line no-any no-console
+        console.log(last((ReactGA as any).testModeAPI.calls));
+      }
     }}
   >
-    <Root>
-      <NetworkNotifier />
-      <ServiceWorker />
+    <AnalyticsListener
+      channel="view"
+      onEvent={({ context }) => {
+        const name = context.reduce(
+          (acc, val) => (acc ? `${acc}->${val.view}` : val.view),
+          ''
+        ) as string;
 
-      <Helmet titleTemplate="%s | glimpsi" />
+        if (name.includes('Modal')) {
+          ReactGA.modalview(name);
+        } else {
+          ReactGA.pageview(name);
+        }
 
-      <Route path="/" exact>
-        {({ match }) => (
-          <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
-            {(state: transitions.TransitionState) => (
-              <DefaultLayout>
-                <TripsOverview state={state} />
-              </DefaultLayout>
-            )}
-          </Transition>
-        )}
-      </Route>
+        if (process.env.NODE_ENV !== 'production') {
+          // tslint:disable-next-line no-any no-console
+          console.log(last((ReactGA as any).testModeAPI.calls));
+        }
+      }}
+    >
+      <Root>
+        <NetworkNotifier />
+        <ServiceWorker />
 
-      <Route path="/start">
-        {({ match }) => (
-          <Transition
-            in={!!match && match.url.startsWith('/start')}
-            timeout={100}
-            mountOnEnter
-            unmountOnExit
-          >
-            {(state: transitions.TransitionState) => (
-              <DefaultLayout>
-                <TripStart state={state} />
-              </DefaultLayout>
-            )}
-          </Transition>
-        )}
-      </Route>
+        <Helmet titleTemplate="%s | glimpsi" />
 
-      <Route path="/:tripKey">
-        {({ match, location }) => (
-          <Transition
-            in={!!match && match.path.startsWith('/:tripKey') && !match.url.startsWith('/start')}
-            timeout={100}
-            mountOnEnter
-            unmountOnExit
-          >
-            {(state: transitions.TransitionState) => (
-              <MapTimelineLayout>
-                <MapTimelineWithKey state={state} location={location} />
-              </MapTimelineLayout>
-            )}
-          </Transition>
-        )}
-      </Route>
-    </Root>
+        <Route path="/" exact>
+          {({ match }) => (
+            <Transition in={!!match} timeout={100} mountOnEnter unmountOnExit>
+              {(state: transitions.TransitionState) => (
+                <DefaultLayout>
+                  <TripsOverview state={state} />
+                </DefaultLayout>
+              )}
+            </Transition>
+          )}
+        </Route>
+
+        <Route path="/start">
+          {({ match }) => (
+            <Transition
+              in={!!match && match.url.startsWith('/start')}
+              timeout={100}
+              mountOnEnter
+              unmountOnExit
+            >
+              {(state: transitions.TransitionState) => (
+                <DefaultLayout>
+                  <TripStart state={state} />
+                </DefaultLayout>
+              )}
+            </Transition>
+          )}
+        </Route>
+
+        <Route path="/:tripKey">
+          {({ match, location }) => (
+            <Transition
+              in={!!match && match.path.startsWith('/:tripKey') && !match.url.startsWith('/start')}
+              timeout={100}
+              mountOnEnter
+              unmountOnExit
+            >
+              {(state: transitions.TransitionState) => (
+                <MapTimelineLayout>
+                  <MapTimelineWithKey state={state} location={location} />
+                </MapTimelineLayout>
+              )}
+            </Transition>
+          )}
+        </Route>
+      </Root>
+    </AnalyticsListener>
   </AnalyticsListener>
 );

@@ -22,7 +22,7 @@ interface TrackedLinkProps extends LinkProps {
 
 const TrackedLink = withAnalyticsEvents<TrackedLinkProps>({
   onClick: (createAnalyticEvent, props) =>
-    createAnalyticEvent({ action: `click ${props.context}` }).fire(),
+    createAnalyticEvent({ action: `Click ${props.context}`, category: 'Link' }).fire(),
 })(Link);
 
 const TripsOverview: React.StatelessComponent<Props> = ({ trips, className, deleteTrip }) => (
@@ -33,12 +33,12 @@ const TripsOverview: React.StatelessComponent<Props> = ({ trips, className, dele
 
     <TripBoxGroup>
       {trips.map(trip => (
-        <TrackedLink context="view trip" to={`/${trip.id}`} key={trip.id}>
+        <TrackedLink context="View Trip" to={`/${trip.id}`} key={trip.id}>
           <TripBox {...trip} requestDelete={() => deleteTrip(trip.id)} />
         </TrackedLink>
       ))}
 
-      <TrackedLink context="create new trip" to="/start">
+      <TrackedLink context="Create New Trip" to="/start">
         <StartTripBox />
       </TrackedLink>
     </TripBoxGroup>

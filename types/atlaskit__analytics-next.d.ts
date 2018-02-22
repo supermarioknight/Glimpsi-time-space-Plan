@@ -33,7 +33,7 @@ declare module '@atlaskit/analytics-next' {
   ) => (component: React.ComponentType<TProps>) => React.ComponentType<TProps>;
 
   interface AnalyticsObject {
-    [key: string]: string | number;
+    [key: string]: string | number | boolean;
   }
 
   type Handler = (event: UIAnalyticsEvent, channel?: string) => void;

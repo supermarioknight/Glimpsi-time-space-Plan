@@ -10,7 +10,8 @@ interface Props {
 }
 
 const TrackedLink = withAnalyticsEvents<LinkProps>({
-  onClick: createAnalyticEvent => createAnalyticEvent({ action: 'click home glimpsi link' }).fire(),
+  onClick: createAnalyticEvent =>
+    createAnalyticEvent({ action: 'Click Home Link', category: 'Header' }).fire(),
 })(HeadingLink);
 
 const Header: React.StatelessComponent<Props> = ({ className, appearance, children }) => (

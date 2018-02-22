@@ -113,5 +113,6 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
 };
 
 export default withAnalyticsEvents<Props>({
-  undoDelete: createAnaylticsEvent => createAnaylticsEvent({ action: 'undo deleting card' }).fire(),
+  undoDelete: createAnaylticsEvent =>
+    createAnaylticsEvent({ action: 'Undo Deleting Card', category: 'Timeline' }).fire(),
 })(withNotifier(Timeline));

@@ -9,7 +9,10 @@ import NotificationProvider from './components/NotificationProvider';
 import Store from './Store';
 import './styles';
 
-ReactGA.initialize('UA-114397348-1');
+// tslint:disable-next-line no-any
+(ReactGA.initialize as any)('UA-114397348-1', {
+  testMode: process.env.NODE_ENV !== 'production',
+});
 
 ReactDOM.render(
   <Store>

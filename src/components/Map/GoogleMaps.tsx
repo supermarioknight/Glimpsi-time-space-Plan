@@ -161,8 +161,8 @@ export default flow([
   renderNextFrame,
   withAnalyticsEvents({
     onMarkerClick: createAnaylticsEvent =>
-      createAnaylticsEvent({ action: 'click map marker' }).fire(),
+      createAnaylticsEvent({ action: 'Click Map Marker', category: 'Timeline' }).fire(),
     onMarkerOver: createAnaylticsEvent =>
-      createAnaylticsEvent({ action: 'hover map marker' }).fire(),
+      createAnaylticsEvent({ action: 'Hover Map Marker', category: 'Timeline' }).fire(),
   }),
 ])(Map);

@@ -98,6 +98,7 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
 
 export default withScreen<Props>('StartTrip')(
   withAnalyticsEvents<Props>({
-    onStart: createAnalyticEvent => createAnalyticEvent({ action: 'create new trip' }).fire(),
+    onStart: createAnalyticEvent =>
+      createAnalyticEvent({ action: 'Create new trip', category: 'Create Trip' }).fire(),
   })(TripStart)
 );

@@ -18,7 +18,13 @@ export default withAnalyticsEvents()(
 
         register({
           onContentCached: () => {
-            this.props.createAnalyticsEvent({ action: 'cached for offline use' }).fire();
+            this.props
+              .createAnalyticsEvent({
+                action: 'Cached for Offline Use',
+                category: 'Service Worker',
+                nonInteraction: true,
+              })
+              .fire();
 
             this.props.notify('glimpsi is ready for offline usage.', {
               type: 'info',
@@ -27,7 +33,13 @@ export default withAnalyticsEvents()(
           },
 
           onNewContentAvailable: () => {
-            this.props.createAnalyticsEvent({ action: 'new version available' }).fire();
+            this.props
+              .createAnalyticsEvent({
+                action: 'New Version Available',
+                category: 'Service Worker',
+                nonInteraction: true,
+              })
+              .fire();
 
             this.props.notify(
               <React.Fragment>

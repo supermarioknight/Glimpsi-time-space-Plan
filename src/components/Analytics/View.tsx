@@ -19,7 +19,8 @@ class OnMount extends React.Component<Props> {
 }
 
 const AnalyticsView = withAnalyticsEvents<Props>({
-  onMount: createAnalyticsEvent => createAnalyticsEvent({ action: 'view' }).fire(),
+  onMount: createAnalyticsEvent =>
+    createAnalyticsEvent({ action: 'View', pathname: location.pathname }).fire('view'),
 })(OnMount);
 
 export default AnalyticsView;

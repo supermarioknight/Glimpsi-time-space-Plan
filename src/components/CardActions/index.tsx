@@ -17,5 +17,6 @@ const CardActions = ({ onEdit, onDelete }: Props) => (
 );
 
 export default withAnalyticsEvents<Props>({
-  onDelete: createAnalyticsEvent => createAnalyticsEvent({ action: 'delete card' }).fire(),
+  onDelete: createAnalyticsEvent =>
+    createAnalyticsEvent({ action: 'Delete Card', category: 'Timeline' }).fire(),
 })(CardActions);

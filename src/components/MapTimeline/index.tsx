@@ -194,10 +194,11 @@ class MapTimeline extends React.Component<Props, State> {
 
 export default withScreen<Props>('MapTimeline')(
   withAnalyticsEvents<Props>({
-    focusDate: createAnaylticsEvent => createAnaylticsEvent({ action: 'focus date' }).fire(),
+    focusDate: createAnaylticsEvent =>
+      createAnaylticsEvent({ action: 'Focus Date', category: 'Timeline' }).fire(),
     newCard: createAnaylticsEvent =>
-      createAnaylticsEvent({ action: 'new card for specific date' }).fire(),
+      createAnaylticsEvent({ action: 'New Card for Specific Date', category: 'Timeline' }).fire(),
     onFilterChange: createAnaylticsEvent =>
-      createAnaylticsEvent({ action: 'filter timeline' }).fire(),
+      createAnaylticsEvent({ action: 'Filter Timeline', category: 'Timeline' }).fire(),
   })(MapTimeline)
 );

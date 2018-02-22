@@ -46,8 +46,10 @@ const TimelineActions: React.StatelessComponent<Props> = ({
 );
 
 export default withAnalyticsEvents<Props>({
-  newCard: createAnalyticEvent => createAnalyticEvent({ action: 'open add new card' }).fire(),
+  newCard: createAnalyticEvent =>
+    createAnalyticEvent({ action: 'Open Add New Card', category: 'Timeline' }).fire(),
   onLabelFilter: createAnalyticEvent =>
-    createAnalyticEvent({ action: 'change filter labels' }).fire(),
-  focusToday: createAnalyticEvent => createAnalyticEvent({ action: 'focus on today' }).fire(),
+    createAnalyticEvent({ action: 'Change Filter Labels', category: 'Timeline' }).fire(),
+  focusToday: createAnalyticEvent =>
+    createAnalyticEvent({ action: 'Focus Today', category: 'Timeline' }).fire(),
 })(TimelineActions);

@@ -15,10 +15,14 @@ export default flow([
   withModal<Props>('EditingCardModal'),
   withAnalyticsEvents<Props>({
     onSave: (createAnalyticsEvent, props) =>
-      createAnalyticsEvent({ action: props.id ? 'save editing card' : 'save new card' }).fire(),
+      createAnalyticsEvent({
+        action: props.id ? 'Save Editing Card' : 'Save New Card',
+        category: 'Timeline',
+      }).fire(),
     onCancel: (createAnalyticsEvent, props) =>
       createAnalyticsEvent({
-        action: props.id ? 'cancel editing card' : 'cancel creating card',
+        action: props.id ? 'Cancel Editing Card' : 'Cancel Creating Card',
+        category: 'Timeline',
       }).fire(),
   }),
 ])(NewCardModal);
