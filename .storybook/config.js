@@ -3,7 +3,7 @@ import { injectGlobal } from 'styled-components';
 import '../src/styles';
 
 injectGlobal`
-  body { padding: 25px; background-color: #ccc; }
+  body { margin: 25px; background-color: #ccc; position: relative; }
 `;
 
 const req = require.context('../src', true, /_stories\.tsx$/);

@@ -11,6 +11,7 @@ const selector = createSelector(
   (updatingCard, adding) => ({
     ...adding,
     ...updatingCard,
+    in: !!adding,
   })
 );
 

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import DefaultButton from '../Button';
 import * as grid from '../../assets/styles/grid';
 import * as mixins from '../../assets/styles/mixins';
 
@@ -26,4 +27,8 @@ export const Day = styled.div`
       `
     )};
   transition: opacity 0.2s;
+`;
+
+export const Button = styled(DefaultButton)`
+  margin-left: auto;
 `;

@@ -5,10 +5,9 @@ import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../state/timeline/reducer';
 import { isWithin } from '../../lib/date';
-import { Root, Day } from './styles';
+import { Root, Day, Button } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
-import Button from '../Button';
 import withNotifier, { InjectedProps } from '../../decorators/notifier';
 
 export interface CardDay {
@@ -92,7 +91,7 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
                             undo
                           </Button>
                         </React.Fragment>,
-                        { type: 'default', autoCloseMs: 10000 }
+                        { type: 'default', autoCloseMs: 7500, hideCloseButton: true }
                       );
                     }}
                     onEditing={editCard}

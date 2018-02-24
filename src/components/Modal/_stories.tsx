@@ -1,10 +1,18 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import Toggler from '../Toggler';
 import Modal from './';
 
 storiesOf('Modal', module).add('default', () => (
-  <Modal appRoot={document.body} onRequestClose={action('onRequestClose()')}>
-    cool modal
-  </Modal>
+  <Toggler>
+    {({ toggle, shown }) => (
+      <React.Fragment>
+        <Modal appRoot={document.body} onRequestClose={toggle} in={shown}>
+          <p>cool modal</p>
+        </Modal>
+
+        <button onClick={toggle}>click me</button>
+      </React.Fragment>
+    )}
+  </Toggler>
 ));

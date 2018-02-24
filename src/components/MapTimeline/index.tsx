@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive';
 import Helmet from 'react-helmet';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { CardDay } from '../../components/Timeline';
-import NewCard from '../CardEditing/Async';
+import NewCardModal from '../CardEditing/Async';
 import Map from '../Map';
 import { sizes } from '../../assets/styles/breakpoints';
 import { OnSave } from '../CardEditing';
@@ -188,7 +188,7 @@ class MapTimeline extends React.Component<Props, State> {
           )}
         </Route>
 
-        {adding && <NewCard />}
+        <NewCardModal />
       </Root>
     );
   }

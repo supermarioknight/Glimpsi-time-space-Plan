@@ -8,6 +8,8 @@ interface Props {
   hideCloseButton?: boolean;
 }
 
+// TODO: Replace hide close button with optional "action" override (pass in your own component)
+
 const Notification: React.StatelessComponent<Props> = ({
   children,
   requestClose,

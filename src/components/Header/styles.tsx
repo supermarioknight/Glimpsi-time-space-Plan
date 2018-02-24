@@ -22,10 +22,6 @@ export const Root = styled.header`
   ${(props: Props) =>
     props.appearance === 'transparent'
       ? css`
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
           background-color: transparent;
           color: ${colors.header};
         `

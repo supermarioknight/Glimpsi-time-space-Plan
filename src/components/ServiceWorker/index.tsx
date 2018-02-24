@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { withAnalyticsEvents, InjectedAnalyticsProps } from '@atlaskit/analytics-next';
-import Button from '../Button';
 import { register, unregister } from './registerServiceWorker';
 import withNotifier, { InjectedProps } from '../../decorators/notifier';
+import NewVersionAvailable from './NewVersionAvailable';
 
 type Props = InjectedAnalyticsProps & InjectedProps;
 
@@ -41,13 +41,7 @@ export default withAnalyticsEvents()(
               })
               .fire();
 
-            this.props.notify(
-              <React.Fragment>
-                There is a new version of glimpsi ready for you!
-                <Button onClick={() => window.location.reload()}>refresh</Button>
-              </React.Fragment>,
-              { type: 'default', hideCloseButton: true }
-            );
+            this.props.notify(<NewVersionAvailable />, { type: 'default', hideCloseButton: true });
           },
 
           // tslint:disable-next-line no-empty

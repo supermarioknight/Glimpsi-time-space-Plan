@@ -156,9 +156,9 @@ class Map extends React.Component<Props> {
 }
 
 export default flow([
+  renderNextFrame,
   withGoogleMap,
   withScriptjs,
-  renderNextFrame,
   withAnalyticsEvents({
     onMarkerClick: createAnaylticsEvent =>
       createAnaylticsEvent({ action: 'Click Map Marker', category: 'Timeline' }).fire(),

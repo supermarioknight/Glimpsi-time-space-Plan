@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Header from '../../Header';
-import { Root } from '../styles';
+import { Root, FixedHeader } from '../styles';
 
 interface Props {
   children: React.ReactNode;
@@ -9,7 +8,7 @@ interface Props {
 
 const DefaultLayout: React.StatelessComponent<Props> = ({ children, className }) => (
   <Root className={className}>
-    <Header appearance="transparent" />
+    <FixedHeader appearance="transparent" />
     {children}
   </Root>
 );
