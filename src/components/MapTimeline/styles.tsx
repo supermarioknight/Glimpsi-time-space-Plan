@@ -12,15 +12,8 @@ export const Blanket = styled(Blankett)`
 `;
 
 export const Root = styled.main`
-  /* display: grid; */
   position: relative;
   height: 100%;
-  /* grid-template-areas:
-    'slider'
-    'map'
-    'cards';
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100%; */
 
   ${bp.tablet.css`
     display: grid;
@@ -69,6 +62,7 @@ export const MobilePage = styled.div`
 export const MapContainer = styled.div`
   grid-area: map;
   flex-basis: 100%;
+  background-color: ${colors.mapBackground};
 `;
 
 export const Slider = styled(DateSlider)`

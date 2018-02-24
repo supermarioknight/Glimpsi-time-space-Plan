@@ -13,6 +13,7 @@ const raw = {
   black: '#2c3e50',
   blue: '#3498db',
   bluealt: '#2980b9',
+  bluelight: '#abdafe',
   yellow: '#f1c40f',
 };
 
@@ -36,6 +37,7 @@ const _colors = {
 
   marker: primary,
   markerBorder: primary,
+  mapBackground: raw.bluelight,
 
   modalOverlay: rgba(raw.black, 0.88),
   modalBackground: raw.white,

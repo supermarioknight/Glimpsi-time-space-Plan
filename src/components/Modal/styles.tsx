@@ -26,7 +26,6 @@ export const Card = styled.div`
   width: 100vw;
   max-height: 100vh;
   background-color: ${colors.cardBackground};
-  padding: ${grid.px};
   position: relative;
   z-index: 1;
   overflow: auto;

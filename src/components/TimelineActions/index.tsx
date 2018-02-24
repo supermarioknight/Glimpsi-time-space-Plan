@@ -17,6 +17,7 @@ interface Props {
   onLabelFilter: (labels: string[]) => any;
   // tslint:disable-next-line no-any
   focusToday: () => any;
+  showFocusToday: boolean;
   className?: string;
 }
 
@@ -26,6 +27,7 @@ const TimelineActions: React.StatelessComponent<Props> = ({
   focusToday,
   labels,
   className,
+  showFocusToday,
 }) => (
   <Root className={className}>
     <LabelSelect
@@ -35,9 +37,11 @@ const TimelineActions: React.StatelessComponent<Props> = ({
       value={labels}
     />
 
-    <Button appearance="transparent" onClick={focusToday}>
-      <Text>Focus today</Text>
-    </Button>
+    {showFocusToday && (
+      <Button appearance="transparent" onClick={focusToday}>
+        <Text>Focus today</Text>
+      </Button>
+    )}
 
     <Button appearance="transparent" onClick={block(newCard)}>
       <Text>Add</Text>

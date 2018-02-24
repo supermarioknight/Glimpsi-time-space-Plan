@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Helmet from 'react-helmet';
-import ReactGA from 'react-ga';
-import { findLast, last } from 'lodash-es';
 import Transition from 'react-transition-group/Transition';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import NetworkNotifier from '../../components/NetworkNotifier/Connected';
@@ -12,47 +10,13 @@ import MapTimelineLayout from '../Layout/MapTimeline';
 import ServiceWorker from '../ServiceWorker';
 import { Root, MapTimeline, TripsOverview, TripStart } from './styles';
 import * as transitions from '../../assets/styles/transitions';
+import { trackEvent, trackView } from '../../lib/analytics';
 
 const MapTimelineWithKey = tripSelector('tripKey')(MapTimeline);
 
 export default () => (
-  <AnalyticsListener
-    onEvent={({ context, payload }) => {
-      const hasContext = findLast(context, data => !!data.view);
-
-      ReactGA.event({
-        ...payload,
-        action: `${payload.action}`,
-        category: `${payload.category}`,
-        label: hasContext ? `${hasContext.view}` : undefined,
-      });
-
-      if (process.env.NODE_ENV !== 'production') {
-        // tslint:disable-next-line no-any no-console
-        console.log(last((ReactGA as any).testModeAPI.calls));
-      }
-    }}
-  >
-    <AnalyticsListener
-      channel="view"
-      onEvent={({ context }) => {
-        const name = context.reduce(
-          (acc, val) => (acc ? `${acc}->${val.view}` : val.view),
-          ''
-        ) as string;
-
-        if (name.includes('Modal')) {
-          ReactGA.modalview(name);
-        } else {
-          ReactGA.pageview(name);
-        }
-
-        if (process.env.NODE_ENV !== 'production') {
-          // tslint:disable-next-line no-any no-console
-          console.log(last((ReactGA as any).testModeAPI.calls));
-        }
-      }}
-    >
+  <AnalyticsListener onEvent={trackEvent}>
+    <AnalyticsListener channel="view" onEvent={trackView}>
       <Root>
         <NetworkNotifier />
         <ServiceWorker />

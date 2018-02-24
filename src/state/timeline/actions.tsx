@@ -80,10 +80,10 @@ export const focusToday = (): FocusToday => ({
 
 export interface FilterTimeline {
   type: typeof FILTER_TIMELINE;
-  payload: Moment[];
+  payload: [Moment, Moment];
 }
 
-export const filterTimeline = (filters: Moment[]): FilterTimeline => ({
+export const filterTimeline = (filters: [Moment, Moment]): FilterTimeline => ({
   type: FILTER_TIMELINE,
   payload: filters,
 });

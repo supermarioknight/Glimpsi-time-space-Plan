@@ -72,7 +72,7 @@ export interface State {
       cards: CardWithId[];
       start: Moment;
       end: Moment;
-      filters: Moment[];
+      filters: [Moment, Moment];
       labels: string[];
       updating: CardWithId | null;
       lastSavedCardId: string | undefined;
@@ -289,6 +289,10 @@ export default (state: State = defaultState, action: CombinedActions) => {
             ...state.trips[state.currentTrip],
             ...extractStartEnd(cards),
             cards,
+            // Set filter focus to this card if there were no filters set previously.
+            filters: state.trips[state.currentTrip].filters.length
+              ? state.trips[state.currentTrip].filters
+              : [moment(card.start).set('hours', 0), moment(card.start).set('hours', 23)],
             adding: null,
             updating: null,
             lastSavedCardId: card.id,

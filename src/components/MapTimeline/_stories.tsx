@@ -3,9 +3,9 @@ import { reduxStoriesOf } from '../../lib/storybook';
 import { action } from '@storybook/addon-actions';
 import moment from 'moment-timezone';
 import exampleCards from '../../state/timeline/exampleCards';
-import MapTimeline from './';
+import MapTimeline, { Props } from './';
 
-const props = {
+const props: Props = {
   tripName: 'Cool Trip',
   start: moment(),
   end: moment().add(10, 'days'),
@@ -17,41 +17,20 @@ const props = {
       cards: exampleCards,
     },
   ],
+  newCard: action('newCard()'),
+  saveCard: action('saveCard()'),
+  cancelNewCard: action('cancelNewCard()'),
+  removeCard: action('removeCard()'),
+  onFilterChange: action('onFilterChange()'),
+  focusDate: action('focusDate()'),
+  undoDelete: action('undoDelete()'),
+  lastRemovedCard: undefined,
+  editCard: action('editCard()'),
+  resetFocusCard: action('resetFocusCard()'),
+  focusCard: action('focusCard()'),
+  lastSavedCardId: undefined,
 };
 
 reduxStoriesOf('MapTimeline', module)
-  .add('default', () => (
-    <MapTimeline
-      {...props}
-      newCard={action('newCard()')}
-      saveCard={action('saveCard()')}
-      cancelNewCard={action('cancelNewCard()')}
-      removeCard={action('removeCard()')}
-      onFilterChange={action('onFilterChange()')}
-      focusDate={action('focusDate()')}
-      undoDelete={action('undoDelete()')}
-      lastRemovedCard={undefined}
-      editCard={action('editCard()')}
-      resetFocusCard={action('resetFocusCard()')}
-      focusCard={action('focusCard()')}
-      lastSavedCardId={undefined}
-    />
-  ))
-  .add('adding card', () => (
-    <MapTimeline
-      {...props}
-      adding={{}}
-      lastSavedCardId={undefined}
-      newCard={action('newCard()')}
-      cancelNewCard={action('cancelNewCard()')}
-      saveCard={action('saveCard()')}
-      removeCard={action('removeCard()')}
-      undoDelete={action('undoDelete()')}
-      focusCard={action('focusCard()')}
-      resetFocusCard={action('resetFocusCard()')}
-      lastRemovedCard={undefined}
-      focusDate={action('focusDate()')}
-      onFilterChange={action('onFilterChange()')}
-      editCard={action('editCard()')}
-    />
-  ));
+  .add('default', () => <MapTimeline {...props} />)
+  .add('adding card', () => <MapTimeline {...props} adding={{}} />);

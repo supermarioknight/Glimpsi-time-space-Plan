@@ -9,5 +9,6 @@ storiesOf('TimelineActions', module).add('start date', () => (
     labels={[]}
     newCard={action('newCard()')}
     focusToday={action('focusToday()')}
+    showFocusToday
   />
 ));

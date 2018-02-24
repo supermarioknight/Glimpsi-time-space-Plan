@@ -11,7 +11,7 @@ import { sizes } from '../../assets/styles/breakpoints';
 import { OnSave } from '../CardEditing';
 import { Card } from '../../state/timeline/reducer';
 import { MarkerObj } from '../Map/GoogleMaps';
-import { isWithinFilters } from '../../lib/date';
+import { isWithin } from '../../lib/date';
 import { Root, MapContainer, Slider, Timeline, MobilePage, Blanket } from './styles';
 import withRenderNextFrame from '../../decorators/renderNextFrame';
 import { withScreen } from '../../decorators/analytics/view';
@@ -28,7 +28,7 @@ export interface Props {
   start: Moment;
   end: Moment;
   // tslint:disable-next-line no-any
-  onFilterChange: (dates: Moment[]) => any;
+  onFilterChange: (dates: [Moment, Moment]) => any;
   lastSavedCardId: string | undefined;
   // tslint:disable-next-line no-any
   undoDelete: () => any;
@@ -40,7 +40,7 @@ export interface Props {
   removeCard: (id: string) => any;
   // tslint:disable-next-line no-any
   editCard: (id: string) => any;
-  filters: Moment[];
+  filters: [Moment, Moment];
   // tslint:disable-next-line no-any
   focusDate: (date: Moment) => any;
   // tslint:disable-next-line no-any
@@ -49,9 +49,9 @@ export interface Props {
   focusCard: (id: number) => any;
 }
 
-const extractMarkers = (days: CardDay[], filters: Moment[]) => {
+const extractMarkers = (days: CardDay[], filters: [Moment, Moment]) => {
   return days.reduce((markers: MarkerObj[], day: CardDay) => {
-    const locations = day.cards.filter(card => isWithinFilters(card.start, filters)).map(card => ({
+    const locations = day.cards.filter(card => isWithin(card.start, filters)).map(card => ({
       position: card.location.position,
     }));
 

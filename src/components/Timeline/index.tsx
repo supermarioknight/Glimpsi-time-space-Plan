@@ -4,7 +4,7 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../state/timeline/reducer';
-import { isWithinFilters } from '../../lib/date';
+import { isWithin } from '../../lib/date';
 import { Root, Day } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
@@ -24,7 +24,7 @@ export interface Props {
   removeCard: (id: string) => any;
   // tslint:disable-next-line no-any
   editCard: (id: string) => any;
-  filters: Moment[];
+  filters: [Moment, Moment];
   // tslint:disable-next-line no-any
   focusDate: (date: Moment) => any;
   // tslint:disable-next-line no-any
@@ -54,7 +54,7 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
   return (
     <Root className={className}>
       {days.map(day => {
-        const withinFilters = isWithinFilters(day.date, filters);
+        const withinFilters = isWithin(day.date, filters);
 
         return (
           <Day fade={!withinFilters} key={day.date.toString()}>
@@ -92,7 +92,7 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
                             undo
                           </Button>
                         </React.Fragment>,
-                        { type: 'default' }
+                        { type: 'default', autoCloseMs: 10000 }
                       );
                     }}
                     onEditing={editCard}
