@@ -51,9 +51,11 @@ export interface Props {
 
 const extractMarkers = (days: CardDay[], filters: [Moment, Moment]) => {
   return days.reduce((markers: MarkerObj[], day: CardDay) => {
-    const locations = day.cards.filter(card => isWithin(card.start, filters)).map(card => ({
-      position: card.location.position,
-    }));
+    const locations = day.cards
+      .filter(card => isWithin(card.start, filters, { ignoreTimezones: true }))
+      .map(card => ({
+        position: card.location.position,
+      }));
 
     return markers.concat(locations);
   }, []);

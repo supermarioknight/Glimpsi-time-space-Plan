@@ -15,6 +15,8 @@ interface HandleProps {
 interface Props {
   className?: string;
   onChange: (value: Moment[]) => void;
+  // It's important to use a moment without hours and minutes for start/end and values.
+  // Perhaps we should normalize it here so it's not hard to use.
   start: Moment;
   end: Moment;
   values: Moment[];
@@ -65,10 +67,10 @@ export default class DateSlider extends React.Component<Props> {
           onChange={this.onChange}
           onValuesUpdated={this.setChanging}
           orientation="horizontal"
-          snap
           min={min}
           max={max}
           values={valuesAsNumbers}
+          snap
         />
 
         <DateLabel>{end.format('Do MMM')}</DateLabel>

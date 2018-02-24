@@ -1,5 +1,6 @@
 import moment, { Moment } from 'moment-timezone';
 import uuid from 'uuid/v1';
+import { stripTz } from '../../lib/date';
 import { Actions } from './actions';
 import { Actions as TripsActions } from '../trips/actions';
 
@@ -26,23 +27,32 @@ export interface CardWithId extends Card {
 }
 
 const extractStartEnd = (cards: Card[]) => {
-  return cards.reduce(
+  const startEnd = cards.reduce(
     (obj, card) => {
-      if (card.start.isBefore(obj.start, 'day')) {
-        obj.start = card.start;
+      const cardStart = card.start;
+      const currentStart = obj.start;
+      const currentEnd = obj.end;
+
+      if (cardStart.isBefore(currentStart, 'day')) {
+        obj.start = cardStart;
       }
 
-      if (card.start.isAfter(obj.end, 'day')) {
-        obj.end = card.start;
+      if (cardStart.isAfter(currentEnd, 'day')) {
+        obj.end = cardStart;
       }
 
       return obj;
     },
     {
-      start: cards[0] && cards[0].start,
-      end: cards[0] && cards[0].start,
+      start: cards[0] ? cards[0].start : moment(),
+      end: cards[0] ? cards[0].start : moment(),
     }
   );
+
+  return {
+    start: stripTz(startEnd.start),
+    end: stripTz(startEnd.end),
+  };
 };
 
 export const emptyTrip = () => ({
@@ -82,6 +92,11 @@ export interface State {
 }
 
 type CombinedActions = Actions | TripsActions;
+
+const buildFiltersFromDate = (date: Moment) => [
+  moment(date).set('hours', 0),
+  moment(date).set('hours', 23),
+];
 
 export default (state: State = defaultState, action: CombinedActions) => {
   switch (action.type) {
@@ -146,7 +161,7 @@ export default (state: State = defaultState, action: CombinedActions) => {
           ...state.trips,
           [state.currentTrip]: {
             ...state.trips[state.currentTrip],
-            filters: [moment().set('hours', 0), moment().set('hours', 23)],
+            filters: buildFiltersFromDate(moment()),
           },
         },
       };
@@ -292,7 +307,7 @@ export default (state: State = defaultState, action: CombinedActions) => {
             // Set filter focus to this card if there were no filters set previously.
             filters: state.trips[state.currentTrip].filters.length
               ? state.trips[state.currentTrip].filters
-              : [moment(card.start).set('hours', 0), moment(card.start).set('hours', 0)],
+              : buildFiltersFromDate(card.start),
             adding: null,
             updating: null,
             lastSavedCardId: card.id,
