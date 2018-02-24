@@ -292,7 +292,7 @@ export default (state: State = defaultState, action: CombinedActions) => {
             // Set filter focus to this card if there were no filters set previously.
             filters: state.trips[state.currentTrip].filters.length
               ? state.trips[state.currentTrip].filters
-              : [moment(card.start).set('hours', 0), moment(card.start).set('hours', 23)],
+              : [moment(card.start).set('hours', 0), moment(card.start).set('hours', 0)],
             adding: null,
             updating: null,
             lastSavedCardId: card.id,

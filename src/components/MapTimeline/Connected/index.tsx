@@ -85,5 +85,5 @@ export default connect(selector, {
   editCard: updateCard,
   onFilterChange: filterTimeline,
   focusDate: (date: Moment) =>
-    filterTimeline([moment(date).set('hours', 0), moment(date).set('hours', 23)]),
+    filterTimeline([moment(date).set('hours', 0), moment(date).set('hours', 0)]),
 })(MapTimeline);
