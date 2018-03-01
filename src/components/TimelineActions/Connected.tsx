@@ -11,9 +11,10 @@ const selector = createSelector(
   (store: Store) => (currentTimelineTrip(store) || {}).labels,
   (store: Store) => (currentTimelineTrip(store) || {}).start,
   (store: Store) => (currentTimelineTrip(store) || {}).end,
-  (labels, start, end) => ({
+  (store: Store) => (currentTimelineTrip(store) || {}).cards,
+  (labels, start, end, cards) => ({
     labels,
-    showFocusToday: isWithin(moment(), [start, end]),
+    showFocusToday: !!cards.length && isWithin(moment(), [start, end]),
   })
 );
 

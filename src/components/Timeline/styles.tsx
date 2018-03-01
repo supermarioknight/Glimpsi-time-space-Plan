@@ -1,11 +1,10 @@
 import styled, { css } from 'styled-components';
 import DefaultButton from '../Button';
 import * as grid from '../../assets/styles/grid';
+import * as fonts from '../../assets/styles/fonts';
 import * as mixins from '../../assets/styles/mixins';
 
 export const Root = styled.div`
-  display: block;
-
   > * {
     flex-shrink: 0;
   }
@@ -14,6 +13,17 @@ export const Root = styled.div`
 interface DayContainerProps {
   fade: boolean;
 }
+
+export const OnboardingMessage = styled.div`
+  ${fonts.size.large};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: ${grid.unitless * 2}px;
+  text-align: center;
+  line-height: 1.5em;
+`;
 
 export const Day = styled.div`
   display: block;

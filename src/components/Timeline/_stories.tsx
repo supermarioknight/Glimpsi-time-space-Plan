@@ -43,17 +43,21 @@ const groups = [
   },
 ];
 
-storiesOf('Timeline', module).add('default', () => (
-  <Timeline
-    newCard={action('newCard()')}
-    saveCard={action('saveCard()')}
-    focusDate={action('focusDate()')}
-    undoDelete={action('undoDelete()')}
-    removeCard={action('removeCard()')}
-    days={groups}
-    filters={[moment(), moment().add(1, 'day')]}
-    editCard={action('editCard()')}
-    highlightedCard={undefined}
-    focusedCard={undefined}
-  />
-));
+const commonProps = {
+  newCard: action('newCard()'),
+  saveCard: action('saveCard()'),
+  focusDate: action('focusDate()'),
+  undoDelete: action('undoDelete()'),
+  removeCard: action('removeCard()'),
+  editCard: action('editCard()'),
+  highlightedCard: undefined,
+  focusedCard: undefined,
+};
+
+storiesOf('Timeline', module)
+  .add('default', () => (
+    <Timeline {...commonProps} days={groups} filters={[moment(), moment().add(1, 'day')]} />
+  ))
+  .add('empty', () => (
+    <Timeline {...commonProps} days={[]} filters={[moment(), moment().add(1, 'day')]} />
+  ));

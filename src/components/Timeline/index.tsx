@@ -5,7 +5,7 @@ import EditableCard from '../EditableCard';
 import { OnSave } from '../CardEditing';
 import { CardWithId } from '../../state/timeline/reducer';
 import { isWithin } from '../../lib/date';
-import { Root, Day, Button } from './styles';
+import { Root, Day, Button, OnboardingMessage } from './styles';
 import DayActions from '../DayActions';
 import ScrollIntoView from '../ScrollIntoView';
 import withNotifier, { InjectedProps } from '../../decorators/notifier';
@@ -52,6 +52,16 @@ const Timeline: React.StatelessComponent<Props & InjectedProps> = ({
 
   return (
     <Root className={className}>
+      {!days.length && (
+        <OnboardingMessage>
+          <span>
+            Hey 😃!<br />
+            Let's add your first stop for your trip,<br />
+            press the add button in the top bar!
+          </span>
+        </OnboardingMessage>
+      )}
+
       {days.map(day => {
         const withinFilters = isWithin(day.date, filters);
 
