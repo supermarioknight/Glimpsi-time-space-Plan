@@ -4,7 +4,7 @@ import { Field, Error } from './styles';
 interface Props {
   name: string;
   errors: { [key: string]: string };
-  touched: { [key: string]: boolean };
+  touched: {};
   children: React.ReactNode;
 }
 

@@ -33,9 +33,7 @@ export const Root = styled.div`
   flex-shrink: 0;
 `;
 
-const handleTooltipMarkup = 'div';
-
-export const HandleTooltip = styled[handleTooltipMarkup]`
+export const HandleTooltip = styled.div`
   opacity: 0;
   pointer-events: none;
   position: absolute;
@@ -62,12 +60,10 @@ export const Handle = styled.button`
   border: 2px solid ${colors.sliderProgress};
   cursor: pointer;
 
-  &:hover
-    > ${handleTooltipMarkup},
-    &:focus
-    > ${handleTooltipMarkup},
-    &:active
-    > ${handleTooltipMarkup} {
+  /* Targetting the inner div that the tooltip is. */
+  &:hover > div,
+  &:focus > div,
+  &:active > div {
     opacity: 1;
   }
 

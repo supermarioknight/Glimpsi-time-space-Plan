@@ -4,6 +4,13 @@ import { Moment } from 'moment-timezone';
 export const humanize = (date: Moment, time: Moment): string =>
   `${date.format('ddd Do MMM, YYYY')} ${time.format('HH:mma')}`;
 
+export const stripTz = (date: Moment) => {
+  const datestring = date.format('YYYY-MM-DD');
+  return moment(`${datestring}T00:00:00+00:00`)
+    .set('minutes', 0)
+    .set('hours', 0);
+};
+
 export const isWithin = (
   date: Moment,
   dates: [Moment, Moment],
@@ -21,11 +28,4 @@ export const setTime = (date: Moment, time: Moment) => {
   dateTime.set('seconds', time.seconds());
 
   return dateTime;
-};
-
-export const stripTz = (date: Moment) => {
-  const datestring = date.format('YYYY-MM-DD');
-  return moment(`${datestring}T00:00:00+00:00`)
-    .set('minutes', 0)
-    .set('hours', 0);
 };

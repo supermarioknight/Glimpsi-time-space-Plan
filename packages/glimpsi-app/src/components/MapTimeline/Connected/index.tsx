@@ -68,9 +68,9 @@ const selector = createSelector(
     end,
     filters,
     lastSavedCardId,
+    tripName,
     lastRemovedCard,
     days: cardsToDays(cards, labels),
-    tripName,
   })
 );
 

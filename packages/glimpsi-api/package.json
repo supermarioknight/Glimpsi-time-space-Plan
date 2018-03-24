@@ -1,0 +1,10 @@
+{
+  "name": "glimpsi-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "2.6.x"
+  }
+}
