@@ -54,7 +54,8 @@ const TripStart: React.StatelessComponent<Props> = ({ onStart, className }) => (
       validationSchema={schema}
       initialValues={{
         name: '',
-        destination: undefined,
+        id: '',
+        destination: {},
       }}
     >
       {({

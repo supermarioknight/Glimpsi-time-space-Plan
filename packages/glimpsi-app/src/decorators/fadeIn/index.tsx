@@ -5,18 +5,22 @@ import Transition from 'react-transition-group/Transition';
 
 const time = 300;
 
-const withFadeIn = <TProps extends {}>(
+function withFadeIn<TProps extends {}>(
   WrappedComponent: React.ComponentType<TProps>
-): React.StatelessComponent<TProps> => {
-  const TransitionRoot = styled(WrappedComponent)`
+): React.StatelessComponent<TProps> {
+  const TransitionRoot = styled<{}>(WrappedComponent)`
     ${transitions.absoluteFade(time)};
   `;
 
   return (props: TProps) => (
     <Transition in timeout={time}>
-      {(state: transitions.TransitionState) => <TransitionRoot state={state} {...props} />}
+      {(state: transitions.TransitionState) => (
+        // Types are fucked, don't know why.
+        // tslint:disable-next-line prefer-object-spread
+        <TransitionRoot {...Object.assign({ state }, props)} />
+      )}
     </Transition>
   );
-};
+}
 
 export default withFadeIn;

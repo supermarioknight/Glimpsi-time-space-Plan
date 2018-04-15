@@ -1,5 +1,4 @@
-import moment from 'moment';
-import { Moment } from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 
 export const humanize = (date: Moment, time: Moment): string =>
   `${date.format('ddd Do MMM, YYYY')} ${time.format('HH:mma')}`;

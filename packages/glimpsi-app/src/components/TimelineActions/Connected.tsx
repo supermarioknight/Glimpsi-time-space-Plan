@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { isWithin } from '../../lib/date';
 import { createSelector } from 'reselect';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Store } from '../../state/rootReducer';
 import { newCard, filterLabels, focusToday } from '../../state/timeline/actions';
 import TimelineActions from './';
