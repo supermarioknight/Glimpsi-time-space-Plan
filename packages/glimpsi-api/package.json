@@ -2,9 +2,13 @@
   "name": "glimpsi-api",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
-  "dependencies": {},
+  "scripts": {
+    "start": "ts-node ./src"
+  },
+  "dependencies": {
+    "ts-node": "^5.0.1"
+  },
   "devDependencies": {
-    "typescript": "2.6.x"
+    "typescript": "2.8.1"
   }
 }
